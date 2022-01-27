@@ -5,7 +5,12 @@
 </div>
 
 ## First time set up
-- For **NASBench101**: download [here](https://drive.google.com/drive/folders/1wchO2YGb07mPtLIsK8HP5iGRH73pofgy?usp=sharing) and put it into `source` folder
+- For **NASBench101**: 
+```bash
+cd source  
+gdown --fuzzy https://drive.google.com/uc\?id\=1D6IeM2cX-jrBhzuZGyMCD-emEXm6ndDW
+unzip nasbench.zip
+```
 - For **NASBench ASR**
 ```bash
 cd source 
@@ -13,8 +18,15 @@ git clone https://github.com/RICE-EIC/HW-NAS-Bench.git
 mv HW-NAS-Bench NASBenchHW
 ```
 - For **NATS Bench**: 
-  - For CIFAR-10 and CIFAR-100: Download [this](https://drive.google.com/file/d/17_saCsj_krKjlCBLOJEpNtzPXArMCqxU/view?usp=sharing) and unzip
-  - For ImageNet16-120: 
+  - For `CIFAR-10` and `CIFAR-100`
+    ```bash
+    gdown --fuzzy https://drive.google.com/file/d/17_saCsj_krKjlCBLOJEpNtzPXArMCqxU/view
+    tar -xvf NATS-tss-v1_0-3ffb9-simple.tar
+    ```
+  - For `ImageNet16-120`
+    ```bash
+    
+    ```
 
 ## Query using NASBench:
 - **NASBench101**
@@ -52,9 +64,14 @@ print(query_2)
 ## Reconstruct model from NASBenchmark
 - **NATS Bench**
 ```python
-import NASBench
+from NASBench import NATS
 from ZeroCostNas.foresight.models.nasbench2 import get_model_from_arch_str
 ind = [4, 0, 2, 2, 4, 3]
-arch_str = NASBench.NATS.convert_individual_to_str(ind)
+arch_str = NATS.convert_individual_to_str(ind)
 model = get_model_from_arch_str(arch_str, num_classes=10)
+```
+
+- **NASBench 101**
+```python
+
 ```
