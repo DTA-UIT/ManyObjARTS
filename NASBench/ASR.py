@@ -24,7 +24,7 @@ def query_bench(ind, dataset, metric=None):
                                           'fpga_energy', 
                                           'average_hw_metric')
     """
-    if isinstance(ind, list): # If ind is not list then transform it into list
+    if not isinstance(ind, list): # If ind is not list then transform it into list
         ind = ind.tolist()
     query = hw_api.query_by_index(ind, dataset)
     return query if metric is None else query[metric]

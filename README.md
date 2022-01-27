@@ -18,15 +18,11 @@ git clone https://github.com/RICE-EIC/HW-NAS-Bench.git
 mv HW-NAS-Bench NASBenchHW
 ```
 - For **NATS Bench**: 
-  - For `CIFAR-10` and `CIFAR-100`
-    ```bash
-    gdown --fuzzy https://drive.google.com/file/d/17_saCsj_krKjlCBLOJEpNtzPXArMCqxU/view
-    tar -xvf NATS-tss-v1_0-3ffb9-simple.tar
-    ```
-  - For `ImageNet16-120`
-    ```bash
-    
-    ```
+```bash
+cd source
+gdown --fuzzy https://drive.google.com/file/d/17_saCsj_krKjlCBLOJEpNtzPXArMCqxU/view
+tar -xvf NATS-tss-v1_0-3ffb9-simple.tar
+```
 
 ## Query using NASBench:
 - **NASBench101**
