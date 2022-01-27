@@ -1,0 +1,12 @@
+venv/
+nasbench.egg-info/
+*.pyc
+__pycache__
+.tar
+.tar.gz
+__ipynb_checkpoints__
+.DS_Store
+nasbench
+NASBenchHW
+NATS-tss-v1_0-3ffb9-simple
+model_reconstruct.py
