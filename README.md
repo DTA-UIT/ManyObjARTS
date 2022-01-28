@@ -24,14 +24,14 @@ cd source
 git clone https://github.com/RICE-EIC/HW-NAS-Bench.git
 mv HW-NAS-Bench NASBenchHW
 ```
-#### c. For **NATS Bench**: 
+#### c. **NATS Bench**: 
 ```bash
 cd source
 gdown --fuzzy https://drive.google.com/file/d/17_saCsj_krKjlCBLOJEpNtzPXArMCqxU/view
 tar -xvf NATS-tss-v1_0-3ffb9-simple.tar
 ```
 
-#### d. For **NASBench 301**
+#### d. **NASBench 301**
 ```bash
 cd source && /bin/sh setup301.sh
 ```
