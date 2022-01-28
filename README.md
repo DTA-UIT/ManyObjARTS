@@ -4,6 +4,8 @@
 
 </div>
 
+More details on setting up and querying [here](https://colab.research.google.com/drive/1TWC0iosUhfdmNRIGW_VLw4MZfPwblWiF?authuser=1#scrollTo=u9shlcqGuzGk)
+
 ## Table of Contents
 1. [First time set up](#1-first-time-set-up)
 2. [Query using NASBench:](#2-query-using-nasbench)
