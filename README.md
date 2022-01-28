@@ -33,9 +33,7 @@ tar -xvf NATS-tss-v1_0-3ffb9-simple.tar
 
 - For **NASBench 301**
 ```bash
-cd source 
-git clone https://github.com/automl/nasbench301
-cat nasbench301/requirements.txt | xargs -n 1 -L 1 pip install
+/bin/sh source/setup301.sh
 ```
 
 ### 2. Query using NASBench:
