@@ -29,12 +29,6 @@ model_paths = model_paths_0_9 if version == '0.9' else model_paths_1_0
 if not all(os.path.exists(model) for model in model_paths.values()):
     nb.download_models(version=version, delete_zip=True, download_dir=current_dir)
 
-model_predictor = 'lgb_runtime'
-print("==> Loading performance surrogate model...")
-ensemble_dir_performance = model_paths[model_predictor]
-print(ensemble_dir_performance)
-
-performance_model = nb.load_ensemble(ensemble_dir_performance)
 
 def random_connection( num_individuals ):
     connection0 = np.random.randint(2, size=(num_individuals, 2))
@@ -87,7 +81,14 @@ def convert_ind_query(ind):
 
 
 
-def query_bench(ind, returnGenotype=False):
+def query_bench(ind, model_predictor='lgb_runtime', returnGenotype=False):
+    """
+    Arguments:
+    ind -- individual to query
+    model_predictor -- choose ensemble model ('lgb_runtime', 'xgb', 'gnn_gin')
+    """
+    ensemble_dir_performance = model_paths[model_predictor]
+    performance_model = nb.load_ensemble(ensemble_dir_performance)
     genotype_config = convert_ind_query(repair_ind(ind))
     prediction_genotype = performance_model.predict(config=genotype_config, representation="genotype", with_noise=False)
     return prediction_genotype if not returnGenotype else (prediction_genotype, genotype_config)
