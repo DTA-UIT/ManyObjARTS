@@ -33,7 +33,7 @@ tar -xvf NATS-tss-v1_0-3ffb9-simple.tar
 
 - For **NASBench 301**
 ```bash
-/bin/sh source/setup301.sh
+/bin/sh NAS/source/setup301.sh
 ```
 
 ### 2. Query using NASBench:
