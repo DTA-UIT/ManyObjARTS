@@ -33,7 +33,7 @@ tar -xvf NATS-tss-v1_0-3ffb9-simple.tar
 
 - For **NASBench 301**
 ```bash
-/bin/sh NAS/source/setup301.sh
+cd source && /bin/sh setup301.sh
 ```
 
 ### 2. Query using NASBench:
@@ -50,10 +50,10 @@ matrix=[[0, 1, 1, 1, 0, 1, 0],    # input layer
         [0, 0, 0, 0, 0, 0, 0]]    # output layer
 
 query_1 = NAS101.query_bench(matrix) 
-query_2 = NAS101.query_bench(matrix, metric='test_accuracy')
+print(f"Query 1:\n {query_1}\n")
 
-print(query_1)
-print(query_2)
+query_2 = NAS101.query_bench(matrix, metric='test_accuracy')
+print(f"Query 2:\n {query_2}")
 ```
 - **NATS Bench**
 ```python
@@ -61,11 +61,11 @@ from NASBench import NATS
 
 ind = [3, 3, 3, 3, 3, 3]
 
-query_1 = NATS.query_bench(ind, dataset='cifar10', epoch=200)
-query_2 = NATS.query_bench(ind, dataset='cifar10', epoch=200, metric='test-accuracy')
+query_1 = NATS.query_bench(ind, dataset='ImageNet16-120', epoch=200)
+print(f"Query 1:\n {query_1}\n")
 
-print(query_1)
-print(query_2)
+query_2 = NATS.query_bench(ind, dataset='ImageNet16-120', epoch=200, metric='test-accuracy')
+print(f"Query 2:\n {query_2}")
 ```
 - **NASBench ASR**
 ```python
@@ -73,11 +73,11 @@ from NASBench import ASR
 
 ind = [6, 3, 7, 4, 6, 2, 6, 7, 4, 3, 7, 7, 2, 5, 4, 1, 7, 5, 1, 4, 0, 5]
 
-query_1 = ASR.query_bench(ind, dataset='cifar100')
-query_2 = ASR.query_bench(ind, dataset='cifar100', metric='average_hw_metric')
+query_1 = ASR.query_bench(ind, dataset='ImageNet')
+print(f"Query 1:\n {query_1}\n")
 
-print(query_1)
-print(query_2)
+query_2 = ASR.query_bench(ind, dataset='ImageNet' metric='average_hw_metric')
+print(f"Query 2:\n {query_2}")
 ```
 ### 3. Reconstruct model from NASBenchmark
 - **NATS Bench**

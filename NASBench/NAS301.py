@@ -85,7 +85,8 @@ def query_bench(ind, model_predictor='lgb_runtime', returnGenotype=False):
     """
     Arguments:
     ind -- individual to query
-    model_predictor -- choose ensemble model ('lgb_runtime', 'xgb', 'gnn_gin')
+    model_predictor (optional) -- choose ensemble model (default: 'lgb_runtime', 'xgb', 'gnn_gin')
+    returnGenotype (optional) -- return individual's genotype or not (default: False)
     """
     ensemble_dir_performance = model_paths[model_predictor]
     performance_model = nb.load_ensemble(ensemble_dir_performance)

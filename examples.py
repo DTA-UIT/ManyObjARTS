@@ -27,19 +27,19 @@ print(query_1)
 NASBench 301
 """
 from NASBench import NAS301
+
 ind = [6, 3, 4, 6, 2, 4, 4, 6, 0, 0, 2, 1, 2, 0, 3, 0, 1, 3, 3, 6, 3, 6,
         3, 4, 0, 1, 1, 0, 3, 3, 0, 0]
 
 query_1 = NAS301.query_bench(ind)
-print(f"Genotype architecture performance: {query_1}")
+print(f"Query 1:\nGenotype architecture performance: {query_1}\n")
 
 model_predictor = 'xgb'
 query_2 = NAS301.query_bench(ind, model_predictor=model_predictor)
-print(f"Model predictor: {model_predictor}\nGenotype architecture performance: {query_2}")
+print(f"Query 2:\nModel predictor: {model_predictor}\nGenotype architecture performance: {query_2}\n")
 
 query_3, genotype = NAS301.query_bench(ind, model_predictor=model_predictor, returnGenotype=True)
-print(f"Genotype: {genotype}\nModel predictor: {model_predictor}\nGenotype architecture performance: {query_3}")
-
+print(f"Query 3:\nGenotype: {genotype}\nModel predictor: {model_predictor}\nGenotype architecture performance: {query_3}\n")
 """
 NASBench ASR
 """
