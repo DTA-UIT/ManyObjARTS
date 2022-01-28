@@ -22,6 +22,7 @@ model_paths_1_0 = {
     model_name : os.path.join(models_1_0_dir, '{}_v1.0'.format(model_name))
     for model_name in ['xgb', 'gnn_gin', 'lgb_runtime']
 }
+
 model_paths = model_paths_0_9 if version == '0.9' else model_paths_1_0
 
 if not all(os.path.exists(model) for model in model_paths.values()):

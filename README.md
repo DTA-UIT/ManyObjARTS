@@ -12,7 +12,7 @@
 -----
 
 ###  1. First time set up
-- For **NASBench101**: 
+- For **NASBench101**
 ```bash
 cd source  
 gdown --fuzzy https://drive.google.com/uc\?id\=1D6IeM2cX-jrBhzuZGyMCD-emEXm6ndDW
