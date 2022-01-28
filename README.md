@@ -5,9 +5,9 @@
 </div>
 
 ## Table of Contents
-  - [1. First time set up](#1-first-time-set-up)
-  - [2. Query using NASBench:](#2-query-using-nasbench)
-  - [3. Reconstruct model from NASBenchmark](#3-reconstruct-model-from-nasbenchmark)
+1. [First time set up](#1-first-time-set-up)
+2. [Query using NASBench:](#2-query-using-nasbench)
+3. [Reconstruct model from NASBenchmark](#3-reconstruct-model-from-nasbenchmark)
 
 -----
 
