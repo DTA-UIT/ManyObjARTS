@@ -23,6 +23,13 @@ query_1 = NATS.query_bench(ind, 'cifar10', epoch=200)
 query_2 = NATS.query_bench(ind, 'cifar10', epoch=200, metric='test-accuracy')
 print(query_1)
 
+"""
+NASBench 301
+"""
+from NASBench import NAS301
+ind = [6, 3, 4, 6, 2, 4, 4, 6, 0, 0, 2, 1, 2, 0, 3, 0, 1, 3, 3, 6, 3, 6,
+        3, 4, 0, 1, 1, 0, 3, 3, 0, 0]
+query = NAS301.query_bench(ind)
 
 """
 NASBench ASR
