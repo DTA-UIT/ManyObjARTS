@@ -69,6 +69,7 @@ class NAS301(NASBench):
                         "dil_conv_5x5"]
         
     def convert_individual_to_query(self):
+        self.ind = repair_ind(self.ind)
         normals = []
         reduces = []
         for i in range(len(self.ind) // 4):
@@ -93,7 +94,7 @@ class NAS301(NASBench):
         returnGenotype (optional) -- return individual's genotype or not (default: False)
         """
         
-        self.convert_individual_to_query(repair_ind(self.ind))
+        self.convert_individual_to_query()
         
         ensemble_dir_performance = self.model_path[model_predictor]
         self.api = nb.load_ensemble(ensemble_dir_performance)
