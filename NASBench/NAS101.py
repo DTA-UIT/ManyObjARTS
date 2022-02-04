@@ -30,6 +30,7 @@ class NAS101(NASBench):
         url = os.path.dirname(__file__)
         self.op_names = [INPUT, CONV1X1, CONV3X3, CONV3X3, CONV3X3, MAXPOOL3X3, OUTPUT] 
         self.api = api.NASBench(f"{url[:-len('/NASBench')] + '/source/nasbench/nasbench_full.tfrecord'}")
+        self.cell = api.ModelSpec(self.ind, self.op_names)
     
     def query_bench(self, metric=None):
         """
@@ -41,8 +42,7 @@ class NAS101(NASBench):
                                                'train_accuracy', 
                                                'validation_accuracy', 
                                                'test_accuracy')
-        """
-        self.cell = api.ModelSpec(self.ind, self.op_names)
+        """  
         if not self.api.is_valid(self.cell):
             raise Exception("Invalid NASBench101 cell") 
         self.query_result = self.api.query(self.cell)

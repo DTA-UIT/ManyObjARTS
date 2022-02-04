@@ -113,15 +113,36 @@ print(f"Query 2:\n {query_2}")
 ### 3. Reconstruct model from NASBenchmark
 #### a. **NATS Bench**
 ```python
-from NASBench import NATS
 from ZeroCostNas.foresight.models.nasbench2 import get_model_from_arch_str
+from NASBench import NATS
 
 ind = [4, 0, 2, 2, 4, 3]
-arch_str = NATS.convert_individual_to_str(ind)
+api = NATS.NATS(ind)
+
+arch_str = api.convert_individual_to_query()
 model = get_model_from_arch_str(arch_str, num_classes=10)
+
+print(f'Architecture string: {arch_str}\n\n')
+print(model)
 ```
 
 #### b. **NASBench 101**
 ```python
+from NASBench import NAS101
+from ZeroCostNas.foresight.models import nasbench1
 
+ind = [[0, 1, 1, 1, 0, 1, 0],    # input layer
+    [0, 0, 0, 0, 0, 0, 1],    # 1x1 conv
+    [0, 0, 0, 0, 0, 0, 1],    # 3x3 conv
+    [0, 0, 0, 0, 1, 0, 0],    # 5x5 conv (replaced by two 3x3's)
+    [0, 0, 0, 0, 0, 0, 1],    # 5x5 conv (replaced by two 3x3's)
+    [0, 0, 0, 0, 0, 0, 1],    # max-pool 3x3
+    [0, 0, 0, 0, 0, 0, 0]]    # output layer
+    
+api = NAS101.NAS101(ind)
+cell = api.cell
+model = nasbench1.Network(cell, stem_out=128, num_stacks=3, num_mods=3, num_classes=10)
+
+print(f'Architecture: {cell}\n')
+print(model)
 ```

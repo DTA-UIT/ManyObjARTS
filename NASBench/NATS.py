@@ -28,6 +28,7 @@ class NATS(NASBench):
                 node = 0
                 self.cell += '|+'
         self.cell += '|'
+        return self.cell
     
     def query_bench(self, dataset, epoch, metric=None):
         """
