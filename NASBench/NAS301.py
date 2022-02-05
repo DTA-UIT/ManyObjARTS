@@ -33,8 +33,8 @@ def repair_ind ( ind ):
 
 
 class NAS301(NASBench):
-    def __init__(self, ind):
-        super().__init__(ind)
+    def __init__(self):
+        super().__init__()
         
         """
         Set up 301
@@ -68,14 +68,14 @@ class NAS301(NASBench):
                         "dil_conv_3x3",
                         "dil_conv_5x5"]
         
-    def convert_individual_to_query(self):
-        self.ind = repair_ind(self.ind)
+    def convert_individual_to_query(self, ind):
+        ind = repair_ind(ind)
         normals = []
         reduces = []
-        for i in range(len(self.ind) // 4):
-            element_normal = (self.op_names[self.ind[i]], self.ind[i + 8])
+        for i in range(len(ind) // 4):
+            element_normal = (self.op_names[ind[i]], ind[i + 8])
             normals.append(element_normal)
-            element_reduce = (self.op_names[self.ind[i + 16]], self.ind[i + 24])
+            element_reduce = (self.op_names[ind[i + 16]], ind[i + 24])
             reduces.append(element_reduce)
         
         Genotype = namedtuple('Genotype', 
@@ -87,14 +87,14 @@ class NAS301(NASBench):
             reduce_concat=list(range(2, 6))
         )
     
-    def query_bench(self, model_predictor='lgb_runtime', returnGenotype=False):
+    def query_bench(self, ind, model_predictor='lgb_runtime', returnGenotype=False):
         """
         Arguments
         model_predictor (optional) -- choose ensemble model (default: 'lgb_runtime', 'xgb', 'gnn_gin')
         returnGenotype (optional) -- return individual's genotype or not (default: False)
         """
         
-        self.convert_individual_to_query()
+        self.convert_individual_to_query(ind)
         
         ensemble_dir_performance = self.model_path[model_predictor]
         self.api = nb.load_ensemble(ensemble_dir_performance)

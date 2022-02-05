@@ -2,9 +2,9 @@ from abc import ABC, abstractmethod
 import os, sys
 
 class NASBench(ABC):
+    _api = None
     @abstractmethod
-    def __init__(self, ind):
-        self.ind = ind
+    def __init__(self):
         self.query_result = None
         self.api = None
         self.op_names = None

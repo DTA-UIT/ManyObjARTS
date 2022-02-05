@@ -6,8 +6,8 @@ from nats_bench import create
 from pprint import pprint
 
 class NATS(NASBench):
-    def __init__(self, ind):
-        super().__init__(ind)
+    def __init__(self):
+        super().__init__()
         self.op_names = ["none", "skip_connect", "nor_conv_1x1", "nor_conv_3x3", "avg_pool_3x3"]
 
         """
@@ -17,11 +17,11 @@ class NATS(NASBench):
         self.api = create(f"{url[:-len('/NASBench')] + '/source/NATS-tss-v1_0-3ffb9-simple/'}", 'tss', fast_mode=True, verbose=False)
 
     
-    def convert_individual_to_query(self):
+    def convert_individual_to_query(self, ind):
         self.cell = ''
         node = 0
-        for i in range(len(self.ind)):
-            gene = self.ind[i]
+        for i in range(len(ind)):
+            gene = ind[i]
             self.cell += '|' + self.op_names[gene] + '~' + str(node)
             node += 1
             if i == 0 or i == 2:
@@ -30,7 +30,7 @@ class NATS(NASBench):
         self.cell += '|'
         return self.cell
     
-    def query_bench(self, dataset, epoch, metric=None):
+    def query_bench(self, ind, dataset, epoch, metric=None):
         """
         Arguments
         dataset -- Dataset to query ('cifar10', 'cifar100', 'ImageNet16-120')
@@ -44,7 +44,7 @@ class NATS(NASBench):
                                             'test-per-time', 
                                             'test-all-time')
         """
-        self.convert_individual_to_query()
+        self.convert_individual_to_query(ind)
         arch_index = self.api.query_index_by_arch(self.cell)
         if self.api.query_index_by_arch(self.cell) == -1:
             raise Exception('Invalid NATSBench cell')

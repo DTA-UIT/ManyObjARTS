@@ -9,8 +9,9 @@ from source.nasbench.nasbench import api
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 class NAS101(NASBench):
-    def __init__(self, ind):
-        super().__init__(ind)
+    __model_path = None
+    def __init__(self):
+        super().__init__()
         
         """ 
         Constants for NASBench101
@@ -30,9 +31,9 @@ class NAS101(NASBench):
         url = os.path.dirname(__file__)
         self.op_names = [INPUT, CONV1X1, CONV3X3, CONV3X3, CONV3X3, MAXPOOL3X3, OUTPUT] 
         self.api = api.NASBench(f"{url[:-len('/NASBench')] + '/source/nasbench/nasbench_full.tfrecord'}")
-        self.cell = api.ModelSpec(self.ind, self.op_names)
+        
     
-    def query_bench(self, metric=None):
+    def query_bench(self, ind, metric=None):
         """
         Arguments:
         metric (optional) --  metric to query ('module_adjacency', 
@@ -43,6 +44,7 @@ class NAS101(NASBench):
                                                'validation_accuracy', 
                                                'test_accuracy')
         """  
+        self.cell = api.ModelSpec(ind, self.op_names)
         if not self.api.is_valid(self.cell):
             raise Exception("Invalid NASBench101 cell") 
         self.query_result = self.api.query(self.cell)
