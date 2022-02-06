@@ -11,12 +11,12 @@ from ZeroCostNas.foresight.models.nasbench2 import get_model_from_arch_str
 from ZeroCostNas.foresight.pruners import predictive
 from ZeroCostNas.foresight.weight_initializers import init_net
 
-def get_num_classes(dataset):
-    return 100 if dataset == 'cifar100' else 10 if dataset == 'cifar10' else 120
+def get_num_classes(args):
+    return 100 if args.dataset == 'cifar100' else 10 if args.dataset == 'cifar10' else 120
 
 
 class NATS(NASBench):
-    def __init__(self, num_classes):
+    def __init__(self):
         super().__init__()
         self.op_names = ["none", "skip_connect", "nor_conv_1x1", "nor_conv_3x3", "avg_pool_3x3"]
 
@@ -132,7 +132,7 @@ class NATS(NASBench):
                 
             else:
                 
-                cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args.dataset))
+                cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
                 net = cell.to(self.device)
                 init_net(net, args.init_w_type, args.init_b_type)
 
@@ -142,7 +142,7 @@ class NATS(NASBench):
 
                 measures = predictive.find_measures(net, 
                                                     train_loader, 
-                                                    (args.dataload, args.dataload_info, get_num_classes(args.dataset)), 
+                                                    (args.dataload, args.dataload_info, get_num_classes(args)), 
                                                     args.device, measure_names=measure)    
                 
                 result[measure] = measures if not np.isnan(measures) else -1e9
