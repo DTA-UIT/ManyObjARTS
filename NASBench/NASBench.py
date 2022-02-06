@@ -10,7 +10,8 @@ class NASBench(ABC):
         self.op_names = None
         self.cell = None
         self.model_path = None
-    
+        self.arch_index = None    
+
     def convert_individual_to_query(self):
         pass
     
