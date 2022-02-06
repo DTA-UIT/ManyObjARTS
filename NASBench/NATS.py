@@ -83,7 +83,8 @@ class NATS(NASBench):
         if use_csv and not proxy_log:
             raise Exception('No proxy log to query csv')
         
-        
+        if measure == 'test-accuracy' or measure == 'train-accuracy' and epoch == None:
+            raise Exception('No specific epoch for test/train accuracy')
         
         proxy_log = {
             'synflow': proxy_log[0] if use_csv else None,
@@ -115,7 +116,7 @@ class NATS(NASBench):
                     index += ind[i] * pow(5, len(ind) - i - 1)
                 return index
 
-            arch_index = get_index_csv (ind)
+            arch_index = get_index_csv(ind)
 
             """ 
             Result -> synflow, jacob_cov, test-acc, flops
@@ -136,7 +137,6 @@ class NATS(NASBench):
                 result[measure] = info[measure]
                 
             else:
-                
                 cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
                 net = cell.to(self.device)
                 init_net(net, args.init_w_type, args.init_b_type)
@@ -148,8 +148,8 @@ class NATS(NASBench):
                 measures = predictive.find_measures(net, 
                                                     train_loader, 
                                                     (args.dataload, args.dataload_info, get_num_classes(args)), 
-                                                    self.device, measure_names=measure)    
+                                                    self.device)    
                 
-                result[measure] = measures if not np.isnan(measures) else -1e9
+                result[measure] = measures[measure] if not np.isnan(measures[measure]) else -1e9
             
         return result[measure]
