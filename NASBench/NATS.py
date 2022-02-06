@@ -148,7 +148,7 @@ class NATS(NASBench):
                 measures = predictive.find_measures(net, 
                                                     train_loader, 
                                                     (args.dataload, args.dataload_info, get_num_classes(args)), 
-                                                    args.device, measure_names=measure)    
+                                                    self.device, measure_names=measure)    
                 
                 result[measure] = measures if not np.isnan(measures) else -1e9
             
