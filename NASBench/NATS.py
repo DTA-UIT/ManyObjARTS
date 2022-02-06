@@ -23,7 +23,8 @@ class NATS(NASBench):
         Call API
         """
         url = os.path.dirname(__file__)
-        self.api = create(f"{url[:-len('/NASBench')] + '/source/NATS-tss-v1_0-3ffb9-simple/'}", 'tss', fast_mode=True, verbose=False)
+        self.api = create("/content/drive/MyDrive/DTA/NATS Bench/NATS-tss-v1_0-3ffb9-simple", 'tss', fast_mode=True, verbose=False)
+        # self.api = create(f"{url[:-len('/NASBench')] + '/source/NATS-tss-v1_0-3ffb9-simple/'}", 'tss', fast_mode=True, verbose=False)
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     
     def convert_individual_to_query(self, ind):
