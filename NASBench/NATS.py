@@ -61,7 +61,7 @@ class NATS(NASBench):
         
         return query_bench if measure == None else query_bench[measure] 
     
-    def evaluate_arch(self, args, ind, dataset, measure, train_loader, use_csv=False, epoch=None):
+    def evaluate_arch(self, args, ind, dataset, measure, train_loader, use_csv=False, proxy_log=None, epoch=None):
         """
         Hàm đánh giá kiến trúc bằng cách truy xuất NATS Bench.
         
@@ -72,18 +72,23 @@ class NATS(NASBench):
         measure -- Phương pháp đánh giá (test-accuracy, synflow,...).
         train_loader 
         use_csv -- Có sử dụng truy vấn thông tin từ file log
+        proxy_log -- file log [synflow, jacov, test-acc, flops]
         epoch -- Real training tại epoch thứ mấy trong bench (nếu sử dụng accuracy)
 
         Returns:
         value -- Accuracy của cá thể ind với measure được sử dụng tại dataset đang xét (cifar 10, cifar 100, Imagenet16-120).
         """
         
+        if use_csv and not proxy_log:
+            raise Exception('No proxy log to query csv')
+        
+        
         
         proxy_log = {
-            'synflow': synflow_log,
-            'jacob_cov': jacov_log,
-            'test-accuracy': testacc_log,
-            'flops': flops_log,
+            'synflow': proxy_log[0] if use_csv else None,
+            'jacob_cov': proxy_log[1] if use_csv else None,
+            'test-accuracy': proxy_log[2] if use_csv else None,
+            'flops': proxy_log[3] if use_csv else None,
             'valid-accuracy': None,
             'train-accuracy': None
         }
