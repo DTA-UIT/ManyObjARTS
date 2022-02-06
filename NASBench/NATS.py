@@ -2,8 +2,7 @@ import os, sys
 import random
 import numpy as np
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import NASBench
-# from NASBench.NASBench import NASBench
+from NASBench.NASBench import NASBench
 from nats_bench import create
 from pprint import pprint
 import torch
