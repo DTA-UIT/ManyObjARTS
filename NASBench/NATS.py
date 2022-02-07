@@ -33,6 +33,7 @@ class NATS(NASBench):
         else:
             self.api = create(f"{url[:-len('/NASBench')] + '/source/NATS-tss-v1_0-3ffb9-simple/'}", 'tss', fast_mode=True, verbose=False)
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+        print(f'Running on device: {self.device}')
     
     def convert_individual_to_query(self, ind):
         """
