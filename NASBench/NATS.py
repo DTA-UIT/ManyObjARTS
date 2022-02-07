@@ -15,7 +15,7 @@ def get_num_classes(args):
 
 
 class NATS(NASBench):
-    def __init__(self):
+    def __init__(self, use_colab=True):
         super().__init__()
         self.op_names = ["none", "skip_connect", "nor_conv_1x1", "nor_conv_3x3", "avg_pool_3x3"]
 
@@ -23,8 +23,10 @@ class NATS(NASBench):
         Call API
         """
         url = os.path.dirname(__file__)
-        self.api = create("/content/drive/MyDrive/DTA/NATS Bench/NATS-tss-v1_0-3ffb9-simple", 'tss', fast_mode=True, verbose=False)
-        # self.api = create(f"{url[:-len('/NASBench')] + '/source/NATS-tss-v1_0-3ffb9-simple/'}", 'tss', fast_mode=True, verbose=False)
+        if use_colab:
+            self.api = create("/content/drive/MyDrive/DTA/NATS Bench/NATS-tss-v1_0-3ffb9-simple", 'tss', fast_mode=True, verbose=False)
+        else:
+            self.api = create(f"{url[:-len('/NASBench')] + '/source/NATS-tss-v1_0-3ffb9-simple/'}", 'tss', fast_mode=True, verbose=False)
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     
     def convert_individual_to_query(self, ind):
