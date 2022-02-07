@@ -27,5 +27,5 @@ args = argparse.Namespace(api_loc='',
 
 from NAS.NASBench import NATS
 
-api = NATS.NATS()
+api = NATS.NATS(use_colab=False)
 api.evaluate_arch(args=args, ind=[2, 3, 1, 0, 4, 2], dataset=dataset, measure='synflow', train_loader=train_loader)

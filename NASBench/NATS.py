@@ -11,8 +11,13 @@ from ZeroCostNas.foresight.pruners import predictive
 from ZeroCostNas.foresight.weight_initializers import init_net
 
 def get_num_classes(args):
-    return 100 if args.dataset == 'cifar100' else 10 if args.dataset == 'cifar10' else 120
-
+    if args.dataset == 'cifar100':
+        return 100
+    if args.dataset == 'cifar10':
+        return 10
+    if args.dataset == 'imagenet':
+        return 120
+    raise Exception('Unknown dataset')
 
 class NATS(NASBench):
     def __init__(self, use_colab=True):
@@ -30,6 +35,16 @@ class NATS(NASBench):
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     
     def convert_individual_to_query(self, ind):
+        """
+        Function to convert an individual to a architecture string
+        
+        Arguments:
+        ind -- Individual to convert
+        
+        Returns:
+        cell -- Architecture string
+        """
+
         self.cell = ''
         node = 0
         for i in range(len(ind)):
@@ -44,6 +59,8 @@ class NATS(NASBench):
     
     def query_bench(self, ind, dataset, epoch, measure):
         """
+        Function to query NASBench API
+        
         Arguments
         dataset -- Dataset to query ('cifar10', 'cifar100', 'ImageNet16-120')
         epoch -- Epoch to query (12, 200) 
@@ -55,6 +72,9 @@ class NATS(NASBench):
                                             'test-accuracy', 
                                             'test-per-time', 
                                             'test-all-time')
+        
+        Returns
+        query_bench -- query results (with or without a specific measure)
         """
         self.convert_individual_to_query(ind)
         arch_index = self.api.query_index_by_arch(self.cell)
@@ -66,20 +86,35 @@ class NATS(NASBench):
     
     def evaluate_arch(self, args, ind, dataset, measure, train_loader, use_csv=False, proxy_log=None, epoch=None):
         """
-        Hàm đánh giá kiến trúc bằng cách truy xuất NATS Bench.
+        Function to evaluate an architecture
         
         Arguments:
-        args -- argparse truyền vào
-        ind -- Cá thể cần được đánh giá.
-        dataset -- Dataset để đánh giá kiến trúc (cifar10, cifar100, Imagenet16-120).
-        measure -- Phương pháp đánh giá (test-accuracy, synflow,...).
-        train_loader 
-        use_csv -- Có sử dụng truy vấn thông tin từ file log
-        proxy_log -- file log [synflow, jacov, test-acc, flops]
-        epoch -- Real training tại epoch thứ mấy trong bench (nếu sử dụng accuracy)
+        args -- Argparse to pass through
+        ind -- Evaluating individual
+        dataset -- Evaluating dataset ('cifar10', 
+                                    'cifar100', 
+                                    'Imagenet16-120').
+        measure -- Evaluation method ('train-loss', 
+                                    'train-accuracy', 
+                                    'train-per-time', 
+                                    'train-all-time', 
+                                    'test-loss', 
+                                    'test-accuracy', 
+                                    'test-per-time', 
+                                    'test-all-time', 
+                                    'flops',
+                                    'synflow',
+                                    'jacob_cov',
+                                    'snip',
+                                    'grasp',
+                                    'fisher').
+        train_loader -- Data train loader
+        use_csv (optional) -- To choose whether to use csv file to get results (Bool)
+        proxy_log (optional, but required if use_csv is True) -- Log file [synflow, jacov, test-acc, flops]
+        epoch -- If measure is accuracy, this is the epoch to evaluate (int)
 
         Returns:
-        value -- Accuracy của cá thể ind với measure được sử dụng tại dataset đang xét (cifar 10, cifar 100, Imagenet16-120).
+        result[measure] -- Result of evaluation at the present dataset
         """
         
         if use_csv and not proxy_log:
@@ -143,7 +178,6 @@ class NATS(NASBench):
                 net = cell.to(self.device)
                 init_net(net, args.init_w_type, args.init_b_type)
 
-                torch.manual_seed(args.seed) 
                 torch.backends.cudnn.deterministic = True
                 torch.backends.cudnn.benchmark = False
 
