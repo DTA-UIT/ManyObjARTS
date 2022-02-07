@@ -59,7 +59,7 @@ class NATS(NASBench):
         self.cell += '|'
         return self.cell
     
-    def query_bench(self, ind, dataset, epoch, measure):
+    def query_bench(self, ind, dataset, epoch, measure=None):
         """
         Function to query NASBench API
         
@@ -183,10 +183,7 @@ class NATS(NASBench):
                 cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
                 net = cell.to(self.device)
                 init_net(net, args.init_w_type, args.init_b_type)
-
-                torch.backends.cudnn.deterministic = True
-                torch.backends.cudnn.benchmark = False
-
+                
                 measures = predictive.find_measures(net, 
                                                     train_loader, 
                                                     (args.dataload, args.dataload_info, get_num_classes(args)), 
