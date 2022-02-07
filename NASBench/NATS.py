@@ -121,7 +121,7 @@ class NATS(NASBench):
         if use_csv and not proxy_log:
             raise Exception('No proxy log to query csv')
         
-        if measure == 'test-accuracy' or measure == 'train-accuracy' and epoch == None:
+        if (measure == 'test-accuracy' or measure == 'train-accuracy') and epoch == None:
             raise Exception('No specific epoch for test/train accuracy')
         
         proxy_log = {
@@ -146,7 +146,7 @@ class NATS(NASBench):
             'fisher': 0
         }
 
-        if use_csv:
+        if use_csv: # If use log file, then get results from csv file
 
             def get_index_csv (ind):
                 index = 0
@@ -154,7 +154,7 @@ class NATS(NASBench):
                     index += ind[i] * pow(5, len(ind) - i - 1)
                 return index
 
-            arch_index = get_index_csv(ind)
+            arch_index = get_index_csv(ind) # Get index of architecture in the log file
 
             """ 
             Result -> synflow, jacob_cov, test-acc, flops
@@ -165,16 +165,16 @@ class NATS(NASBench):
                 result['jacob_cov'] = -1e9
 
         else:
-            if epoch is not None and measure in ['test-accuracy', 'train-accuracy', 'valid-accuracy']: # Return from NASBench
+            if epoch is not None and measure in ['test-accuracy', 'train-accuracy', 'valid-accuracy']: # If measure is accuracy, evaluate at specific epoch
                 result[measure] = self.query_bench(ind, dataset, epoch, measure)
 
-            elif measure == 'flops':
+            elif measure == 'flops': # If want to get flops info, then query from NATSBench
                 self.convert_individual_to_query(ind)
                 arch_index = self.api.query_index_by_arch(self.cell)
                 info = self.api.get_cost_info(arch_index, dataset)
                 result[measure] = info[measure]
                 
-            else:
+            else: # If None of above, then evaluate the architecture using zero-cost proxies
                 cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
                 net = cell.to(self.device)
                 init_net(net, args.init_w_type, args.init_b_type)
