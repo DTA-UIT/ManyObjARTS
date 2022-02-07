@@ -22,16 +22,17 @@ def get_num_classes(args):
 class NATS(NASBench):
     def __init__(self, use_colab=True):
         super().__init__()
+        
+        # Define operations
         self.op_names = ["none", "skip_connect", "nor_conv_1x1", "nor_conv_3x3", "avg_pool_3x3"]
-
-        """
-        Call API
-        """
         url = os.path.dirname(__file__)
+
+        # Call API
         if use_colab:
             self.api = create("/content/drive/MyDrive/DTA/NATS Bench/NATS-tss-v1_0-3ffb9-simple", 'tss', fast_mode=True, verbose=False)
         else:
             self.api = create(f"{url[:-len('/NASBench')] + '/source/NATS-tss-v1_0-3ffb9-simple/'}", 'tss', fast_mode=True, verbose=False)
+            
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         print(f'Running on device: {self.device}')
     
@@ -145,8 +146,9 @@ class NATS(NASBench):
             'grasp': 0,
             'fisher': 0
         }
-
-        if use_csv: # If use log file, then get results from csv file
+        
+        # If use log file, then get results from csv file
+        if use_csv:
 
             def get_index_csv (ind):
                 index = 0
@@ -154,7 +156,7 @@ class NATS(NASBench):
                     index += ind[i] * pow(5, len(ind) - i - 1)
                 return index
 
-            arch_index = get_index_csv(ind) # Get index of architecture in the log file
+            arch_index = get_index_csv(ind) # Get index of architecture from log file
 
             """ 
             Result -> synflow, jacob_cov, test-acc, flops
@@ -165,16 +167,19 @@ class NATS(NASBench):
                 result['jacob_cov'] = -1e9
 
         else:
-            if epoch is not None and measure in ['test-accuracy', 'train-accuracy', 'valid-accuracy']: # If measure is accuracy, evaluate at specific epoch
+            # If measure is accuracy, query at a specific epoch
+            if epoch is not None and measure in ['test-accuracy', 'train-accuracy', 'valid-accuracy']: 
                 result[measure] = self.query_bench(ind, dataset, epoch, measure)
 
-            elif measure == 'flops': # If want to get flops info, then query from NATSBench
+            # If get flops info, then query from NATSBench
+            elif measure == 'flops': 
                 self.convert_individual_to_query(ind)
                 arch_index = self.api.query_index_by_arch(self.cell)
                 info = self.api.get_cost_info(arch_index, dataset)
                 result[measure] = info[measure]
                 
-            else: # If None of above, then evaluate the architecture using zero-cost proxies
+            # If None of above, then evaluate the architecture using zero-cost proxies
+            else: 
                 cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
                 net = cell.to(self.device)
                 init_net(net, args.init_w_type, args.init_b_type)
