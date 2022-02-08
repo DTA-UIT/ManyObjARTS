@@ -127,9 +127,9 @@ class NATS(NASBench):
         
         proxy_log = {
             'synflow': np.mean(proxy_log[0], axis=1) if use_csv else None,
-            'jacob_cov': np.mean(proxy_log[1], axis=1) if use_csv else None,
-            'test-accuracy': np.mean(proxy_log[2], axis=1) if use_csv else None,
-            'flops': np.mean(proxy_log[3], axis=1) if use_csv else None,
+            'jacob_cov': proxy_log[1] if use_csv else None,
+            'test-accuracy': proxy_log[2] if use_csv else None,
+            'flops': proxy_log[3] if use_csv else None,
             'valid-accuracy': None,
             'train-accuracy': None
         }
