@@ -196,3 +196,9 @@ class NATS(NASBench):
                 result[measure] = measures[measure] if not np.isnan(measures[measure]) else -1e9
             
         return result[measure]
+    
+    def evaluate_multi_measure(self, args, ind, dataset, measure, train_loader, use_csv=False, proxy_log=None, epoch=200) -> dict:
+        result = {}
+        for seperated_measure in measure:
+            result[seperated_measure] = self.evaluate_arch(args, ind, dataset, seperated_measure, train_loader, use_csv, proxy_log, epoch)
+        return result
