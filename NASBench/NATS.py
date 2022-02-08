@@ -172,7 +172,7 @@ class NATS(NASBench):
                 result[measure] = self.query_bench(ind, dataset, epoch, measure)
 
             # If get flops info, then query from NATSBench
-            elif measure == 'flops': 
+            elif measure in ['flops', 'latency', 'params']: 
                 self.convert_individual_to_query(ind)
                 arch_index = self.api.query_index_by_arch(self.cell)
                 info = self.api.get_cost_info(arch_index, dataset)
