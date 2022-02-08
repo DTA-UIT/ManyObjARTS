@@ -105,6 +105,8 @@ class NATS(NASBench):
                                     'test-per-time', 
                                     'test-all-time', 
                                     'flops',
+                                    'latency',
+                                    'params',
                                     'synflow',
                                     'jacob_cov',
                                     'snip',
@@ -137,6 +139,7 @@ class NATS(NASBench):
         result = {
             'flops': 0,
             'params': 0,
+            'latency': 0,
             'test-accuracy': 0,
             'train-accuracy': 0,
             'valid-accuracy': 0,
