@@ -86,7 +86,7 @@ class NATS(NASBench):
         
         return query_bench if measure == None else query_bench[measure] 
     
-    def evaluate_arch(self, args, ind, dataset, measure, train_loader, use_csv=False, proxy_log=None, epoch=None):
+    def evaluate_arch(self, args, ind, dataset, measure, train_loader, use_csv=False, proxy_log=None, epoch=None) -> float:
         """
         Function to evaluate an architecture
         
@@ -151,7 +151,7 @@ class NATS(NASBench):
         }
         
         # If use log file, then get results from csv file
-        if use_csv:
+        if use_csv and measure in proxy_log:
 
             def get_index_csv (ind):
                 index = 0
