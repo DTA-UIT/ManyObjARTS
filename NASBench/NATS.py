@@ -132,14 +132,16 @@ class NATS(NASBench):
             'jacob_cov': proxy_log[1] if use_csv else None,
             'test-accuracy': proxy_log[2] if use_csv else None,
             'flops': proxy_log[3] if use_csv else None,
-            'valid-accuracy': None,
-            'train-accuracy': None
+            'latency': proxy_log[4] if use_csv else None,
+            'macs': proxy_log[5] if use_csv else None,
+            'params': proxy_log[6] if use_csv else None 
         }
 
         result = {
             'flops': 0,
             'params': 0,
             'latency': 0,
+            'macs': 0,
             'test-accuracy': 0,
             'train-accuracy': 0,
             'valid-accuracy': 0,
@@ -161,9 +163,6 @@ class NATS(NASBench):
 
             arch_index = get_index_csv(ind) # Get index of architecture from log file
 
-            """ 
-            Result -> synflow, jacob_cov, test-acc, flops
-            """
             result[measure] = proxy_log[measure][arch_index]
 
             if measure == 'jacob_cov' and np.isnan(result['jacob_cov']):
