@@ -135,9 +135,7 @@ class NATS(NASBench):
             'latency': proxy_log[4] if use_csv else None,
             'macs': proxy_log[5] if use_csv else None,
             'params': proxy_log[6] if use_csv else None,
-            'train-accuracy-cifar10': proxy_log[7] if use_csv else None,
-            'valid-accuracy-cifar100': proxy_log[8] if use_csv else None,
-            'valid-accuracy-imagenet': proxy_log[9] if use_csv else None 
+            'train-accuracy' if dataset == 'cifar10' else 'valid-accuracy': proxy_log[7] if use_csv else None
         }
 
         result = {
