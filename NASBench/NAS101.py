@@ -9,6 +9,7 @@ from NASBench.NASBench import NASBench
 from ZeroCostNas.foresight.models import nasbench1
 from ZeroCostNas.foresight.pruners import predictive
 from ZeroCostNas.foresight.weight_initializers import init_net
+from ZeroCostNas.AutoDLTools.xautodl.utils.flop_benchmark import *
 from source.nasbench.nasbench import api
 from thop import profile
 
@@ -93,7 +94,6 @@ class NAS101(NASBench):
                                     'training_time',
                                     'flops',
                                     'macs',
-                                    'latency',
                                     'synflow',
                                     'jacob_cov',
                                     'snip',
@@ -166,10 +166,12 @@ class NAS101(NASBench):
             elif measure in ['trainable_parameters']:
                 result[measure] = self.query_bench(ind, ops, metric=measure)
             
-            # If measure is MACS
             elif measure in ['macs']:
-                input = torch.randn(1, 3, 32, 32)
+                input = torch.randn(len(train_loader), 3, 32, 32)
                 result['macs'], _ = profile(model, inputs=(input, ), verbose=False)
+            
+            elif measure == 'flops':
+                result['flops'], _ = get_model_infos(model, (len(train_loader), 3, 32, 32))
             
             # If use zero-cost methods
             else:
