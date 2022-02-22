@@ -74,7 +74,7 @@ class NAS101(NASBench):
         self.cell = api.ModelSpec(ind, ops)
         return self.api.is_valid(self.cell)
     
-    def evaluate_arch(self, args, ind, ops, measure, train_loader, use_csv=False, proxy_log=None, epoch=None):
+    def evaluate_arch(self, args, ind, measure, train_loader, use_csv=False, proxy_log=None, epoch=None):
         """
         Function to evaluate an architecture
         
@@ -103,8 +103,36 @@ class NAS101(NASBench):
         Returns:
         result[measure] -- Result of evaluation at the present dataset
         """
+        def convert_ind_triangle(ind, ops_none=None):
+            res = np.zeros((7, 7), dtype=int)
+            k = 0
+            for i in range(7):
+                for j in range(i + 1, 7):
+                    res[i][j] = ind[k]
+                    k += 1
+            if ops_none != None:
+                res = np.delete(res, ops_none, axis=1)
+                res = np.delete(res, ops_none, axis=0)
+            return res 
         
-        self.cell = api.ModelSpec(ind, ops)
+        def get_operations(ind):
+            ops_none = []
+            ops = ['input']
+            for i in range(0, 5):
+                if ind[i] == 0:
+                    ops_none.append(i)
+                elif ind[i] == 1:
+                    ops.append('conv1x1-bn-relu')
+                elif ind[i] == 2:
+                    ops.append('conv3x3-bn-relu')
+                else:
+                    ops.append('maxpool3x3')
+            ops.append('output')
+            return ops, ops_none
+        
+        ops, ops_none = get_operations(ind)
+        
+        self.cell = api.ModelSpec(convert_ind_triangle(ind, ops_none), ops)
          
         if use_csv and not proxy_log:
             raise Exception("No proxy log to query csv")

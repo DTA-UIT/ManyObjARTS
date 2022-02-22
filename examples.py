@@ -95,4 +95,4 @@ def get_operations(ind):
             ops.append('maxpool3x3')
     ops.append('output')
     
-print(api.evaluate_arch(args, ind=ind[:5], ops=get_operations(ind), measure='test_accuracy', train_loader=train_loader, epoch=108))
+print(api.evaluate_arch(args, ind=ind[:5], measure='test_accuracy', train_loader=train_loader, epoch=108))
