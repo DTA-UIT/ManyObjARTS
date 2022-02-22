@@ -92,8 +92,8 @@ class NAS101(NASBench):
                                     'test_accuracy',
                                     'trainable_parameters',
                                     'training_time',
-                                    'flops',
-                                    'macs',
+                                    'flops' - MB,
+                                    'macs' - GB,
                                     'synflow',
                                     'jacob_cov',
                                     'snip',
@@ -101,7 +101,7 @@ class NAS101(NASBench):
                                     'fisher').
         train_loader -- Data train loader
         use_csv (optional) -- To choose whether to use csv file to get results (Bool)
-        proxy_log (optional, but required if use_csv is True) -- Log file [synflow, jacov, test-acc, flops]
+        proxy_log (optional, but required if use_csv is True) -- Log file 
         epoch -- If measure is accuracy, this is the epoch to evaluate (4, 12, 36, 108)
 
         Returns:
