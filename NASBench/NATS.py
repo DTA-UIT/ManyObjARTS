@@ -155,7 +155,7 @@ class NATS(NASBench):
             'fisher': 0
         }
         cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
-        init_net(net, args.init_w_type, args.init_b_type)
+        init_net(cell, args.init_w_type, args.init_b_type)
         # If use log file, then get results from csv file
         if use_csv and measure in proxy_log:
 
@@ -186,7 +186,7 @@ class NATS(NASBench):
             
             elif measure == 'macs':
                 input = torch.randn(len(train_loader), 3, 32, 32)
-                result['macs'], _ = profile(net, inputs=(input, ), verbose=False)   
+                result['macs'], _ = profile(cell, inputs=(input, ), verbose=False)   
                 
             # If None of above, then evaluate the architecture using zero-cost proxies
             else: 
