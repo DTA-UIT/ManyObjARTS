@@ -44,7 +44,10 @@ class NAS101(NASBench):
         ALLOWED_EDGES = [0, 1]   # Binary adjacency matrix
         
         url = os.path.dirname(__file__)
-        self.api = api.NASBench(f"{url[:-len('/NASBench')] + '/source/nasbench/nasbench_full.tfrecord'}") if not use_colab else api.NASBench("/content/drive/MyDrive/DTA/Tân/NASBench101/nasbench_full.tfrecord")
+        if not use_colab:
+            self.api = api.NASBench(f"{url[:-len('/NASBench')] + '/source/nasbench/nasbench_full.tfrecord'}")
+        else:
+            self.api = api.NASBench("/content/drive/MyDrive/DTA/Tân/NASBench101/nasbench_full.tfrecord")
         self.cell = None
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         print(f'Running on device: {self.device}')
