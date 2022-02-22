@@ -155,7 +155,6 @@ class NATS(NASBench):
             'fisher': 0
         }
         cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
-        net = cell.to(self.device)
         init_net(net, args.init_w_type, args.init_b_type)
         # If use log file, then get results from csv file
         if use_csv and measure in proxy_log:
@@ -191,8 +190,7 @@ class NATS(NASBench):
                 
             # If None of above, then evaluate the architecture using zero-cost proxies
             else: 
-
-                
+                net = cell.to(self.device)        
                 measures = predictive.find_measures(net, 
                                                     train_loader, 
                                                     (args.dataload, args.dataload_info, get_num_classes(args)), 
