@@ -9,6 +9,7 @@ import torch
 from ZeroCostNas.foresight.models.nasbench2 import get_model_from_arch_str
 from ZeroCostNas.foresight.pruners import predictive
 from ZeroCostNas.foresight.weight_initializers import init_net
+from ZeroCostNas.OpCounter.thop import profile
 
 def get_num_classes(args):
     if args.dataset == 'cifar100':
@@ -105,6 +106,7 @@ class NATS(NASBench):
                                     'test-per-time', 
                                     'test-all-time', 
                                     'flops',
+                                    'macs',
                                     'latency',
                                     'params',
                                     'synflow',
@@ -152,7 +154,9 @@ class NATS(NASBench):
             'grasp': 0,
             'fisher': 0
         }
-        
+        cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
+        net = cell.to(self.device)
+        init_net(net, args.init_w_type, args.init_b_type)
         # If use log file, then get results from csv file
         if use_csv and measure in proxy_log:
 
@@ -180,12 +184,14 @@ class NATS(NASBench):
                 arch_index = self.api.query_index_by_arch(self.cell)
                 info = self.api.get_cost_info(arch_index, dataset)
                 result[measure] = info[measure]
+            
+            elif measure == 'macs':
+                input = torch.randn(len(train_loader), 3, 32, 32)
+                result['macs'], _ = profile(net, inputs=(input, ), verbose=False)   
                 
             # If None of above, then evaluate the architecture using zero-cost proxies
             else: 
-                cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
-                net = cell.to(self.device)
-                init_net(net, args.init_w_type, args.init_b_type)
+
                 
                 measures = predictive.find_measures(net, 
                                                     train_loader, 
