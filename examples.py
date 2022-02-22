@@ -67,32 +67,5 @@ args = argparse.Namespace(api_loc='',
 api = NAS101.NAS101()
 ind = [2, 3, 0, 2, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0,
         1, 1, 1]
-
-def convert_ind_tri(ind, ops_none=None):
-    res = np.zeros((7, 7), dtype=int)
-    # print(ind)
-    k = 0
-    for i in range(7):
-        for j in range(i + 1, 7):
-            res[i][j] = ind[k]
-            k += 1
-    if ops_none != None:
-        res = np.delete(res, ops_none, axis=1)
-        res = np.delete(res, ops_none, axis=0)
-    return res 
-
-def get_operations(ind):
-    ops_none = []
-    ops = ['input']
-    for i in range(0, 5):
-        if ind[i] == 0:
-            ops_none.append(i)
-        elif ind[i] == 1:
-            ops.append('conv1x1-bn-relu')
-        elif ind[i] == 2:
-            ops.append('conv3x3-bn-relu')
-        else:
-            ops.append('maxpool3x3')
-    ops.append('output')
     
 print(api.evaluate_arch(args, ind=ind[:5], measure='test_accuracy', train_loader=train_loader, epoch=108))

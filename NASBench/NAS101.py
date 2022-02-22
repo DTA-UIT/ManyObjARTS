@@ -132,7 +132,7 @@ class NAS101(NASBench):
         
         ops, ops_none = get_operations(ind)
         
-        self.cell = api.ModelSpec(convert_ind_triangle(ind, ops_none), ops)
+        self.cell = api.ModelSpec(convert_ind_triangle(ind[5:], ops_none), ops)
          
         if use_csv and not proxy_log:
             raise Exception("No proxy log to query csv")
