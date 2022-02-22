@@ -1,3 +1,4 @@
+import torch
 import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import copy
@@ -44,6 +45,9 @@ class NAS101(NASBench):
         url = os.path.dirname(__file__)
         self.api = api.NASBench(f"{url[:-len('/NASBench')] + '/source/nasbench/nasbench_full.tfrecord'}")
         self.cell = None
+        self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+        print(f'Running on device: {self.device}')
+   
     
     def query_bench(self, ind, ops, metric=None, epochs=108):
         """
@@ -164,7 +168,6 @@ class NAS101(NASBench):
             
             # If measure is MACS
             elif measure in ['macs']:
-                import torch
                 input = torch.randn(1, 3, 32, 32)
                 result['macs'], _ = profile(model, inputs=(input, ), verbose=False)
             
