@@ -131,6 +131,7 @@ class NAS101(NASBench):
             return ops, ops_none
         
         ops, ops_none = get_operations(ind)
+        ind = ind[5:]
         
         self.cell = api.ModelSpec(convert_ind_triangle(ind[5:], ops_none), ops)
          
