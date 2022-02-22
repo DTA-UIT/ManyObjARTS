@@ -17,3 +17,4 @@ class NASBench(ABC):
     
     def query_bench(self, metric=None):
         pass
+

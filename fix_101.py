@@ -16,7 +16,8 @@ invalid_ind = [[0, 0, 0, 0, 0, 0, 0,],
                 [0, 0, 0, 0, 0, 0, 0,],
                 [0, 0, 0, 0, 0, 0, 0,],
                 [0, 0, 0, 0, 0, 0, 0,]] 
-api.query_bench(invalid_ind)
+# api.query_bench(invalid_ind)
+api.repair_connection(valid_ind)
 # print(api.repair_connection(ind = [[0, 0, 0, 0, 0, 0, 0,],
 #                         [0, 0, 0, 0, 0, 0, 0,],
 #                         [0, 0, 0, 0, 0, 0, 0,],
@@ -24,3 +25,5 @@ api.query_bench(invalid_ind)
 #                         [0, 0, 0, 0, 0, 0, 0,],
 #                         [0, 0, 0, 0, 0, 0, 0,],
 #                         [0, 0, 0, 0, 0, 0, 0,]]))
+
+
