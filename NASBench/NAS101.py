@@ -110,7 +110,7 @@ class NAS101(NASBench):
                 for j in range(i + 1, 7):
                     res[i][j] = ind[k]
                     k += 1
-            if len(ops_none) != 0:
+            if ops_none != None:
                 res = np.delete(res, ops_none, axis=1)
                 res = np.delete(res, ops_none, axis=0)
             return res 
@@ -132,7 +132,8 @@ class NAS101(NASBench):
         
         ops, ops_none = get_operations(ind)
         ind = convert_ind_triangle(ind[5:], ops_none)
-        self.cell = api.ModelSpec(ind, ops)
+        
+        self.cell = api.ModelSpec(convert_ind_triangle(ind[5:], ops_none), ops)
          
         if use_csv and not proxy_log:
             raise Exception("No proxy log to query csv")
@@ -169,7 +170,7 @@ class NAS101(NASBench):
             
             # If use zero-cost methods
             else:
-                model.to(args.device)
+                model.to(self.device)
                 init_net(model, args.init_w_type, args.init_b_type)
                 
                 measures = predictive.find_measures(model, 
