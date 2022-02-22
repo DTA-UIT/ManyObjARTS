@@ -1,4 +1,5 @@
 import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import copy
 import numpy as np
 import matplotlib.pyplot as plt
@@ -10,7 +11,6 @@ from ZeroCostNas.foresight.weight_initializers import init_net
 from source.nasbench.nasbench import api
 from thop import profile
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 def get_num_classes(args):
     if args.dataset == 'cifar100':
