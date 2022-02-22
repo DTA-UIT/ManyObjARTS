@@ -6,8 +6,8 @@ __pycache__
 .tar.gz
 __ipynb_checkpoints__
 .DS_Store
-source/nasbench
 NASBenchHW
+source/nasbench/nasbench_full.tfrecord
 NATS-tss-v1_0-3ffb9-simple
 model_reconstruct.py
 nasbench301
