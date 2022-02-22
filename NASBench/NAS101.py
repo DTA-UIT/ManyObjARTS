@@ -104,6 +104,8 @@ class NAS101(NASBench):
         result[measure] -- Result of evaluation at the present dataset
         """
         
+        self.cell = api.ModelSpec(ind, ops)
+         
         if use_csv and not proxy_log:
             raise Exception("No proxy log to query csv")
         
