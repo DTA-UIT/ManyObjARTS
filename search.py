@@ -45,8 +45,8 @@ class ProblemWrapper(Problem):
             self.res_of_run['igd_normalize'].append(igd_normalize.do(archive_transform_2obj_normalize))
             self.res_of_run['archive_transform_2obj'].append(archive_transform_2obj)
             self.res_of_run['archive_transform_2obj_normalize'].append(archive_transform_2obj_normalize)
-            self.res_of_run['archive_genotype'].append(archive_genotype)
-            self.res_of_run['archive_phenotype'].append(archive_phenotype)
+            self.res_of_run['archive_genotype'].append(self.archive_genotype)
+            self.res_of_run['archive_phenotype'].append(self.archive_phenotype)
 
             print('igd:', igd.do(archive_transform_2obj))
     
