@@ -25,10 +25,10 @@ class ProblemWrapper(Problem):
     def calc_IGD(self, pop, objectives):
         for i in range(len(objectives)):
             ind_obj = objectives[i]
-            archive_phenotype, archive_genotype = Algorithm.get_new_archive(ind_obj, archive_phenotype, archive_genotype, pop[i])
+            self.archive_phenotype, self.archive_genotype = Algorithm.get_new_archive(ind_obj, self.archive_phenotype, self.archive_genotype, pop[i])
         
             archive_transform_2obj = []
-            for ind in archive_genotype:
+            for ind in self.archive_genotype:
                 performance = self.api.evaluate_arch(ind=ind, dataset=self.dataset, measure='test-accuracy', epoch=200, use_csv=True, proxy_log=self.proxy_log['test-accuracy'])
                 flops = self.api.evaluate_arch(ind=ind, dataset=self.dataset, measure='flops', use_csv=True, proxy_log=self.proxy_log['flops'])
                 archive_transform_2obj.append((flops, performance))
