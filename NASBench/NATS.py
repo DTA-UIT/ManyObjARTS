@@ -160,7 +160,7 @@ class NATS(NASBench):
         }
 
         # If use log file, then get results from csv file
-        if use_csv and measure in proxy_log:
+        if use_csv:
 
             def get_index_csv (ind):
                 index = 0
