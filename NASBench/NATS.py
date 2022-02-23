@@ -30,10 +30,11 @@ class NATS(NASBench):
         url = os.path.dirname(__file__)
 
         # Call API
-        if use_colab:
-            self.api = create("/content/drive/MyDrive/DTA/NATS Bench/NATS-tss-v1_0-3ffb9-simple", 'tss', fast_mode=True, verbose=False)
-        else:
-            self.api = create(f"{url[:-len('/NASBench')] + '/source/NATS-tss-v1_0-3ffb9-simple/'}", 'tss', fast_mode=True, verbose=False)
+        self.api = None
+        # if use_colab:
+        #     self.api = create("/content/drive/MyDrive/DTA/NATS Bench/NATS-tss-v1_0-3ffb9-simple", 'tss', fast_mode=True, verbose=False)
+        # else:
+        #     self.api = create(f"{url[:-len('/NASBench')] + '/source/NATS-tss-v1_0-3ffb9-simple/'}", 'tss', fast_mode=True, verbose=False)
             
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         print(f'Running on device: {self.device}')
