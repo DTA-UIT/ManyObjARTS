@@ -143,7 +143,8 @@ class NATS(NASBench):
         #     'train-accuracy' if dataset == 'cifar10' else 'valid-accuracy': proxy_log[7] if use_csv else None
         # }
 
-        proxy_log = genfromtxt(proxy_log, delimiter=',')        
+        proxy_file = proxy_log   
+        proxy_log = genfromtxt(proxy_log, delimiter=',')     
 
         result = {
             'flops': 0,
@@ -176,6 +177,9 @@ class NATS(NASBench):
             if measure == 'jacob_cov' and np.isnan(result['jacob_cov']):
                 result['jacob_cov'] = -1e9
 
+            if 'synflow' in proxy_file: 
+                result[measure] = np.mean(result[measure], axis=1)           
+            
         else:
             # If measure is accuracy, query at a specific epoch
             if epoch is not None and measure in ['test-accuracy', 'train-accuracy', 'valid-accuracy']: 
