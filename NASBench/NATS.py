@@ -12,7 +12,6 @@ from ZeroCostNas.foresight.weight_initializers import init_net
 from ZeroCostNas.OpCounter.thop import profile
 
 def get_num_classes(args):
-    print(args)
     if args.dataset == 'cifar100':
         return 100
     if args.dataset == 'cifar10':
@@ -157,6 +156,7 @@ class NATS(NASBench):
         }
         cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
         init_net(cell, args.init_w_type, args.init_b_type)
+
         # If use log file, then get results from csv file
         if use_csv and measure in proxy_log:
 
