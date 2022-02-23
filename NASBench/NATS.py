@@ -170,7 +170,7 @@ class NATS(NASBench):
 
             arch_index = get_index_csv(ind) # Get index of architecture from log file
 
-            result[measure] = proxy_log[measure][arch_index]
+            result[measure] = proxy_log[arch_index]
 
             if measure == 'jacob_cov' and np.isnan(result['jacob_cov']):
                 result['jacob_cov'] = -1e9
