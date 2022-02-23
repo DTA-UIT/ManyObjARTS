@@ -59,7 +59,7 @@ class ProblemWrapper(Problem):
             if obj != 'test-accuracy':
                 objectives_names.append(obj)
         
-        flops, testacc, synflow, latency, jacob_cov, macs, params = [], [], [], [], [], [], []
+        testacc = []
         objectives_result = {}
         for obj in objectives_names:
             objectives_result[obj] = []
@@ -82,7 +82,7 @@ class ProblemWrapper(Problem):
         testacc_flops = np.array(np.stack((objectives_result['flops'], testacc), axis=-1))
         print(f'testacc_flops: {testacc_flops}')
         
-        self.calc_IGD(pop=designs, generation_count=self.generation_count, objectives=objectives)
+        self.calc_IGD(pop=designs, objectives=objectives)
 
         out['F'] = np.array(objectives)
         end = time.time()
