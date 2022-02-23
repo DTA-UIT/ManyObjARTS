@@ -7,7 +7,7 @@ from algorithm.utils.algorithm import Algorithm
 from algorithm.pymoo.pymoo.factory import get_performance_indicator
 
 class ProblemWrapper(Problem):
-    def __init__(self, api, argparse, pareto_front_url, flops_log_url, proxy_log):
+    def __init__(self, api, argparse, pareto_front_url, proxy_log):
         super().__init__()
         self.api = api
         self.archive_phenotype = []
@@ -18,7 +18,7 @@ class ProblemWrapper(Problem):
         self.proxy_log = proxy_log # {'test-accuracy': '', 'flops': ''}
         self.argparse = argparse
         self.pareto_front = np.genfromtxt(pareto_front_url, delimiter=',')
-        self.flops_log = flops_log_url
+        self.flops_log = np.genfromtxt(proxy_log['flops'])
         self.pareto_front_normalize = self.pareto_front.copy()
         self.pareto_front_normalize[:, 0] = (self.pareto_front_normalize[:, 0] - self.flops_log.min()) / (self.flops_log.max() - self.flops_log.min())
         self.pareto_front_normalize[:, 1] = self.pareto_front_normalize[:, 1] / 100
@@ -59,9 +59,9 @@ class ProblemWrapper(Problem):
         flops, testacc, synflow = [], [], []
 
         for design in designs:
-            flops.append(self.api.evaluate_arch(ind=design, dataset=self.dataset, measure='flops', use_csv=True))
-            testacc.append(self.api.evaluate_arch(ind=design, dataset=self.dataset, measure='test-accuracy', epoch=200, use_csv=True))
-            synflow.append(-1 * self.api.evaluate_arch(ind=design, dataset=self.dataset, measure='synflow', use_csv=True))
+            flops.append(self.api.evaluate_arch(ind=design, dataset=self.dataset, measure='flops', use_csv=True, proxy_log=self.proxy_log['flops']))
+            testacc.append(self.api.evaluate_arch(ind=design, dataset=self.dataset, measure='test-accuracy', epoch=200, use_csv=True, proxy_log=self.proxy_log['test-accuracy']))
+            synflow.append(-1 * self.api.evaluate_arch(ind=design, dataset=self.dataset, measure='synflow', use_csv=True, proxy_log=self.proxy_log['synflow']))
 
         objectives = np.stack((flops, synflow), axis=-1)
         testacc_flops = np.array(np.stack((flops, testacc), axis=-1))
