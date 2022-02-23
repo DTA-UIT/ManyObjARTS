@@ -75,7 +75,7 @@ class ProblemWrapper(Problem):
 
         objectives = np.array(objectives_result['flops'])
         for obj in objectives_names:
-            objectives = np.array(np.stack(objectives, np.array(objectives_result[obj]), axis=-1))
+            objectives = np.array(np.stack((objectives, np.array(objectives_result[obj])), axis=-1))
 
         testacc_flops = np.array(np.stack((objectives_result['flops'], testacc), axis=-1))
         self.calc_IGD(pop=designs, generation_count=self.generation_count, objectives=objectives)
