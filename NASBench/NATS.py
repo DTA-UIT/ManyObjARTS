@@ -143,8 +143,6 @@ class NATS(NASBench):
         #     'train-accuracy' if dataset == 'cifar10' else 'valid-accuracy': proxy_log[7] if use_csv else None
         # }
 
-        proxy_file = proxy_log   
-        proxy_log = genfromtxt(proxy_log, delimiter=',')     
 
         result = {
             'flops': 0,
@@ -163,7 +161,8 @@ class NATS(NASBench):
 
         # If use log file, then get results from csv file
         if use_csv:
-
+            proxy_file = proxy_log   
+            proxy_log = genfromtxt(proxy_log, delimiter=',')     
             def get_index_csv (ind):
                 index = 0
                 for i in range(len(ind)):
