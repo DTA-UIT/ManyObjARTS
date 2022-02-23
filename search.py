@@ -7,16 +7,14 @@ from algorithm.utils.algorithm import Algorithm
 from algorithm.pymoo.pymoo.factory import get_performance_indicator
 
 class ProblemWrapper(Problem):
-    def __init__(self, n_var, n_obj, xl, xu, api, argparse, pareto_front_url, proxy_log):
+    def __init__(self, n_var, n_obj, xl, xu, api, pareto_front_url, proxy_log):
         super().__init__(n_var=n_var, n_obj=n_obj, xl=xl, xu=xu)
         self.api = api
         self.archive_phenotype = []
         self.archive_genotype = []
         self.generation_count = 0
-        self.seed = 0
         self.dataset = ""
         self.proxy_log = proxy_log # {'test-accuracy': '', 'flops': ''}
-        self.argparse = argparse
         self.pareto_front = np.genfromtxt(pareto_front_url, delimiter=',')
         self.flops_log = np.genfromtxt(proxy_log['flops'])
         self.pareto_front_normalize = self.pareto_front.copy()
@@ -54,7 +52,7 @@ class ProblemWrapper(Problem):
     
     def _evaluate(self, designs, out, *args, **kwargs):
         start = time.time()
-        print(f'Gen: {self.generation_count} - seed: {self.seed}')
+        print(f'Gen: {self.generation_count}')
 
         objectives_names = [] # List of objectives names
         for obj, _ in self.proxy_log:
@@ -80,7 +78,7 @@ class ProblemWrapper(Problem):
             objectives = np.array(np.stack(objectives, np.array(objectives_result[obj])))
 
         testacc_flops = np.array(np.stack((objectives_result['flops'], testacc), axis=-1))
-        self.calc_IGD(pop=designs, generation_count=self.generation_count, seed=self.seed, objectives=objectives)
+        self.calc_IGD(pop=designs, generation_count=self.generation_count, objectives=objectives)
 
         out['F'] = np.array(objectives)
         end = time.time()
