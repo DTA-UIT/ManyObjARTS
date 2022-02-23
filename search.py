@@ -3,7 +3,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import time
 import numpy as np
 from algorithm.pymoo.pymoo.core.problem import Problem
-
+from algorithm.utils.algorithm import Algorithm
 from algorithm.pymoo.pymoo.factory import get_performance_indicator
 
 class ProblemWrapper(Problem):
@@ -27,7 +27,7 @@ class ProblemWrapper(Problem):
     def calc_IGD(self, pop, objectives):
         for i in range(len(objectives)):
             ind_obj = objectives[i]
-            archive_phenotype, archive_genotype = self.get_new_archive(ind_obj, archive_phenotype, archive_genotype, pop[i])
+            archive_phenotype, archive_genotype = Algorithm.get_new_archive(ind_obj, archive_phenotype, archive_genotype, pop[i])
         
             archive_transform_2obj = []
             for ind in archive_genotype:
