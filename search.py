@@ -56,13 +56,13 @@ class ProblemWrapper(Problem):
 
         objectives_names = [] # List of objectives names
         for obj, _ in self.proxy_log:
-            objectives_names.append(obj)
+            if obj != 'test-accuracy':
+                objectives_names.append(obj)
         
         flops, testacc, synflow, latency, jacob_cov, macs, params = [], [], [], [], [], [], []
         objectives_result = {}
         for obj in objectives_names:
-            if obj != 'test-accuracy':
-                objectives_result[obj] = []
+            objectives_result[obj] = []
         
         for design in designs:
             testacc.append(self.api.evaluate_arch(ind=design, dataset=self.dataset, measure='test-accuracy', epoch=200, use_csv=True, proxy_log=self.proxy_log['test-accuracy']))
