@@ -55,7 +55,7 @@ class ProblemWrapper(Problem):
         print(f'Gen: {self.generation_count}')
 
         objectives_names = [] # List of objectives names
-        for obj, _ in self.proxy_log:
+        for obj in self.proxy_log:
             if obj != 'test-accuracy':
                 objectives_names.append(obj)
         
