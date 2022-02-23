@@ -22,7 +22,7 @@ def get_num_classes(args):
     raise Exception('Unknown dataset')
 
 class NATS(NASBench):
-    def __init__(self, use_colab=True):
+    def __init__(self, use_colab=True, debug=False):
         super().__init__()
         
         # Define operations
@@ -30,11 +30,13 @@ class NATS(NASBench):
         url = os.path.dirname(__file__)
 
         # Call API
-        self.api = None
-        # if use_colab:
-        #     self.api = create("/content/drive/MyDrive/DTA/NATS Bench/NATS-tss-v1_0-3ffb9-simple", 'tss', fast_mode=True, verbose=False)
-        # else:
-        #     self.api = create(f"{url[:-len('/NASBench')] + '/source/NATS-tss-v1_0-3ffb9-simple/'}", 'tss', fast_mode=True, verbose=False)
+        if debug:
+            self.api = None
+        else:
+            if use_colab:
+                self.api = create("/content/drive/MyDrive/DTA/NATS Bench/NATS-tss-v1_0-3ffb9-simple", 'tss', fast_mode=True, verbose=False)
+            else:
+                self.api = create(f"{url[:-len('/NASBench')] + '/source/NATS-tss-v1_0-3ffb9-simple/'}", 'tss', fast_mode=True, verbose=False)
             
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         print(f'Running on device: {self.device}')
