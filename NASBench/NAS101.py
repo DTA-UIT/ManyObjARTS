@@ -100,6 +100,7 @@ class NAS101(NASBench):
                                     'training_time',
                                     'flops' - MB,
                                     'macs' - GB,
+                                    'params',
                                     'synflow',
                                     'jacob_cov',
                                     'snip',
@@ -171,7 +172,7 @@ class NAS101(NASBench):
             elif measure in ['trainable_parameters']:
                 result[measure] = self.query_bench(ind, ops, metric=measure)
             
-            elif measure in ['macs']:
+            elif measure in ['macs', 'params']:
                 if args == None:
                     raise Exception('No argparse to get num classes')
                 model = nasbench1.Network(self.cell, 
@@ -180,7 +181,7 @@ class NAS101(NASBench):
                         num_mods=3,
                         num_classes=get_num_classes(args))
                 input = torch.randn(len(train_loader), 3, 64, 64)
-                result['macs'], _ = profile(model, inputs=(input, ), verbose=False)
+                result['macs'], result['params'] = profile(model, inputs=(input, ), verbose=False)
             
             elif measure == 'flops':
                 if args == None:
