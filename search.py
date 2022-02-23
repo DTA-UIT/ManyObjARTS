@@ -20,7 +20,18 @@ class ProblemWrapper(Problem):
         self.pareto_front_normalize = self.pareto_front.copy()
         self.pareto_front_normalize[:, 0] = (self.pareto_front_normalize[:, 0] - self.flops_log.min()) / (self.flops_log.max() - self.flops_log.min())
         self.pareto_front_normalize[:, 1] = self.pareto_front_normalize[:, 1] / 100
-        self.res_of_run = dict()
+        self.res_of_run = {
+            'time': [],
+            'igd': [],
+            'igd_normalize': [],
+            'archive_genotype': [],
+            'archive_phenotype': [],
+            'log_testacc': [],
+            'log_objectives': [],
+            'log_pop': [],
+            'archive_transform_2obj': [],
+            'archive_transform_2obj_normalize': [],
+        }
         
     def calc_IGD(self, pop, objectives):
         for i in range(len(objectives)):
