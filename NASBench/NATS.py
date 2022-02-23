@@ -177,7 +177,7 @@ class NATS(NASBench):
                 result['jacob_cov'] = -1e9
 
             if 'synflow' in proxy_file: 
-                result = np.mean(result[measure], axis=1)           
+                result = np.mean(result[measure])           
                 return result
             
         else:
