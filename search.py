@@ -26,7 +26,7 @@ class ProblemWrapper(Problem):
             'igd_normalize': [],
             'archive_genotype': [],
             'archive_phenotype': [],
-            'log_testacc': [],
+            'log_testacc_flops': [],
             'log_objectives': [],
             'log_pop': [],
             'archive_transform_2obj': [],
