@@ -178,14 +178,14 @@ class NATS(NASBench):
                 result[measure] = self.query_bench(ind, dataset, epoch, measure)
 
             # If get flops info, then query from NATSBench
-            elif measure in ['flops', 'latency', 'params']: 
+            elif measure in ['flops', 'latency', 'params']:
                 self.convert_individual_to_query(ind)
                 arch_index = self.api.query_index_by_arch(self.cell)
                 info = self.api.get_cost_info(arch_index, dataset)
                 result[measure] = info[measure]
             
             elif measure == 'macs':
-                input = torch.randn(len(train_loader), 3, 32, 32)
+                input = torch.randn(len(train_loader), 3, 64, 64)
                 result['macs'], _ = profile(cell, inputs=(input, ), verbose=False)   
                 
             # If None of above, then evaluate the architecture using zero-cost proxies

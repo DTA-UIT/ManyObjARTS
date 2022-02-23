@@ -170,18 +170,18 @@ class NAS101(NASBench):
                 result[measure] = self.query_bench(ind, ops, metric=measure)
             
             elif measure in ['macs']:
-                input = torch.randn(len(train_loader), 3, 32, 32)
+                input = torch.randn(len(train_loader), 3, 64, 64)
                 result['macs'], _ = profile(model, inputs=(input, ), verbose=False)
             
             elif measure == 'flops':
-                result['flops'], _ = get_model_infos(model, (len(train_loader), 3, 32, 32))
+                result['flops'], _ = get_model_infos(model, (len(train_loader), 3, 64, 64))
             
             # If use zero-cost methods
             else:
-                model.to(self.device)
-                init_net(model, args.init_w_type, args.init_b_type)
+                net = model.to(self.device)
+                init_net(net, args.init_w_type, args.init_b_type)
                 
-                measures = predictive.find_measures(model, 
+                measures = predictive.find_measures(net, 
                                                     train_loader, 
                                                     (args.dataload, args.dataload_info, get_num_classes(args)), 
                                                     self.device,
