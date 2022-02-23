@@ -12,6 +12,7 @@ from ZeroCostNas.foresight.weight_initializers import init_net
 from ZeroCostNas.OpCounter.thop import profile
 
 def get_num_classes(args):
+    print(args)
     if args.dataset == 'cifar100':
         return 100
     if args.dataset == 'cifar10':

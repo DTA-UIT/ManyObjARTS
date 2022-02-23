@@ -1,4 +1,4 @@
-from NAS.ZeroCostNas.foresight.dataset import get_cifar_dataloaders
+from ZeroCostNas.foresight.dataset import get_cifar_dataloaders
 import argparse
 
 dataset = 'cifar10'
@@ -36,11 +36,11 @@ api.evaluate_arch(args=args, ind=[2, 3, 1, 0, 4, 2], dataset=dataset, measure='s
 NAS-Bench-101
 """
 
-from NASBench import NAS101
-from ZeroCostNas.foresight.dataset import get_cifar_dataloaders
-import numpy as np
-import argparse
+# from NASBench import NAS101
+# from ZeroCostNas.foresight.dataset import get_cifar_dataloaders
+# import numpy as np
+# import argparse
 
-api = NAS101.NAS101(use_colab=False)
-print(api.evaluate_arch(args, ind=[2, 3, 0, 2, 2, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
-        0, 1, 1, 0], measure='macs', train_loader=train_loader))
+# api = NAS101.NAS101(use_colab=False)
+# print(api.evaluate_arch(args, ind=[2, 3, 0, 2, 2, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
+#         0, 1, 1, 0], measure='macs', train_loader=train_loader))
