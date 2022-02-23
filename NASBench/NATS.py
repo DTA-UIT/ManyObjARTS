@@ -3,6 +3,7 @@ import random
 import numpy as np
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from NASBench.NASBench import NASBench
+from numpy import genfromtxt
 from nats_bench import create
 from pprint import pprint
 import torch
@@ -87,7 +88,7 @@ class NATS(NASBench):
         
         return query_bench if measure == None else query_bench[measure] 
     
-    def evaluate_arch(self, args, ind, dataset, measure, train_loader, use_csv=False, proxy_log=None, epoch=None) -> float:
+    def evaluate_arch(self, ind, dataset, measure, args=None, train_loader=None, use_csv=False, proxy_log=None, epoch=None) -> float:
         """
         Function to evaluate an architecture
         
@@ -116,7 +117,7 @@ class NATS(NASBench):
                                     'fisher').
         train_loader -- Data train loader
         use_csv (optional) -- To choose whether to use csv file to get results (Bool)
-        proxy_log (optional, but required if use_csv is True) -- Log file [synflow, jacov, test-acc, flops]
+        proxy_log (optional, but required if use_csv is True) -- Log file url [synflow, jacov, test-acc, flops]
         epoch -- If measure is accuracy, this is the epoch to evaluate (int)
 
         Returns:
@@ -129,16 +130,19 @@ class NATS(NASBench):
         if (measure == 'test-accuracy' or measure == 'train-accuracy') and epoch == None:
             raise Exception('No specific epoch for test/train accuracy')
         
-        proxy_log = {
-            'synflow': np.mean(proxy_log[0], axis=1) if use_csv else None,
-            'jacob_cov': proxy_log[1] if use_csv else None,
-            'test-accuracy': proxy_log[2] if use_csv else None,
-            'flops': proxy_log[3] if use_csv else None,
-            'latency': proxy_log[4] if use_csv else None,
-            'macs': proxy_log[5] if use_csv else None,
-            'params': proxy_log[6] if use_csv else None,
-            'train-accuracy' if dataset == 'cifar10' else 'valid-accuracy': proxy_log[7] if use_csv else None
-        }
+        
+        # proxy_log = {
+        #     'synflow': np.mean(proxy_log[0], axis=1) if use_csv else None,
+        #     'jacob_cov': proxy_log[1] if use_csv else None,
+        #     'test-accuracy': proxy_log[2] if use_csv else None,
+        #     'flops': proxy_log[3] if use_csv else None,
+        #     'latency': proxy_log[4] if use_csv else None,
+        #     'macs': proxy_log[5] if use_csv else None,
+        #     'params': proxy_log[6] if use_csv else None,
+        #     'train-accuracy' if dataset == 'cifar10' else 'valid-accuracy': proxy_log[7] if use_csv else None
+        # }
+
+        proxy_log = genfromtxt(proxy_log, delimiter=',')        
 
         result = {
             'flops': 0,
@@ -154,8 +158,6 @@ class NATS(NASBench):
             'grasp': 0,
             'fisher': 0
         }
-        cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
-        init_net(cell, args.init_w_type, args.init_b_type)
 
         # If use log file, then get results from csv file
         if use_csv and measure in proxy_log:
@@ -191,6 +193,10 @@ class NATS(NASBench):
                 
             # If None of above, then evaluate the architecture using zero-cost proxies
             else: 
+                if args == None and train_loader == None:
+                    raise Exception('No args and train_loader')
+                cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
+                init_net(cell, args.init_w_type, args.init_b_type)
                 net = cell.to(self.device)        
                 measures = predictive.find_measures(net, 
                                                     train_loader, 
