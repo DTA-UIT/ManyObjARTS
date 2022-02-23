@@ -7,8 +7,8 @@ from algorithm.utils.algorithm import Algorithm
 from algorithm.pymoo.pymoo.factory import get_performance_indicator
 
 class ProblemWrapper(Problem):
-    def __init__(self, api, argparse, pareto_front_url, proxy_log):
-        super().__init__()
+    def __init__(self, n_var, n_obj, xl, xu, api, argparse, pareto_front_url, proxy_log):
+        super().__init__(n_var=n_var, n_obj=n_obj, xl=xl, xu=xu)
         self.api = api
         self.archive_phenotype = []
         self.archive_genotype = []
