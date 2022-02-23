@@ -1,37 +1,25 @@
 import os, sys
-import time
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from pymoo.pymoo.core.problem import Problem
+import numpy as np
+from algorithm import Algorithm
+from pymoo.pymoo.factory import get_performance_indicator
+from pymoo.pymoo.algorithms.base.genetic import GeneticAlgorithm
+from pymoo.pymoo.algorithms.moo.nsga2 import NSGA2
 
-class ProblemWrapper(Problem):
-    def __init__(self):
+class NSGAII(NSGA2):
+    def __init__(self, api, pareto_front_url, flops_log_url, proxy_log):
         super().__init__()
+        self.api = api
+        self.archive_phenotype = []
+        self.archive_genotype = []
         self.generation_count = 0
-    
-    def _evaluate(self, x, out, *args, **kwargs):
-        start = time.time()
-        print(f'Gen: {generation_count} - seed: {seed}')
 
-
-        flops, testacc, synflow = [], [], []
-
-        for design in designs:
-            flops.append(api.evaluate_arch(args=argparse, ind=design, dataset=dataset, measure='flops', use_csv=True, train_loader=train_loader, proxy_log=proxy_log))
-            testacc.append(api.evaluate_arch(args=argparse, ind=design, dataset=dataset, measure='test-accuracy', epoch=200, use_csv=True, train_loader=train_loader, proxy_log=proxy_log))
-            synflow.append(-1 * api.evaluate_arch(args=argparse, ind=design, dataset=dataset, measure='synflow', use_csv=True, train_loader=train_loader, proxy_log=proxy_log))
-
-        objectives = np.stack((flops, synflow), axis=-1)
-        testacc_flops = np.array(np.stack((flops, testacc), axis=-1))
-        calc_IGD(pop=designs, generation_count=generation_count, seed=seed, objectives=objectives)
-
-        out['F'] = np.array(objectives)
-        end = time.time()
-        elapsed_time = end - start
-        print('time:', elapsed_time)
-
-        res_of_run['time'].append(elapsed_time)
-        res_of_run['log_testacc'].append(testacc)
-        res_of_run['log_objectives'].append(objectives)
-        res_of_run['log_pop'].append(designs)
-
-        generation_count +=1    
+        self.seed = 0
+        self.dataset = ""
+        self.pareto_front = np.genfromtxt(pareto_front_url, delimiter=',')
+        self.flops_log = flops_log_url
+        self.pareto_front_normalize = self.pareto_front.copy()
+        self.pareto_front_normalize[:, 0] = (self.pareto_front_normalize[:, 0] - self.flops_log.min()) / (self.flops_log.max() - self.flops_log.min())
+        self.pareto_front_normalize[:, 1] = self.pareto_front_normalize[:, 1] / 100
+        self.res_of_run = dict()
+        
