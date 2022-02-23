@@ -56,15 +56,30 @@ class ProblemWrapper(Problem):
         start = time.time()
         print(f'Gen: {self.generation_count} - seed: {self.seed}')
 
-        flops, testacc, synflow = [], [], []
-
+        objectives_names = [] # List of objectives names
+        for obj, _ in self.proxy_log:
+            objectives_names.append(obj)
+        
+        flops, testacc, synflow, latency, jacob_cov, macs, params = [], [], [], [], [], [], []
+        objectives_result = {}
+        for obj in objectives_names:
+            if obj != 'test-accuracy':
+                objectives_result[obj] = []
+        
         for design in designs:
-            flops.append(self.api.evaluate_arch(ind=design, dataset=self.dataset, measure='flops', use_csv=True, proxy_log=self.proxy_log['flops']))
             testacc.append(self.api.evaluate_arch(ind=design, dataset=self.dataset, measure='test-accuracy', epoch=200, use_csv=True, proxy_log=self.proxy_log['test-accuracy']))
-            synflow.append(-1 * self.api.evaluate_arch(ind=design, dataset=self.dataset, measure='synflow', use_csv=True, proxy_log=self.proxy_log['synflow']))
+            for obj in objectives_names:
+                if obj in ['synflow', 'jacob_cov']:
+                    objectives_result[obj].append(-1 * self.api.evaluate_arch(ind=design, dataset=self.dataset, measure=obj, use_csv=True, proxy_log=self.proxy_log[obj]))
+                else:
+                    objectives_result[obj].append(self.api.evaluate_arch(ind=design, dataset=self.dataset, measure=obj, use_csv=True, proxy_log=self.proxy_log[obj]))
+        
 
-        objectives = np.stack((flops, synflow), axis=-1)
-        testacc_flops = np.array(np.stack((flops, testacc), axis=-1))
+        objectives = np.array(objectives_result['flops'])
+        for obj in objectives_names:
+            objectives = np.array(np.stack(objectives, np.array(objectives_result[obj])))
+
+        testacc_flops = np.array(np.stack((objectives_result['flops'], testacc), axis=-1))
         self.calc_IGD(pop=designs, generation_count=self.generation_count, seed=self.seed, objectives=objectives)
 
         out['F'] = np.array(objectives)
