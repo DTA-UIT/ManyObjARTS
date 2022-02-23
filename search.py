@@ -59,9 +59,9 @@ class ProblemWrapper(Problem):
         flops, testacc, synflow = [], [], []
 
         for design in designs:
-            flops.append(self.api.evaluate_arch(args=self.argparse, ind=design, dataset=self.dataset, measure='flops', use_csv=True, train_loader=train_loader, proxy_log=proxy_log))
-            testacc.append(self.api.evaluate_arch(args=self.argparse, ind=design, dataset=self.dataset, measure='test-accuracy', epoch=200, use_csv=True, train_loader=train_loader, proxy_log=proxy_log))
-            synflow.append(-1 * self.api.evaluate_arch(args=self.argparse, ind=design, dataset=self.dataset, measure='synflow', use_csv=True, train_loader=train_loader, proxy_log=proxy_log))
+            flops.append(self.api.evaluate_arch(ind=design, dataset=self.dataset, measure='flops', use_csv=True))
+            testacc.append(self.api.evaluate_arch(ind=design, dataset=self.dataset, measure='test-accuracy', epoch=200, use_csv=True))
+            synflow.append(-1 * self.api.evaluate_arch(ind=design, dataset=self.dataset, measure='synflow', use_csv=True))
 
         objectives = np.stack((flops, synflow), axis=-1)
         testacc_flops = np.array(np.stack((flops, testacc), axis=-1))
