@@ -25,7 +25,7 @@ def get_num_classes(args):
 
 class NAS101(NASBench):
     __model_path = None
-    def __init__(self, use_colab=True):
+    def __init__(self, use_colab=True, debug=True):
         super().__init__()
         
         """ 
@@ -44,10 +44,13 @@ class NAS101(NASBench):
         ALLOWED_EDGES = [0, 1]   # Binary adjacency matrix
         
         url = os.path.dirname(__file__)
-        if not use_colab:
-            self.api = api.NASBench(f"{url[:-len('/NASBench')] + '/source/nasbench/nasbench_full.tfrecord'}")
+        if debug:
+            if not use_colab:
+                self.api = api.NASBench(f"{url[:-len('/NASBench')] + '/source/nasbench/nasbench_full.tfrecord'}")
+            else:
+                self.api = api.NASBench("/content/drive/MyDrive/DTA/Tân/NASBench101/nasbench_full.tfrecord")
         else:
-            self.api = api.NASBench("/content/drive/MyDrive/DTA/Tân/NASBench101/nasbench_full.tfrecord")
+            self.api = None
         self.cell = None
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         print(f'Running on device: {self.device}')
@@ -82,7 +85,7 @@ class NAS101(NASBench):
         self.cell = api.ModelSpec(ind, ops)
         return self.api.is_valid(self.cell)
     
-    def evaluate_arch(self, args, ind, measure, train_loader, use_csv=False, proxy_log=None, epoch=None):
+    def evaluate_arch(self, ind, measure, args=None, train_loader=None, use_csv=False, proxy_log=None, epoch=None):
         """
         Function to evaluate an architecture
         
@@ -153,11 +156,10 @@ class NAS101(NASBench):
         }
         
         result = {}
-        model = nasbench1.Network(self.cell, 
-                                stem_out=128, 
-                                num_stacks=3, 
-                                num_mods=3,
-                                num_classes=get_num_classes(args))
+
+        # If query from csv file and exists respective log file
+        if use_csv and measure in proxy_log:
+            pass 
 
         # If don't use log file, then evaluate directly from NASBench101
         if not use_csv:
@@ -170,14 +172,37 @@ class NAS101(NASBench):
                 result[measure] = self.query_bench(ind, ops, metric=measure)
             
             elif measure in ['macs']:
+                if args == None:
+                    raise Exception('No argparse to get num classes')
+                model = nasbench1.Network(self.cell, 
+                        stem_out=128, 
+                        num_stacks=3, 
+                        num_mods=3,
+                        num_classes=get_num_classes(args))
                 input = torch.randn(len(train_loader), 3, 64, 64)
                 result['macs'], _ = profile(model, inputs=(input, ), verbose=False)
             
             elif measure == 'flops':
+                if args == None:
+                    raise Exception('No argparse to get num classes')
+                model = nasbench1.Network(self.cell, 
+                        stem_out=128, 
+                        num_stacks=3, 
+                        num_mods=3,
+                        num_classes=get_num_classes(args))
                 result['flops'], _ = get_model_infos(model, (len(train_loader), 3, 64, 64))
             
             # If use zero-cost methods
             else:
+                if args == None:
+                    raise Exception('No argparse')
+                if train_loader == None:
+                    raise Exception('No train loader')
+                model = nasbench1.Network(self.cell, 
+                        stem_out=128, 
+                        num_stacks=3, 
+                        num_mods=3,
+                        num_classes=get_num_classes(args))
                 net = model.to(self.device)
                 init_net(net, args.init_w_type, args.init_b_type)
                 
@@ -189,8 +214,5 @@ class NAS101(NASBench):
             
                 result[measure] = measures[measure] if not np.isnan(measures[measure]) else -1e9
             
-        # If query from csv file and exists respective log file
-        if use_csv and measure in proxy_log:
-            pass 
         
         return result[measure]

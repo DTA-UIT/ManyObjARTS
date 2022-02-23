@@ -133,18 +133,6 @@ class NATS(NASBench):
         if (measure == 'test-accuracy' or measure == 'train-accuracy') and epoch == None:
             raise Exception('No specific epoch for test/train accuracy')
         
-        
-        # proxy_log = {
-        #     'synflow': np.mean(proxy_log[0], axis=1) if use_csv else None,
-        #     'jacob_cov': proxy_log[1] if use_csv else None,
-        #     'test-accuracy': proxy_log[2] if use_csv else None,
-        #     'flops': proxy_log[3] if use_csv else None,
-        #     'latency': proxy_log[4] if use_csv else None,
-        #     'macs': proxy_log[5] if use_csv else None,
-        #     'params': proxy_log[6] if use_csv else None,
-        #     'train-accuracy' if dataset == 'cifar10' else 'valid-accuracy': proxy_log[7] if use_csv else None
-        # }
-
 
         result = {
             'flops': 0,
