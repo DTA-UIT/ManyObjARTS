@@ -6,14 +6,14 @@ from algorithm.pymoo.pymoo.core.problem import Problem
 from algorithm.utils.algorithm import Algorithm
 from algorithm.pymoo.pymoo.factory import get_performance_indicator
 
-class ProblemWrapper(Problem):
-    def __init__(self, n_var, n_obj, xl, xu, api, pareto_front_url, proxy_log):
+class NATSBench(Problem):
+    def __init__(self, n_var, n_obj, xl, xu, api, dataset, pareto_front_url, proxy_log):
         super().__init__(n_var=n_var, n_obj=n_obj, xl=xl, xu=xu)
         self.api = api
         self.archive_phenotype = []
         self.archive_genotype = []
         self.generation_count = 0
-        self.dataset = ""
+        self.dataset = dataset
         self.proxy_log = proxy_log # {'test-accuracy': '', 'flops': ''}
         self.pareto_front = np.genfromtxt(pareto_front_url, delimiter=',')
         self.flops_log = np.genfromtxt(proxy_log['flops'])

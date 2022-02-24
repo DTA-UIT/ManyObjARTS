@@ -24,7 +24,6 @@ def get_num_classes(args):
     raise Exception('Unknown dataset')
 
 class NAS101(NASBench):
-    __model_path = None
     def __init__(self, use_colab=True, debug=True):
         super().__init__()
         
@@ -200,10 +199,10 @@ class NAS101(NASBench):
                 if train_loader == None:
                     raise Exception('No train loader')
                 model = nasbench1.Network(self.cell, 
-                        stem_out=128, 
-                        num_stacks=3, 
-                        num_mods=3,
-                        num_classes=get_num_classes(args))
+                                        stem_out=128, 
+                                        num_stacks=3, 
+                                        num_mods=3,
+                                        num_classes=get_num_classes(args))
                 net = model.to(self.device)
                 init_net(net, args.init_w_type, args.init_b_type)
                 

@@ -1,8 +1,4 @@
-from abc import abstractmethod
-
 class Algorithm():
-    # def __init__():
-    
     def get_new_archive(ind_obj, archive, archive_code, ind_obj_code) -> list:
         """
         Hàm trả về archive mới với cá thể ind_obj truyền vào
