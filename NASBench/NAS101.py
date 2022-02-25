@@ -55,22 +55,10 @@ class NAS101(NASBench):
         print(f'Running on device: {self.device}')
    
     def get_architecture(self, ind):
-        def convert_ind_triangle(ind, ops_none=None):
-            res = np.zeros((7, 7), dtype=int)
-            k = 0
-            for i in range(7):
-                for j in range(i + 1, 7):
-                    res[i][j] = ind[k]
-                    k += 1
-            if ops_none != None:
-                res = np.delete(res, ops_none, axis=1)
-                res = np.delete(res, ops_none, axis=0)
-            return res 
-        
         def get_operations(ind):
             ops_none = []
             ops = ['input']
-            for i in range(0, 4):
+            for i in range(0, 5):
                 if ind[i] == 0:
                     ops_none.append(i)
                 elif ind[i] == 1:
@@ -81,6 +69,19 @@ class NAS101(NASBench):
                     ops.append('maxpool3x3')
             ops.append('output')
             return ops, ops_none
+
+        def convert_ind_triangle(ind, ops_none=None):
+            res = np.zeros((7, 7), dtype=int)
+            k = 0
+            for i in range(7):
+                for j in range(i + 1, 7):
+                    res[i][j] = ind[k]
+                    k += 1
+
+            if ops_none != None:
+                res = np.delete(res, ops_none, axis=1)
+                res = np.delete(res, ops_none, axis=0)
+            return res 
         
         ops, ops_none = get_operations(ind)
         ind = convert_ind_triangle(ind[5:], ops_none)
@@ -144,22 +145,10 @@ class NAS101(NASBench):
         Returns:
         result[measure] -- Result of evaluation at the present dataset
         """
-        def convert_ind_triangle(ind, ops_none=None):
-            res = np.zeros((7, 7), dtype=int)
-            k = 0
-            for i in range(7):
-                for j in range(i + 1, 7):
-                    res[i][j] = ind[k]
-                    k += 1
-            if ops_none != None:
-                res = np.delete(res, ops_none, axis=1)
-                res = np.delete(res, ops_none, axis=0)
-            return res 
-        
         def get_operations(ind):
             ops_none = []
             ops = ['input']
-            for i in range(0, 4):
+            for i in range(0, 5):
                 if ind[i] == 0:
                     ops_none.append(i)
                 elif ind[i] == 1:
@@ -170,6 +159,21 @@ class NAS101(NASBench):
                     ops.append('maxpool3x3')
             ops.append('output')
             return ops, ops_none
+
+        def convert_ind_triangle(ind, ops_none=None):
+            res = np.zeros((7, 7), dtype=int)
+            k = 0
+            for i in range(7):
+                for j in range(i + 1, 7):
+                    res[i][j] = ind[k]
+                    k += 1
+
+            if ops_none != None:
+                res = np.delete(res, ops_none, axis=1)
+                res = np.delete(res, ops_none, axis=0)
+            return res 
+
+
         
         ops, ops_none = get_operations(ind)
         ind = convert_ind_triangle(ind[5:], ops_none)
