@@ -155,6 +155,7 @@ class NATS(NASBench):
         if use_csv:
             proxy_file = proxy_log   
             proxy_log = genfromtxt(proxy_log, delimiter=',')     
+            
             def get_index_csv (ind):
                 index = 0
                 for i in range(len(ind)):
@@ -169,8 +170,8 @@ class NATS(NASBench):
                 result['jacob_cov'] = -1e9
 
             if 'synflow' in proxy_file: 
-                result = np.mean(result[measure])           
-                return result
+                synflow_result = np.mean(result[measure])           
+                return synflow_result
             
         else:
             # If measure is accuracy, query at a specific epoch
@@ -185,6 +186,8 @@ class NATS(NASBench):
                 result[measure] = info[measure]
             
             elif measure == 'macs':
+                if train_loader == None:
+                    raise Exception('No train loader to get MACs')
                 if args.dataset == 'cifar10' or args.dataset == 'cifar100':    
                     input = torch.randn(len(train_loader), 3, 32, 32)
                 elif args.dataset == 'imagenet':
@@ -196,8 +199,8 @@ class NATS(NASBench):
             # If None of above, then evaluate the architecture using zero-cost proxies
             else: 
                 if args == None and train_loader == None:
-                    raise Exception('No args and train_loader')
-                    
+                    raise Exception('No argparse or no train loader for Zero-Cost Proxies')
+
                 cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
                 init_net(cell, args.init_w_type, args.init_b_type)
                 net = cell.to(self.device)        

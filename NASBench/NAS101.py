@@ -172,6 +172,9 @@ class NAS101(NASBench):
                 if args == None:
                     raise Exception('No argparse to get MACs/#Params')
 
+                if train_loader == None:
+                    raise Exception('No train loader to get MACs/#Params')
+
                 model = nasbench1.Network(self.cell, 
                                         stem_out=128, 
                                         num_stacks=3, 
@@ -188,6 +191,10 @@ class NAS101(NASBench):
                 result['macs'], result['params'] = profile(model, inputs=(input, ), verbose=False)
             
             elif measure == 'flops':
+
+                if train_loader == None:
+                    raise Exception('No train loader to get FLOPs')
+                    
                 if args == None:
                     raise Exception('No argparse to get FLOPs')
                 
