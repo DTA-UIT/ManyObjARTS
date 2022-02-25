@@ -113,7 +113,38 @@ class NAS101(NASBench):
         return self.query_result if metric == None else self.query_result[metric] 
     
     
-    def is_valid(self, ind, ops):
+    def is_valid(self, ind):
+        def get_operations(ind):
+            ops_none = []
+            ops = ['input']
+            for i in range(0, 5):
+                if ind[i] == 0:
+                    ops_none.append(i)
+                elif ind[i] == 1:
+                    ops.append('conv1x1-bn-relu')
+                elif ind[i] == 2:
+                    ops.append('conv3x3-bn-relu')
+                else:
+                    ops.append('maxpool3x3')
+            ops.append('output')
+            return ops, ops_none
+
+        def convert_ind_triangle(ind, ops_none=None):
+            res = np.zeros((7, 7), dtype=int)
+            k = 0
+            for i in range(7):
+                for j in range(i + 1, 7):
+                    res[i][j] = ind[k]
+                    k += 1
+
+            if ops_none != None:
+                res = np.delete(res, ops_none, axis=1)
+                res = np.delete(res, ops_none, axis=0)
+            return res 
+            
+        ops, ops_none = get_operations(ind)
+        ind = convert_ind_triangle(ind[5:], ops_none)
+            
         self.cell = api.ModelSpec(ind, ops)
         return self.api.is_valid(self.cell)
     
@@ -172,13 +203,11 @@ class NAS101(NASBench):
                 res = np.delete(res, ops_none, axis=1)
                 res = np.delete(res, ops_none, axis=0)
             return res 
-
-
         
         ops, ops_none = get_operations(ind)
         ind = convert_ind_triangle(ind[5:], ops_none)
         
-        self.cell = api.ModelSpec(ind, ops)
+        # self.cell = api.ModelSpec(ind, ops)
         # print(self.cell.__dict__)
          
         if use_csv and not proxy_log:
