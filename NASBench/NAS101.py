@@ -247,13 +247,7 @@ class NAS101(NASBench):
                                         num_mods=3,
                                         num_classes=get_num_classes(args))
                 
-                if args.dataset == 'cifar10' or args.dataset == 'cifar100':    
-                    input = torch.randn(len(train_loader), 3, 32, 32)
-                elif args.dataset == 'imagenet':
-                    input = torch.randn(len(train_loader), 3, 16, 16)
-                else:
-                    raise Exception('Unsupported dataset')
-                
+                input = torch.randn(len(train_loader), 3, 32, 32)
                 result['macs'], result['params'] = profile(model, inputs=(input, ), verbose=False)
             
             elif measure == 'flops':
@@ -264,20 +258,13 @@ class NAS101(NASBench):
                 if args == None:
                     raise Exception('No argparse to get FLOPs')
                 
-                if args.dataset == 'cifar10' or args.dataset == 'cifar100':
-                    input_size = 32
-                
-                elif args.dataset == 'imagenet':
-                    input_size = 16
-                
-                else:
-                    raise Exception('Unsupported dataset')
+                input_size = 32 # CIFAR-10
                 
                 model = nasbench1.Network(self.cell, 
-                        stem_out=128, 
-                        num_stacks=3, 
-                        num_mods=3,
-                        num_classes=get_num_classes(args))
+                                        stem_out=128, 
+                                        num_stacks=3, 
+                                        num_mods=3,
+                                        num_classes=get_num_classes(args))
                 result['flops'], _ = get_model_infos(model, (len(train_loader), 3, input_size, input_size))
             
             # If use zero-cost methods
