@@ -107,9 +107,6 @@ class NAS101(NASBench):
             print(f"Cell {self.cell.__dict__['original_matrix']} is invalid for NASBench101")    
             self.api._check_spec(self.cell)
 
-        # if not self.api.is_valid(self.cell):
-        #     print(self.api._check_spec(self.cell))
-        #     raise Exception("Invalid NASBench101 cell") 
         return self.query_result if metric == None else self.query_result[metric] 
     
     
