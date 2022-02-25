@@ -100,7 +100,6 @@ class NAS101(NASBench):
                                                'test_accuracy')
         """  
         self.cell = api.ModelSpec(ind, ops)
-
         try:
             self.query_result = self.api.query(self.cell) if 'accuracy' not in metric else self.api.query(self.cell, epochs=epochs)
         except:
@@ -176,6 +175,7 @@ class NAS101(NASBench):
         ind = convert_ind_triangle(ind[5:], ops_none)
         
         self.cell = api.ModelSpec(ind, ops)
+        print(self.cell.__dict__)
          
         if use_csv and not proxy_log:
             raise Exception("No proxy log to query csv")
