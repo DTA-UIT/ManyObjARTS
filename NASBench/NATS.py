@@ -85,8 +85,10 @@ class NATS(NASBench):
         """
         self.convert_individual_to_query(ind)
         arch_index = self.api.query_index_by_arch(self.cell)
+        
         if self.api.query_index_by_arch(self.cell) == -1:
             raise Exception('Invalid NATSBench cell')
+            
         query_bench = self.api.get_more_info(arch_index, dataset, hp=epoch, is_random=False)
         
         return query_bench if measure == None else query_bench[measure] 
@@ -183,13 +185,19 @@ class NATS(NASBench):
                 result[measure] = info[measure]
             
             elif measure == 'macs':
-                input = torch.randn(len(train_loader), 3, 64, 64)
+                if args.dataset == 'cifar10' or args.dataset == 'cifar100':    
+                    input = torch.randn(len(train_loader), 3, 32, 32)
+                elif args.dataset == 'imagenet':
+                    input = torch.randn(len(train_loader), 3, 16, 16)
+                else:
+                    raise Exception('Unsupported dataset')
                 result['macs'], _ = profile(cell, inputs=(input, ), verbose=False)   
                 
             # If None of above, then evaluate the architecture using zero-cost proxies
             else: 
                 if args == None and train_loader == None:
                     raise Exception('No args and train_loader')
+                    
                 cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
                 init_net(cell, args.init_w_type, args.init_b_type)
                 net = cell.to(self.device)        

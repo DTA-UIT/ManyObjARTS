@@ -161,37 +161,52 @@ class NAS101(NASBench):
 
         # If don't use log file, then evaluate directly from NASBench101
         if not use_csv:
+            
             # If measure is 'train_accuracy' or 'validation_accuracy' or 'test_accuracy'
             if epoch != None and 'accuracy' in measure:
                 result[measure] = self.query_bench(ind, ops, metric=measure, epochs=epoch)
             
-            # If measure is 'trainable_parameters'
             elif measure in ['trainable_parameters']:
                 result[measure] = self.query_bench(ind, ops, metric=measure)
             
             elif measure in ['macs', 'params']:
                 if args == None:
                     raise Exception('No argparse to get num classes')
+
                 model = nasbench1.Network(self.cell, 
                                         stem_out=128, 
                                         num_stacks=3, 
                                         num_mods=3,
                                         num_classes=get_num_classes(args))
+                
                 if args.dataset == 'cifar10' or args.dataset == 'cifar100':    
                     input = torch.randn(len(train_loader), 3, 32, 32)
-                if args.dataset == 'imagenet':
+                elif args.dataset == 'imagenet':
                     input = torch.randn(len(train_loader), 3, 16, 16)
+                else:
+                    raise Exception('Unsupported dataset')
+                
                 result['macs'], result['params'] = profile(model, inputs=(input, ), verbose=False)
             
             elif measure == 'flops':
                 if args == None:
                     raise Exception('No argparse to get num classes')
+                
+                if args.dataset == 'cifar10' or args.dataset == 'cifar100':
+                    input_size = 32
+                
+                elif args.dataset == 'imagenet':
+                    input_size = 16
+                
+                else:
+                    raise Exception('Unsupported dataset')
+                
                 model = nasbench1.Network(self.cell, 
                         stem_out=128, 
                         num_stacks=3, 
                         num_mods=3,
                         num_classes=get_num_classes(args))
-                result['flops'], _ = get_model_infos(model, (len(train_loader), 3, 64, 64))
+                result['flops'], _ = get_model_infos(model, (len(train_loader), 3, input_size, input_size))
             
             # If use zero-cost methods
             else:
@@ -199,6 +214,7 @@ class NAS101(NASBench):
                     raise Exception('No argparse')
                 if train_loader == None:
                     raise Exception('No train loader')
+                    
                 model = nasbench1.Network(self.cell, 
                                         stem_out=128, 
                                         num_stacks=3, 
