@@ -151,9 +151,7 @@ class NAS101(NASBench):
         if 'accuracy' in measure and epoch == None:
             raise Exception('No epoch to evaluate')
         
-        proxy_log = {
-            
-        }
+        proxy_log = {}
         
         result = {}
 
@@ -175,11 +173,14 @@ class NAS101(NASBench):
                 if args == None:
                     raise Exception('No argparse to get num classes')
                 model = nasbench1.Network(self.cell, 
-                        stem_out=128, 
-                        num_stacks=3, 
-                        num_mods=3,
-                        num_classes=get_num_classes(args))
-                input = torch.randn(len(train_loader), 3, 64, 64)
+                                        stem_out=128, 
+                                        num_stacks=3, 
+                                        num_mods=3,
+                                        num_classes=get_num_classes(args))
+                if args.dataset == 'cifar10' or args.dataset == 'cifar100':    
+                    input = torch.randn(len(train_loader), 3, 32, 32)
+                if args.dataset == 'imagenet':
+                    input = torch.randn(len(train_loader), 3, 16, 16)
                 result['macs'], result['params'] = profile(model, inputs=(input, ), verbose=False)
             
             elif measure == 'flops':
