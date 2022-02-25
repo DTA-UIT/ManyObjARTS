@@ -23,3 +23,4 @@ class NSGAII(NSGA2):
         self.pareto_front_normalize[:, 1] = self.pareto_front_normalize[:, 1] / 100
         self.res_of_run = dict()
         
+    

@@ -89,9 +89,7 @@ class NAS101(NASBench):
         Function to evaluate an architecture
         
         Arguments:
-        args -- Argparse to pass through
         ind -- Evaluating individual (DAG representation)
-        ops -- Operations list for the individual
         measure -- Evaluation method ('train_accuracy',
                                     'validation_accuracy',
                                     'test_accuracy',
@@ -105,6 +103,7 @@ class NAS101(NASBench):
                                     'snip',
                                     'grasp',
                                     'fisher').
+        args -- Argparse to pass through 
         train_loader -- Data train loader
         use_csv (optional) -- To choose whether to use csv file to get results (Bool)
         proxy_log (optional, but required if use_csv is True) -- Log file 
@@ -160,7 +159,7 @@ class NAS101(NASBench):
             pass 
 
         # If don't use log file, then evaluate directly from NASBench101
-        if not use_csv:
+        else:
             
             # If measure is 'train_accuracy' or 'validation_accuracy' or 'test_accuracy'
             if epoch != None and 'accuracy' in measure:
@@ -171,7 +170,7 @@ class NAS101(NASBench):
             
             elif measure in ['macs', 'params']:
                 if args == None:
-                    raise Exception('No argparse to get num classes')
+                    raise Exception('No argparse to get MACs/#Params')
 
                 model = nasbench1.Network(self.cell, 
                                         stem_out=128, 
@@ -190,7 +189,7 @@ class NAS101(NASBench):
             
             elif measure == 'flops':
                 if args == None:
-                    raise Exception('No argparse to get num classes')
+                    raise Exception('No argparse to get FLOPs')
                 
                 if args.dataset == 'cifar10' or args.dataset == 'cifar100':
                     input_size = 32
@@ -211,10 +210,10 @@ class NAS101(NASBench):
             # If use zero-cost methods
             else:
                 if args == None:
-                    raise Exception('No argparse')
+                    raise Exception('No argparse to get Zero-Cost methods')
                 if train_loader == None:
                     raise Exception('No train loader')
-                    
+
                 model = nasbench1.Network(self.cell, 
                                         stem_out=128, 
                                         num_stacks=3, 
