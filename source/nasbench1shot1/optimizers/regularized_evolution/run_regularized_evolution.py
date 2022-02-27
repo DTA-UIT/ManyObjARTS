@@ -39,7 +39,7 @@ def train_and_eval(search_space, config):
         node_list = [INPUT, *node_list, OUTPUT]
     adjacency_list = adjacency_matrix.astype(np.int).tolist()
     model_spec = api101.ModelSpec(matrix=adjacency_list, ops=node_list)
-    nasbench_data = api.query(model_spec)
+    nasbench_data = api101.query(model_spec)
     return nasbench_data['validation_accuracy'], nasbench_data['test_accuracy'], nasbench_data['training_time']
 
 
@@ -170,8 +170,8 @@ def parse_arguments():
     
 if __name__ == '__main__':
     args = parse_arguments()
-    # from __init__ import api
-    nasbench = api.NASBench(args.data_dir)
+    # from __init__ import api101
+    nasbench = api101.NASBench(args.data_dir)
 
     if args.search_space is None:
         spaces = [1, 2, 3]
