@@ -22,6 +22,7 @@ import pickle
 import random
 import numpy as np
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+print('run_regularized_evolution.py...........................')
 from source.nasbench1shot1.__init__ import api
 from source.nasbench1shot1.optimizers.utils import Model, Architecture
 from source.nasbench1shot1.nasbench_analysis.search_spaces.search_space_1 import SearchSpace1

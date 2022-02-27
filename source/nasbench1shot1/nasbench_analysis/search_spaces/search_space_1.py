@@ -2,6 +2,7 @@ import itertools
 
 import matplotlib.pyplot as plt
 import numpy as np
+print('Search space 1.....................')
 from source.nasbench1shot1.__init__ import api
 
 from source.nasbench1shot1.nasbench_analysis.search_spaces.search_space import SearchSpace
