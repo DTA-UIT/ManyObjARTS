@@ -5,7 +5,6 @@ from abc import abstractmethod
 
 import ConfigSpace
 import numpy as np
-from nasbench import api
 
 from nasbench_analysis.utils import CONV1X1, CONV3X3, MAXPOOL3X3, INPUT, OUTPUT, upscale_to_nasbench_format
 from nasbench_analysis.utils import parent_combinations as parent_combinations_old

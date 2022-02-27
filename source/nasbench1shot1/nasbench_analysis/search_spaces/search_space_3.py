@@ -2,7 +2,6 @@ import itertools
 
 import matplotlib.pyplot as plt
 import numpy as np
-from nasbench import api
 
 from nasbench_analysis.search_spaces.search_space import SearchSpace
 from nasbench_analysis.utils import OUTPUT_NODE, NasbenchWrapper, INPUT, OUTPUT

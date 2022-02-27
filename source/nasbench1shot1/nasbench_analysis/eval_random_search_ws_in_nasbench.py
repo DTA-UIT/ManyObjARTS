@@ -4,7 +4,6 @@ import os
 import pickle
 
 import numpy as np
-from nasbench import api
 
 from nasbench_analysis.utils import INPUT, OUTPUT, CONV1X1, NasbenchWrapper, upscale_to_nasbench_format, natural_keys
 

@@ -3,8 +3,6 @@ import random
 
 import matplotlib.pyplot as plt
 import numpy as np
-from nasbench import api
-
 from nasbench_analysis.search_spaces.search_space import SearchSpace
 from nasbench_analysis.utils import upscale_to_nasbench_format, OUTPUT_NODE, NasbenchWrapper, INPUT, CONV1X1, OUTPUT
 from optimizers.darts.genotypes import PRIMITIVES

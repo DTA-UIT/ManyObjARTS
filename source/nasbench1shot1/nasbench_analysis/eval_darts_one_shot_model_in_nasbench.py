@@ -6,7 +6,6 @@ import pickle
 import numpy as np
 import torch
 import torch.nn.functional as F
-from nasbench import api
 
 from nasbench_analysis.search_spaces.search_space_1 import SearchSpace1
 from nasbench_analysis.search_spaces.search_space_2 import SearchSpace2
