@@ -3,8 +3,8 @@ import itertools
 import matplotlib.pyplot as plt
 import numpy as np
 
-from nasbench_analysis.search_spaces.search_space import SearchSpace
-from nasbench_analysis.utils import OUTPUT_NODE, NasbenchWrapper, INPUT, OUTPUT
+from source.nasbench1shot1.nasbench_analysis.search_spaces.search_space import SearchSpace
+from source.nasbench1shot1.nasbench_analysis.utils import OUTPUT_NODE, NasbenchWrapper, INPUT, OUTPUT
 
 
 class SearchSpace3(SearchSpace):

@@ -8,7 +8,7 @@ import numpy as np
 
 from source.nasbench1shot1.nasbench_analysis.utils import CONV1X1, CONV3X3, MAXPOOL3X3, INPUT, OUTPUT, upscale_to_nasbench_format
 from source.nasbench1shot1.nasbench_analysis.utils import parent_combinations as parent_combinations_old
-from optimizers.darts.genotypes import PRIMITIVES
+from source.nasbench1shot1.optimizers.darts.genotypes import PRIMITIVES
 
 
 def parent_combinations(node, num_parents):
