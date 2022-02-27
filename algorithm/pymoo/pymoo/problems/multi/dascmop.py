@@ -1,7 +1,7 @@
 import numpy as np
 
-from pymoo.core.problem import Problem
-from pymoo.util.remote import Remote
+from pymoo.pymoo.core.problem import Problem
+from pymoo.pymoo.util.remote import Remote
 
 DIFFICULTIES = [
     (0.25, 0., 0.), (0., 0.25, 0.), (0., 0., 0.25), (0.25, 0.25, 0.25),

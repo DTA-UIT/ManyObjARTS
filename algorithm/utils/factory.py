@@ -1,9 +1,9 @@
 import re
 
-from pymoo.config import Config
-from pymoo.problems.many import *
-from pymoo.problems.multi import *
-from pymoo.problems.single import *
+from pymoo.pymoo.config import Config
+from pymoo.pymoo.problems.many import *
+from pymoo.pymoo.problems.multi import *
+from pymoo.pymoo.problems.single import *
 
 def get_from_list(l, name, args, kwargs):
     i = None
@@ -42,20 +42,20 @@ def get_from_list(l, name, args, kwargs):
 # =========================================================================================================
 
 def get_algorithm_options():
-    from pymoo.algorithms.moo.ctaea import CTAEA
-    from pymoo.algorithms.moo.moead import MOEAD
-    from pymoo.algorithms.moo.nsga2 import NSGA2
-    from pymoo.algorithms.moo.nsga3 import NSGA3
-    from pymoo.algorithms.moo.rnsga2 import RNSGA2
-    from pymoo.algorithms.moo.rnsga3 import RNSGA3
-    from pymoo.algorithms.soo.nonconvex.de import DE
-    from pymoo.algorithms.soo.nonconvex.ga import GA
-    from pymoo.algorithms.moo.unsga3 import UNSGA3
-    from pymoo.algorithms.soo.nonconvex.nelder_mead import NelderMead
-    from pymoo.algorithms.soo.nonconvex.cmaes import CMAES
-    from pymoo.algorithms.soo.nonconvex.brkga import BRKGA
-    from pymoo.algorithms.soo.nonconvex.pattern_search import PatternSearch
-    from pymoo.algorithms.soo.nonconvex.pso import PSO
+    from pymoo.pymoo.algorithms.moo.ctaea import CTAEA
+    from pymoo.pymoo.algorithms.moo.moead import MOEAD
+    from pymoo.pymoo.algorithms.moo.nsga2 import NSGA2
+    from pymoo.pymoo.algorithms.moo.nsga3 import NSGA3
+    from pymoo.pymoo.algorithms.moo.rnsga2 import RNSGA2
+    from pymoo.pymoo.algorithms.moo.rnsga3 import RNSGA3
+    from pymoo.pymoo.algorithms.soo.nonconvex.de import DE
+    from pymoo.pymoo.algorithms.soo.nonconvex.ga import GA
+    from pymoo.pymoo.algorithms.moo.unsga3 import UNSGA3
+    from pymoo.pymoo.algorithms.soo.nonconvex.nelder_mead import NelderMead
+    from pymoo.pymoo.algorithms.soo.nonconvex.cmaes import CMAES
+    from pymoo.pymoo.algorithms.soo.nonconvex.brkga import BRKGA
+    from pymoo.pymoo.algorithms.soo.nonconvex.pattern_search import PatternSearch
+    from pymoo.pymoo.algorithms.soo.nonconvex.pso import PSO
 
     ALGORITHMS = [
         ("ga", GA),
@@ -86,11 +86,11 @@ def get_algorithm(name, *args, d={}, **kwargs):
 # =========================================================================================================
 
 def get_sampling_options():
-    from pymoo.operators.sampling.lhs import LatinHypercubeSampling
-    from pymoo.operators.sampling.rnd import FloatRandomSampling
-    from pymoo.operators.integer_from_float_operator import IntegerFromFloatSampling
-    from pymoo.operators.sampling.rnd import BinaryRandomSampling
-    from pymoo.operators.sampling.rnd import PermutationRandomSampling
+    from pymoo.pymoo.operators.sampling.lhs import LatinHypercubeSampling
+    from pymoo.pymoo.operators.sampling.rnd import FloatRandomSampling
+    from pymoo.pymoo.operators.integer_from_float_operator import IntegerFromFloatSampling
+    from pymoo.pymoo.operators.sampling.rnd import BinaryRandomSampling
+    from pymoo.pymoo.operators.sampling.rnd import PermutationRandomSampling
 
     SAMPLING = [
         ("real_random", FloatRandomSampling),
@@ -113,8 +113,8 @@ def get_sampling(name, *args, d={}, **kwargs):
 # =========================================================================================================
 
 def get_selection_options():
-    from pymoo.operators.selection.rnd import RandomSelection
-    from pymoo.operators.selection.tournament import TournamentSelection
+    from pymoo.pymoo.operators.selection.rnd import RandomSelection
+    from pymoo.pymoo.operators.selection.tournament import TournamentSelection
 
     SELECTION = [
         ("random", RandomSelection),
@@ -133,17 +133,19 @@ def get_selection(name, *args, d={}, **kwargs):
 # =========================================================================================================
 
 def get_crossover_options():
-    from pymoo.operators.crossover.dex import DEX
-    from pymoo.operators.crossover.expx import ExponentialCrossover
-    from pymoo.operators.crossover.hux import HalfUniformCrossover
-    from pymoo.operators.crossover.pntx import PointCrossover
-    from operations import TwoPointsCrossover
-    from pymoo.operators.crossover.sbx import SimulatedBinaryCrossover
-    from pymoo.operators.crossover.ux import UniformCrossover
-    from pymoo.operators.crossover.pcx import PCX
-    from pymoo.operators.integer_from_float_operator import IntegerFromFloatCrossover
-    from pymoo.operators.crossover.erx import EdgeRecombinationCrossover
-    from pymoo.operators.crossover.ox import OrderCrossover
+    from pymoo.pymoo.operators.crossover.dex import DEX
+    from pymoo.pymoo.operators.crossover.expx import ExponentialCrossover
+    from pymoo.pymoo.operators.crossover.hux import HalfUniformCrossover
+    from pymoo.pymoo.operators.crossover.pntx import PointCrossover
+    import sys, os
+    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from algorithm.utils.custom_operations import TwoPointsCrossover
+    from pymoo.pymoo.operators.crossover.sbx import SimulatedBinaryCrossover
+    from pymoo.pymoo.operators.crossover.ux import UniformCrossover
+    from pymoo.pymoo.operators.crossover.pcx import PCX
+    from pymoo.pymoo.operators.integer_from_float_operator import IntegerFromFloatCrossover
+    from pymoo.pymoo.operators.crossover.erx import EdgeRecombinationCrossover
+    from pymoo.pymoo.operators.crossover.ox import OrderCrossover
 
     CROSSOVER = [
         ("real_sbx", SimulatedBinaryCrossover, dict(prob=0.9, eta=30)),
@@ -173,14 +175,14 @@ def get_crossover(name, *args, d={}, **kwargs):
 # =========================================================================================================
 
 def get_mutation_options():
-    from pymoo.operators.mutation.nom import NoMutation
-    from pymoo.operators.mutation.bitflip import BinaryBitflipMutation
+    from pymoo.pymoo.operators.mutation.nom import NoMutation
+    from pymoo.pymoo.operators.mutation.bitflip import BinaryBitflipMutation
 
-    # from pymoo.operators.mutation.pm import PolynomialMutation
+    # from pymoo.pymoo.operators.mutation.pm import PolynomialMutation
     from operations import CustomPolynomialMutation as PolynomialMutation
     
-    from pymoo.operators.integer_from_float_operator import IntegerFromFloatMutation
-    from pymoo.operators.mutation.inversion import InversionMutation
+    from pymoo.pymoo.operators.integer_from_float_operator import IntegerFromFloatMutation
+    from pymoo.pymoo.operators.mutation.inversion import InversionMutation
 
     MUTATION = [
         ("none", NoMutation, {}),
@@ -202,14 +204,14 @@ def get_mutation(name, *args, d={}, **kwargs):
 # =========================================================================================================
 
 def get_termination_options():
-    from pymoo.util.termination.max_eval import MaximumFunctionCallTermination
-    from pymoo.util.termination.max_gen import MaximumGenerationTermination
-    from pymoo.util.termination.max_time import TimeBasedTermination
-    from pymoo.util.termination.min_igd import IGDTermination
-    from pymoo.util.termination.x_tol import DesignSpaceToleranceTermination
-    from pymoo.util.termination.f_tol import MultiObjectiveSpaceToleranceTermination
-    from pymoo.util.termination.f_tol_single import SingleObjectiveSpaceToleranceTermination
-    from pymoo.util.termination.default import MultiObjectiveDefaultTermination, SingleObjectiveDefaultTermination
+    from pymoo.pymoo.util.termination.max_eval import MaximumFunctionCallTermination
+    from pymoo.pymoo.util.termination.max_gen import MaximumGenerationTermination
+    from pymoo.pymoo.util.termination.max_time import TimeBasedTermination
+    from pymoo.pymoo.util.termination.min_igd import IGDTermination
+    from pymoo.pymoo.util.termination.x_tol import DesignSpaceToleranceTermination
+    from pymoo.pymoo.util.termination.f_tol import MultiObjectiveSpaceToleranceTermination
+    from pymoo.pymoo.util.termination.f_tol_single import SingleObjectiveSpaceToleranceTermination
+    from pymoo.pymoo.util.termination.default import MultiObjectiveDefaultTermination, SingleObjectiveDefaultTermination
 
     TERMINATION = [
         ("n_eval", MaximumFunctionCallTermination),
@@ -341,10 +343,10 @@ def get_problem_options():
 
 def get_problem(name, *args, d={}, **kwargs):
     if name.startswith("go-"):
-        from pymoo.vendor.global_opt import get_global_optimization_problem_options
+        from pymoo.pymoo.vendor.global_opt import get_global_optimization_problem_options
         return get_from_list(get_global_optimization_problem_options(), name.lower(), args, {**d, **kwargs})
     elif name.startswith("bbob-"):
-        from pymoo.vendor.vendor_coco import COCOProblem
+        from pymoo.pymoo.vendor.vendor_coco import COCOProblem
         return COCOProblem(name.lower(), **kwargs)
     else:
         return get_from_list(get_problem_options(), name.lower(), args, {**d, **kwargs})
@@ -355,11 +357,11 @@ def get_problem(name, *args, d={}, **kwargs):
 # =========================================================================================================
 
 def get_reference_direction_options():
-    from pymoo.util.reference_direction import UniformReferenceDirectionFactory
-    from pymoo.util.reference_direction import MultiLayerReferenceDirectionFactory
-    from pymoo.util.ref_dirs.reduction import ReductionBasedReferenceDirectionFactory
-    from pymoo.util.ref_dirs.energy import RieszEnergyReferenceDirectionFactory
-    from pymoo.util.ref_dirs.energy_layer import LayerwiseRieszEnergyReferenceDirectionFactory
+    from pymoo.pymoo.util.reference_direction import UniformReferenceDirectionFactory
+    from pymoo.pymoo.util.reference_direction import MultiLayerReferenceDirectionFactory
+    from pymoo.pymoo.util.ref_dirs.reduction import ReductionBasedReferenceDirectionFactory
+    from pymoo.pymoo.util.ref_dirs.energy import RieszEnergyReferenceDirectionFactory
+    from pymoo.pymoo.util.ref_dirs.energy_layer import LayerwiseRieszEnergyReferenceDirectionFactory
 
     REFERENCE_DIRECTIONS = [
         ("(das-dennis|uniform)", UniformReferenceDirectionFactory),
@@ -381,14 +383,14 @@ def get_reference_directions(name, *args, d={}, **kwargs):
 # =========================================================================================================
 
 def get_visualization_options():
-    from pymoo.visualization.pcp import PCP
-    from pymoo.visualization.petal import Petal
-    from pymoo.visualization.radar import Radar
-    from pymoo.visualization.radviz import Radviz
-    from pymoo.visualization.scatter import Scatter
-    from pymoo.visualization.star_coordinate import StarCoordinate
-    from pymoo.visualization.heatmap import Heatmap
-    from pymoo.visualization.fitness_landscape import FitnessLandscape
+    from pymoo.pymoo.visualization.pcp import PCP
+    from pymoo.pymoo.visualization.petal import Petal
+    from pymoo.pymoo.visualization.radar import Radar
+    from pymoo.pymoo.visualization.radviz import Radviz
+    from pymoo.pymoo.visualization.scatter import Scatter
+    from pymoo.pymoo.visualization.star_coordinate import StarCoordinate
+    from pymoo.pymoo.visualization.heatmap import Heatmap
+    from pymoo.pymoo.visualization.fitness_landscape import FitnessLandscape
 
     VISUALIZATION = [
         ("scatter", Scatter),
@@ -414,12 +416,12 @@ def get_visualization(name, *args, d={}, **kwargs):
 
 
 def get_performance_indicator_options():
-    from pymoo.indicators.gd import GD
-    from pymoo.indicators.gd_plus import GDPlus
-    from pymoo.indicators.igd import IGD
-    from pymoo.indicators.igd_plus import IGDPlus
-    from pymoo.indicators.hv import Hypervolume
-    from pymoo.indicators.rmetric import RMetric
+    from pymoo.pymoo.indicators.gd import GD
+    from pymoo.pymoo.indicators.gd_plus import GDPlus
+    from pymoo.pymoo.indicators.igd import IGD
+    from pymoo.pymoo.indicators.igd_plus import IGDPlus
+    from pymoo.pymoo.indicators.hv import Hypervolume
+    from pymoo.pymoo.indicators.rmetric import RMetric
 
     PERFORMANCE_INDICATOR = [
         ("gd", GD),
@@ -441,12 +443,12 @@ def get_performance_indicator(name, *args, d={}, **kwargs):
 # =========================================================================================================
 
 def get_decomposition_options():
-    from pymoo.decomposition.pbi import PBI
-    from pymoo.decomposition.tchebicheff import Tchebicheff
-    from pymoo.decomposition.weighted_sum import WeightedSum
-    from pymoo.decomposition.asf import ASF
-    from pymoo.decomposition.aasf import AASF
-    from pymoo.decomposition.perp_dist import PerpendicularDistance
+    from pymoo.pymoo.decomposition.pbi import PBI
+    from pymoo.pymoo.decomposition.tchebicheff import Tchebicheff
+    from pymoo.pymoo.decomposition.weighted_sum import WeightedSum
+    from pymoo.pymoo.decomposition.asf import ASF
+    from pymoo.pymoo.decomposition.aasf import AASF
+    from pymoo.pymoo.decomposition.perp_dist import PerpendicularDistance
 
     DECOMPOSITION = [
         ("weighted-sum", WeightedSum),
@@ -469,8 +471,8 @@ def get_decomposition(name, *args, d={}, **kwargs):
 # =========================================================================================================
 
 def get_decision_making_options():
-    from pymoo.mcdm.high_tradeoff import HighTradeoffPoints
-    from pymoo.mcdm.pseudo_weights import PseudoWeights
+    from pymoo.pymoo.mcdm.high_tradeoff import HighTradeoffPoints
+    from pymoo.pymoo.mcdm.pseudo_weights import PseudoWeights
 
     DECISION_MAKING = [
         ("high-tradeoff", HighTradeoffPoints),
@@ -511,9 +513,9 @@ def options_to_string(l):
 
 
 if Config.parse_custom_docs:
-    from pymoo.docs import parse_doc_string
+    from pymoo.pymoo.docs import parse_doc_string
 
-    from pymoo.factory import get_algorithm_options, get_selection_options, get_crossover_options, \
+    from pymoo.pymoo.factory import get_algorithm_options, get_selection_options, get_crossover_options, \
         get_mutation_options, get_termination_options, get_algorithm, get_selection, get_crossover, get_mutation, \
         get_termination, get_sampling, get_sampling_options
 

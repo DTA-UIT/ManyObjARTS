@@ -1,6 +1,6 @@
 import numpy as np
 
-from pymoo.core.crossover import Crossover
+from pymoo.pymoo.core.crossover import Crossover
 
 
 def random_sequence(n):

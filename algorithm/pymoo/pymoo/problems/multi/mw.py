@@ -1,9 +1,9 @@
 import numpy as np
 
-from pymoo.core.problem import Problem
+from pymoo.pymoo.core.problem import Problem
 # Based on the C++ implementation by the Ma and Wang
 # http://www.escience.cn/people/yongwang1/index.html
-from pymoo.util.remote import Remote
+from pymoo.pymoo.util.remote import Remote
 
 
 class MW(Problem):

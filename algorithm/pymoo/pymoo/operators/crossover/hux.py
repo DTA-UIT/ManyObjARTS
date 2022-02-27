@@ -2,8 +2,8 @@ import math
 
 import numpy as np
 
-from pymoo.core.crossover import Crossover
-from pymoo.operators.crossover.util import crossover_mask
+from pymoo.pymoo.core.crossover import Crossover
+from pymoo.pymoo.operators.crossover.util import crossover_mask
 
 
 class HalfUniformCrossover(Crossover):

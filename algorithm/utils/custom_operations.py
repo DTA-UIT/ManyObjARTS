@@ -1,10 +1,16 @@
 import os, sys 
 import numpy as np
+
+from source.nasbench import nasbench
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from pymoo.operators.crossover.pntx import PointCrossover
-from pymoo.operators.crossover.util import crossover_mask
-from pymoo.operators.mutation.pm import PolynomialMutation
-from pymoo.operators.repair.to_bound import set_to_bounds_if_outside_by_problem
+from pymoo.pymoo.operators.crossover.pntx import PointCrossover
+from pymoo.pymoo.operators.crossover.util import crossover_mask
+from pymoo.pymoo.operators.mutation.pm import PolynomialMutation
+from pymoo.pymoo.operators.repair.to_bound import set_to_bounds_if_outside_by_problem
+
+from NASBench.NAS101 import NAS101 
+
+nasbench101_api = NAS101(debug=True)
 
 class TwoPointsCrossover(PointCrossover):
     def __init__(self):
@@ -15,22 +21,47 @@ class TwoPointsCrossover(PointCrossover):
         _, n_matings, n_var = X.shape
 
         # start point of crossover
-        r = np.row_stack([np.random.permutation(n_var - 1) + 1 for _ in range(n_matings)])[:, :self.n_points]
+        r = np.row_stack([np.random.permutation(n_var - 1) + 1 for _ in range(n_matings)])[:, : self.n_points]
         r.sort(axis=1)
         r = np.column_stack([r, np.full(n_matings, n_var)])
 
         # the mask do to the crossover
         M = np.full((n_matings, n_var), False)
 
+        # original_parent1, original_parent2 = np.copy(X), np.copy(M)
+
         # create for each individual the crossover range
         for i in range(n_matings):
             j = 0
+            
             while j < r.shape[1] - 1:
                 a, b = r[i, j], r[i, j + 1]
+                maximum_crossover_attempts = len(X)
+                print(f"Crossover phase:\n{a}\n{b}\n")
+                current_attempt = 0 
+                while not nasbench101_api.is_valid(a) or not nasbench101_api.is_valid(b):
+                    if current_attempt == maximum_crossover_attempts:
+                        break
+                else:
+                    self._do(a, b)
+                    current_attempt += 1 
+                
                 M[i, a:b] = True
-                j += 2
-
+                j += 2    
+                
         _X = crossover_mask(X, M)
+        
+        # if nasbench101_api.is_valid(X) and nasbench101_api.is_valid(M):
+        #     _X = crossover_mask(X, M)
+        
+        # 
+        # current_attempt = 0
+        # while not nasbench101_api.is_valid(X) or not nasbench101_api.is_valid(M):
+        #     if current_attempt == maximum_crossover_attempts:
+        #         return crossover_mask(original_parent1, original_parent2)
+        #     else:
+        #         self._do(M, X)
+        #         current_attempt += 1
 
         return _X
     

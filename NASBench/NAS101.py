@@ -11,7 +11,7 @@ from ZeroCostNas.foresight.pruners import predictive
 from ZeroCostNas.foresight.weight_initializers import init_net
 from ZeroCostNas.AutoDLTools.xautodl.utils.flop_benchmark import *
 from source.nasbench.nasbench import api
-from ZeroCostNas.OpCounter.thop import profile
+# from ZeroCostNas.OpCounter.thop import profile
 
 
 def get_num_classes(args):
@@ -24,7 +24,7 @@ def get_num_classes(args):
     raise Exception('Unknown dataset')
 
 class NAS101(NASBench):
-    def __init__(self, use_colab=True, debug=True):
+    def __init__(self, use_colab=True, debug=False):
         super().__init__()
         
         """ 
@@ -44,12 +44,12 @@ class NAS101(NASBench):
         
         url = os.path.dirname(__file__)
         if debug:
+            self.api = None 
+        else:
             if not use_colab:
                 self.api = api.NASBench(f"{url[:-len('/NASBench')] + '/source/nasbench/nasbench_full.tfrecord'}")
             else:
                 self.api = api.NASBench("/content/drive/MyDrive/DTA/Tân/NASBench101/nasbench_full.tfrecord")
-        else:
-            self.api = None
         self.cell = None
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         print(f'Running on device: {self.device}')

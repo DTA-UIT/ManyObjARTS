@@ -4,7 +4,7 @@ from os.path import join, dirname, abspath
 
 import numpy as np
 
-from pymoo.config import Config
+from pymoo.pymoo.config import Config
 
 
 class Remote:

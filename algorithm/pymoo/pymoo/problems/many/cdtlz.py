@@ -1,6 +1,6 @@
 import autograd.numpy as anp
 
-from pymoo.problems.many.dtlz import DTLZ1, DTLZ2, DTLZ3, DTLZ4
+from pymoo.pymoo.problems.many.dtlz import DTLZ1, DTLZ2, DTLZ3, DTLZ4
 
 
 class C1DTLZ1(DTLZ1):

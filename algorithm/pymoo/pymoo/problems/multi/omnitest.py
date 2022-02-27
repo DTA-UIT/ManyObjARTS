@@ -1,7 +1,7 @@
 import numpy as np
 from numpy import sum, pi, sin, cos
 
-from pymoo.core.problem import Problem
+from pymoo.pymoo.core.problem import Problem
 
 
 class OmniTest(Problem):

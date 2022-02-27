@@ -1,7 +1,7 @@
 import numpy as np
 
-from pymoo.core.problem import ElementwiseProblem
-from pymoo.util.remote import Remote
+from pymoo.pymoo.core.problem import ElementwiseProblem
+from pymoo.pymoo.util.remote import Remote
 
 
 class MODAct(ElementwiseProblem):

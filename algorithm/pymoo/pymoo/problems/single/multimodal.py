@@ -1,6 +1,6 @@
 import autograd.numpy as anp
 
-from pymoo.core.problem import Problem
+from pymoo.pymoo.core.problem import Problem
 
 
 def curve(problem, n_points=200):

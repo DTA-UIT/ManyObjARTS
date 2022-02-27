@@ -1,7 +1,7 @@
 import numpy as np
 
-from pymoo.core.crossover import Crossover
-from pymoo.operators.repair.to_bound import set_to_bounds_if_outside_by_problem
+from pymoo.pymoo.core.crossover import Crossover
+from pymoo.pymoo.operators.repair.to_bound import set_to_bounds_if_outside_by_problem
 
 
 class SimulatedBinaryCrossover(Crossover):

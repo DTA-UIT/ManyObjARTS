@@ -1,8 +1,8 @@
 import autograd.numpy as anp
 
-from pymoo.core.problem import Problem
-from pymoo.util.reference_direction import UniformReferenceDirectionFactory
-from pymoo.util.remote import Remote
+from pymoo.pymoo.core.problem import Problem
+from pymoo.pymoo.util.reference_direction import UniformReferenceDirectionFactory
+from pymoo.pymoo.util.remote import Remote
 
 
 class DTLZ(Problem):

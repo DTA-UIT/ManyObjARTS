@@ -1,7 +1,7 @@
 import numpy as np
 
-from pymoo.core.crossover import Crossover
-from pymoo.operators.repair.inverse_penalty import inverse_penality
+from pymoo.pymoo.core.crossover import Crossover
+from pymoo.pymoo.operators.repair.inverse_penalty import inverse_penality
 
 
 def eps_if_less_than_eps(x, eps):

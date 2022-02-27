@@ -3,7 +3,7 @@ import subprocess
 
 import numpy as np
 
-from pymoo.core.problem import ElementwiseProblem
+from pymoo.pymoo.core.problem import ElementwiseProblem
 
 
 class MOPTA08(ElementwiseProblem):

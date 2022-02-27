@@ -1,7 +1,7 @@
 import numpy as np
 from numpy import zeros, abs, min, sign, ceil, ones, pi, cos, sin
 
-from pymoo.core.problem import Problem
+from pymoo.pymoo.core.problem import Problem
 
 
 class SYMPARTRotated(Problem):

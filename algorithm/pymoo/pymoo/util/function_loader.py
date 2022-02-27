@@ -1,15 +1,15 @@
 import importlib
 
-from pymoo.config import Config
+from pymoo.pymoo.config import Config
 
 
 def get_functions():
-    from pymoo.util.nds.fast_non_dominated_sort import fast_non_dominated_sort
-    from pymoo.util.nds.efficient_non_dominated_sort import efficient_non_dominated_sort
-    from pymoo.util.nds.tree_based_non_dominated_sort import tree_based_non_dominated_sort
-    from pymoo.decomposition.util import calc_distance_to_weights
-    from pymoo.util.misc import calc_perpendicular_distance
-    from pymoo.util.stochastic_ranking import stochastic_ranking
+    from pymoo.pymoo.util.nds.fast_non_dominated_sort import fast_non_dominated_sort
+    from pymoo.pymoo.util.nds.efficient_non_dominated_sort import efficient_non_dominated_sort
+    from pymoo.pymoo.util.nds.tree_based_non_dominated_sort import tree_based_non_dominated_sort
+    from pymoo.pymoo.decomposition.util import calc_distance_to_weights
+    from pymoo.pymoo.util.misc import calc_perpendicular_distance
+    from pymoo.pymoo.util.stochastic_ranking import stochastic_ranking
 
     FUNCTIONS = {
         "fast_non_dominated_sort": {
@@ -59,7 +59,7 @@ class FunctionLoader:
             print("https://pymoo.org/installation.html#installation")
             print()
             print("To disable this warning:")
-            print("from pymoo.config import Config")
+            print("from pymoo.pymoo.config import Config")
             print("Config.show_compile_hint = False\n")
 
     def load(self, func_name=None, _type="auto"):
@@ -91,7 +91,7 @@ def load_function(func_name=None, _type="auto"):
 
 def is_compiled():
     try:
-        from pymoo.cython.info import info
+        from pymoo.pymoo.cython.info import info
         if info() == "yes":
             return True
         else:

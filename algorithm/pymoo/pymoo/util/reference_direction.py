@@ -3,7 +3,7 @@ import sys
 import numpy as np
 from scipy import special
 
-from pymoo.util.misc import find_duplicates, cdist
+from pymoo.pymoo.util.misc import find_duplicates, cdist
 
 
 # =========================================================================================================

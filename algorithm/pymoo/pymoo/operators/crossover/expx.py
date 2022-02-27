@@ -1,7 +1,7 @@
 import numpy as np
 
-from pymoo.core.crossover import Crossover
-from pymoo.operators.crossover.util import crossover_mask, row_at_least_once_true
+from pymoo.pymoo.core.crossover import Crossover
+from pymoo.pymoo.operators.crossover.util import crossover_mask, row_at_least_once_true
 
 
 def mut_exp(n_matings, n_var, prob, at_least_once=True):

@@ -1,7 +1,7 @@
 import autograd.numpy as anp
 
-from pymoo.core.problem import Problem
-from pymoo.util.remote import Remote
+from pymoo.pymoo.core.problem import Problem
+from pymoo.pymoo.util.remote import Remote
 
 
 def g_linear(x):

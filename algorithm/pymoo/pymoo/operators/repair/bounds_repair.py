@@ -1,7 +1,7 @@
 import abc
 
-from pymoo.core.population import Population
-from pymoo.core.repair import Repair
+from pymoo.pymoo.core.population import Population
+from pymoo.pymoo.core.repair import Repair
 import numpy as np
 
 

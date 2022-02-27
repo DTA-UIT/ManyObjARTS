@@ -1,6 +1,6 @@
 import numpy as np
 
-from pymoo.core.population import Population
+from pymoo.pymoo.core.population import Population
 
 
 class Crossover:
@@ -13,7 +13,6 @@ class Crossover:
         self.prob = prob
         self.n_parents = n_parents
         self.n_offsprings = n_offsprings
-
     def do(self, problem, pop, parents, **kwargs):
         """
 
@@ -42,7 +41,6 @@ class Crossover:
             length of the problem.
 
         """
-
         if self.n_parents != parents.shape[1]:
             raise ValueError('Exception during crossover: Number of parents differs from defined at crossover.')
 

@@ -1,10 +1,10 @@
 import numpy as np
 
-from pymoo.core.crossover import Crossover
-from pymoo.core.population import Population
-from pymoo.operators.crossover.binx import mut_binomial
-from pymoo.operators.crossover.expx import mut_exp
-from pymoo.operators.repair.bounds_repair import is_out_of_bounds_by_problem, repair_random_init
+from pymoo.pymoo.core.crossover import Crossover
+from pymoo.pymoo.core.population import Population
+from pymoo.pymoo.operators.crossover.binx import mut_binomial
+from pymoo.pymoo.operators.crossover.expx import mut_exp
+from pymoo.pymoo.operators.repair.bounds_repair import is_out_of_bounds_by_problem, repair_random_init
 
 
 def de_differential(X, F, dither=None, jitter=True, gamma=0.0001, return_differentials=False):

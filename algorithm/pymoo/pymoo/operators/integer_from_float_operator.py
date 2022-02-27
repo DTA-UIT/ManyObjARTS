@@ -1,8 +1,8 @@
 import numpy as np
 
-from pymoo.core.crossover import Crossover
-from pymoo.core.mutation import Mutation
-from pymoo.core.sampling import Sampling
+from pymoo.pymoo.core.crossover import Crossover
+from pymoo.pymoo.core.mutation import Mutation
+from pymoo.pymoo.core.sampling import Sampling
 
 
 def apply_float_operation(problem, fun):

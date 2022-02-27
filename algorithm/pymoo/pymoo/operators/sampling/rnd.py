@@ -1,7 +1,7 @@
 import numpy as np
 
-from pymoo.core.sampling import Sampling
-from pymoo.util.normalization import denormalize
+from pymoo.pymoo.core.sampling import Sampling
+from pymoo.pymoo.util.normalization import denormalize
 
 
 def random_by_bounds(n_var, xl, xu, n_samples=1):

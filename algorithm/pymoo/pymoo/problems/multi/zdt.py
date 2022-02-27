@@ -1,7 +1,7 @@
 import autograd.numpy as anp
 
-from pymoo.core.problem import Problem
-from pymoo.util.normalization import normalize
+from pymoo.pymoo.core.problem import Problem
+from pymoo.pymoo.util.normalization import normalize
 
 
 class ZDT(Problem):

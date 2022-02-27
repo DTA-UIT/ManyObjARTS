@@ -1,7 +1,7 @@
 import numpy as np
 
-from pymoo.core.sampling import Sampling
-from pymoo.util.misc import cdist
+from pymoo.pymoo.core.sampling import Sampling
+from pymoo.pymoo.util.misc import cdist
 
 
 def criterion_maxmin(X):

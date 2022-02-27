@@ -1,6 +1,6 @@
 from os.path import dirname, realpath
 
-from pymoo.version import __version__
+from pymoo.pymoo.version import __version__
 
 
 class Config:

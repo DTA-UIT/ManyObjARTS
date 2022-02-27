@@ -1,9 +1,9 @@
 import numpy as np
 
-from pymoo.core.problem import Problem
-from pymoo.problems.many import generic_sphere, get_ref_dirs
-from pymoo.util.function_loader import load_function
-from pymoo.util.misc import powerset
+from pymoo.pymoo.core.problem import Problem
+from pymoo.pymoo.problems.many import generic_sphere, get_ref_dirs
+from pymoo.pymoo.util.function_loader import load_function
+from pymoo.pymoo.util.misc import powerset
 
 
 class WFG(Problem):

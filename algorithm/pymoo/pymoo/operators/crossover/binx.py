@@ -1,8 +1,8 @@
 import numpy as np
 
-from pymoo.core.crossover import Crossover
-from pymoo.core.population import Population
-from pymoo.operators.crossover.util import row_at_least_once_true
+from pymoo.pymoo.core.crossover import Crossover
+from pymoo.pymoo.core.population import Population
+from pymoo.pymoo.operators.crossover.util import row_at_least_once_true
 
 
 def mut_binomial(n, m, prob, at_least_once=True):

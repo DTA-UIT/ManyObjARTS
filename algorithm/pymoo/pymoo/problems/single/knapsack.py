@@ -1,7 +1,7 @@
 import numpy as np
 import autograd.numpy as anp
 
-from pymoo.core.problem import Problem
+from pymoo.pymoo.core.problem import Problem
 
 
 class Knapsack(Problem):

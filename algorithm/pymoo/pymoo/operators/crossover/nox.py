@@ -1,4 +1,4 @@
-from pymoo.core.crossover import Crossover
+from pymoo.pymoo.core.crossover import Crossover
 
 
 class NoCrossover(Crossover):

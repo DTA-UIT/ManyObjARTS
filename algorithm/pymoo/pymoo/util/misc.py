@@ -6,8 +6,8 @@ import numpy as np
 import scipy
 import scipy.spatial
 
-from pymoo.core.population import Population
-from pymoo.core.sampling import Sampling
+from pymoo.pymoo.core.population import Population
+from pymoo.pymoo.core.sampling import Sampling
 
 
 def parameter_less(F, CV, fmax=None, inplace=False):

@@ -1,6 +1,6 @@
 import numpy as np
 
-from pymoo.operators.repair.bounds_repair import BoundsRepair
+from pymoo.pymoo.operators.repair.bounds_repair import BoundsRepair
 
 
 def inverse_penality(x, p, xl, xu, alpha=None):

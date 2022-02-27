@@ -1,7 +1,7 @@
 import numpy as np
 
-from pymoo.operators.repair.bounds_repair import BoundsRepair
-from pymoo.util.misc import at_least_2d_array
+from pymoo.pymoo.operators.repair.bounds_repair import BoundsRepair
+from pymoo.pymoo.util.misc import at_least_2d_array
 
 
 def bounce_back(X, xl, xu):

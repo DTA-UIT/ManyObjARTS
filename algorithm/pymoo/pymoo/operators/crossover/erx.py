@@ -1,6 +1,6 @@
 import numpy as np
 
-from pymoo.core.crossover import Crossover
+from pymoo.pymoo.core.crossover import Crossover
 
 
 def remove_from_adj_list(H, val):

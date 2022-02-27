@@ -1,4 +1,4 @@
-from pymoo.operators.crossover.pntx import PointCrossover
+from pymoo.pymoo.operators.crossover.pntx import PointCrossover
 
 
 class SPX(PointCrossover):
