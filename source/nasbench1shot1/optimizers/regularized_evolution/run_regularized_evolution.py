@@ -148,23 +148,25 @@ def random_search(cycles):
         history.append(model)
     return history
 
-
-parser = argparse.ArgumentParser()
-parser.add_argument('--run_id', default=0, type=int, nargs='?', help='unique number to identify this run')
-parser.add_argument('--algorithm', default=None, type=str)
-parser.add_argument('--search_space', default="1", type=str, nargs='?', help='specifies the benchmark')
-parser.add_argument('--n_iters', default=280, type=int, nargs='?', help='number of iterations for optimization method')
-parser.add_argument('--output_path', default="./experiments", type=str, nargs='?',
-                    help='specifies the path where the results will be saved')
-parser.add_argument('--data_dir',
-                    default="nasbench_analysis/nasbench_data/108_e/nasbench_only108.tfrecord", type=str,
-                    nargs='?', help='specifies the path to the nasbench data')
-parser.add_argument('--pop_size', default=100, type=int, nargs='?', help='population size')
-parser.add_argument('--sample_size', default=10, type=int, nargs='?', help='sample_size')
-parser.add_argument('--seed', default=0, type=int, help='random seed')
-parser.add_argument('--n_repetitions', default=500, type=int, help='number of repetitions')
-
-args = parser.parse_args()
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='Run regularized evolution')
+    parser.add_argument('--run_id', default=0, type=int, nargs='?', help='unique number to identify this run')
+    parser.add_argument('--algorithm', default=None, type=str)
+    parser.add_argument('--search_space', default="1", type=str, nargs='?', help='specifies the benchmark')
+    parser.add_argument('--n_iters', default=280, type=int, nargs='?', help='number of iterations for optimization method')
+    parser.add_argument('--output_path', default="./experiments", type=str, nargs='?',
+                        help='specifies the path where the results will be saved')
+    parser.add_argument('--data_dir',
+                        default="nasbench_analysis/nasbench_data/108_e/nasbench_only108.tfrecord", type=str,
+                        nargs='?', help='specifies the path to the nasbench data')
+    parser.add_argument('--pop_size', default=100, type=int, nargs='?', help='population size')
+    parser.add_argument('--sample_size', default=10, type=int, nargs='?', help='sample_size')
+    parser.add_argument('--seed', default=0, type=int, help='random seed')
+    parser.add_argument('--n_repetitions', default=500, type=int, help='number of repetitions')
+    args = parser.parse_args()
+    return args    
+    
+args = parse_arguments()
 nasbench = api.NASBench(args.data_dir)
 
 if args.search_space is None:
