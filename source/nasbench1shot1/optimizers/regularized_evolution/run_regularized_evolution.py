@@ -42,7 +42,8 @@ def train_and_eval(config):
     return nasbench_data['validation_accuracy'], nasbench_data['test_accuracy'], nasbench_data['training_time']
 
 
-def random_architecture(search_space):
+def random_architecture(args):
+    search_space = eval('SearchSpace{}()'.format(space))
     adjacency_matrix, node_list = search_space.sample_with_loose_ends()
     architecture = Architecture(adjacency_matrix=adjacency_matrix, node_list=node_list)
     return architecture
@@ -106,7 +107,7 @@ def regularized_evolution(cycles, population_size, sample_size):
     # Initialize the population with random models.
     while len(population) < population_size:
         model = Model()
-        model.arch = random_architecture()
+        model.arch = random_architecture(args)
         model.validation_accuracy, model.test_accuracy, model.training_time = train_and_eval(model.arch)
         population.append(model)
         history.append(model)
@@ -139,11 +140,11 @@ def regularized_evolution(cycles, population_size, sample_size):
     return history
 
 
-def random_search(search_space, cycles):
+def random_search(args, cycles):
     history = []
     for i in range(cycles):
         model = Model()
-        model.arch = random_architecture(search_space)
+        model.arch = random_architecture(args)
         model.validation_accuracy, model.test_accuracy, model.training_time = train_and_eval(model.arch)
         history.append(model)
     return history
@@ -197,7 +198,7 @@ if __name__ == '__main__':
                     history = regularized_evolution(
                         cycles=args.n_iters, population_size=args.pop_size, sample_size=args.sample_size)
                 else:
-                    history = random_search(search_space, cycles=args.n_iters)
+                    history = random_search(args, cycles=args.n_iters)
 
                 fh = open(os.path.join(output_path,
                                     'algo_{}_{}_ssp_{}_seed_{}.obj'.format(alg,
