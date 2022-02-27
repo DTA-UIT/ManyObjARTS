@@ -42,8 +42,7 @@ def train_and_eval(config):
     return nasbench_data['validation_accuracy'], nasbench_data['test_accuracy'], nasbench_data['training_time']
 
 
-def random_architecture(args):
-    search_space = eval('SearchSpace{}()'.format(space))
+def random_architecture():
     adjacency_matrix, node_list = search_space.sample_with_loose_ends()
     architecture = Architecture(adjacency_matrix=adjacency_matrix, node_list=node_list)
     return architecture
@@ -107,7 +106,7 @@ def regularized_evolution(cycles, population_size, sample_size):
     # Initialize the population with random models.
     while len(population) < population_size:
         model = Model()
-        model.arch = random_architecture(args)
+        model.arch = random_architecture()
         model.validation_accuracy, model.test_accuracy, model.training_time = train_and_eval(model.arch)
         population.append(model)
         history.append(model)
@@ -140,11 +139,11 @@ def regularized_evolution(cycles, population_size, sample_size):
     return history
 
 
-def random_search(args, cycles):
+def random_search(cycles):
     history = []
     for i in range(cycles):
         model = Model()
-        model.arch = random_architecture(args)
+        model.arch = random_architecture()
         model.validation_accuracy, model.test_accuracy, model.training_time = train_and_eval(model.arch)
         history.append(model)
     return history
@@ -167,45 +166,45 @@ def parse_arguments():
     args = parser.parse_args()
     return args    
     
-if __name__ == '__main__':
-    args = parse_arguments()
-    # from __init__ import api
-    nasbench = api.NASBench(args.data_dir)
+# if __name__ == '__main__':
+args = parse_arguments()
+# from __init__ import api
+nasbench = api.NASBench(args.data_dir)
 
-    if args.search_space is None:
-        spaces = [1, 2, 3]
-    else:
-        spaces = [int(args.search_space)]
+if args.search_space is None:
+    spaces = [1, 2, 3]
+else:
+    spaces = [int(args.search_space)]
 
-    if args.algorithm is None:
-        algos = ['RE', 'RS']
-    else:
-        algos = [args.algorithm]
+if args.algorithm is None:
+    algos = ['RE', 'RS']
+else:
+    algos = [args.algorithm]
 
 
-    for space in spaces:
-        search_space = eval('SearchSpace{}()'.format(space))
-        for alg in algos:
-            print("##### Algorithm {} #####".format(alg))
-            for seed in range(args.n_repetitions):
-                print("##### Seed {} #####".format(seed))
-                np.random.seed(seed)
-                output_path = os.path.join(args.output_path, "discrete_optimizers")
-                os.makedirs(os.path.join(output_path), exist_ok=True)
+for space in spaces:
+    search_space = eval('SearchSpace{}()'.format(space))
+    for alg in algos:
+        print("##### Algorithm {} #####".format(alg))
+        for seed in range(args.n_repetitions):
+            print("##### Seed {} #####".format(seed))
+            np.random.seed(seed)
+            output_path = os.path.join(args.output_path, "discrete_optimizers")
+            os.makedirs(os.path.join(output_path), exist_ok=True)
 
-                # Set random_seed
-                if alg == 'RE':
-                    history = regularized_evolution(
-                        cycles=args.n_iters, population_size=args.pop_size, sample_size=args.sample_size)
-                else:
-                    history = random_search(args, cycles=args.n_iters)
+            # Set random_seed
+            if alg == 'RE':
+                history = regularized_evolution(
+                    cycles=args.n_iters, population_size=args.pop_size, sample_size=args.sample_size)
+            else:
+                history = random_search(cycles=args.n_iters)
 
-                fh = open(os.path.join(output_path,
-                                    'algo_{}_{}_ssp_{}_seed_{}.obj'.format(alg,
-                                                                            args.run_id,
-                                                                            space,
-                                                                            seed)), 'wb')
-                pickle.dump(history, fh)
-                fh.close()
+            fh = open(os.path.join(output_path,
+                                'algo_{}_{}_ssp_{}_seed_{}.obj'.format(alg,
+                                                                        args.run_id,
+                                                                        space,
+                                                                        seed)), 'wb')
+            pickle.dump(history, fh)
+            fh.close()
 
-                print(min([1 - arch.test_accuracy - search_space.test_min_error for arch in history]))
+            print(min([1 - arch.test_accuracy - search_space.test_min_error for arch in history]))
