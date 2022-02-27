@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from source.nasbench1shot1.nasbench_analysis.search_spaces.search_space import SearchSpace
 from source.nasbench1shot1.nasbench_analysis.utils import upscale_to_nasbench_format, OUTPUT_NODE, NasbenchWrapper, INPUT, CONV1X1, OUTPUT
-from optimizers.darts.genotypes import PRIMITIVES
-from optimizers.utils import Model, Architecture
+from source.nasbench1shot1.optimizers.darts.genotypes import PRIMITIVES
+from source.nasbench1shot1.optimizers.utils import Model, Architecture
 
 
 class SearchSpace2(SearchSpace):
