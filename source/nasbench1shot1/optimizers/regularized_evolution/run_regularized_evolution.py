@@ -14,15 +14,18 @@ NOTE: This script has certain deviations from the original code owing to the sea
 Adaptions were made to make it compatible with the search spaces.
 """
 
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from NASBench.NAS101 import NAS101 
+api = NAS101().api
 import argparse
 import collections
 import copy
-import os
 import pickle
 import random
 
 import numpy as np
-from nasbench import api
 
 from optimizers.utils import Model, Architecture
 from nasbench_analysis.search_spaces.search_space_1 import SearchSpace1
