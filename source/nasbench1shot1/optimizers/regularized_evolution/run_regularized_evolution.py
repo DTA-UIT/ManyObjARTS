@@ -44,7 +44,8 @@ def train_and_eval(config):
 
 
 def random_architecture(search_space):
-    adjacency_matrix, node_list = search_space.generate_with_loose_ends()
+    # adjacency_matrix, node_list = search_space.sample_with_loose_ends()
+    adjacency_matrix, node_list = search_space.sample(with_loose_ends=True)
     architecture = Architecture(adjacency_matrix=adjacency_matrix, node_list=node_list)
     return architecture
 
