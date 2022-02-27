@@ -22,12 +22,12 @@ import pickle
 import random
 import numpy as np
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from source.nasbench1shot1.__init__ import api
 from source.nasbench1shot1.optimizers.utils import Model, Architecture
 from source.nasbench1shot1.nasbench_analysis.search_spaces.search_space_1 import SearchSpace1
 from source.nasbench1shot1.nasbench_analysis.search_spaces.search_space_2 import SearchSpace2
 from source.nasbench1shot1.nasbench_analysis.search_spaces.search_space_3 import SearchSpace3
 from source.nasbench1shot1.nasbench_analysis.utils import upscale_to_nasbench_format, INPUT, OUTPUT, CONV1X1, CONV3X3, MAXPOOL3X3
-from source.nasbench1shot1.__init__ import api
 
 def train_and_eval(config):
     adjacency_matrix, node_list = config.adjacency_matrix, config.node_list
@@ -167,14 +167,6 @@ parser.add_argument('--n_repetitions', default=500, type=int, help='number of re
 
 args = parser.parse_args()
 nasbench = api.NASBench(args.data_dir)
-#if args.search_space == "1":
-#    search_space = SearchSpace1()
-#elif args.search_space == "2":
-#    search_space = SearchSpace2()
-#elif args.search_space == "3":
-#    search_space = SearchSpace3()
-#else:
-#    raise ValueError('Unknown search space')
 
 if args.search_space is None:
     spaces = [1, 2, 3]
