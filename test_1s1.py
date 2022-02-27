@@ -1,0 +1,2 @@
+from source.nasbench1shot1.optimizers.regularized_evolution.run_regularized_evolution import random_architecture
+rand_arch = random_architecture()

@@ -2,10 +2,10 @@ import itertools
 
 import matplotlib.pyplot as plt
 import numpy as np
-from nasbench import api
+from source.nasbench1shot1.__init__ import api
 
-from nasbench_analysis.search_spaces.search_space import SearchSpace
-from nasbench_analysis.utils import upscale_to_nasbench_format, OUTPUT_NODE, INPUT, CONV1X1, OUTPUT, NasbenchWrapper
+from source.nasbench1shot1.nasbench_analysis.search_spaces.search_space import SearchSpace
+from source.nasbench1shot1.nasbench_analysis.utils import upscale_to_nasbench_format, OUTPUT_NODE, INPUT, CONV1X1, OUTPUT, NasbenchWrapper
 
 
 class SearchSpace1(SearchSpace):

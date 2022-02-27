@@ -14,24 +14,20 @@ NOTE: This script has certain deviations from the original code owing to the sea
 Adaptions were made to make it compatible with the search spaces.
 """
 
-import os
-import sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-sys.path.append('.')
-from NASBench.NAS101 import NAS101 
-api = NAS101().api
+import os, sys
 import argparse
 import collections
 import copy
 import pickle
 import random
 import numpy as np
-from optimizers.utils import Model, Architecture
-from nasbench_analysis.search_spaces.search_space_1 import SearchSpace1
-from nasbench_analysis.search_spaces.search_space_2 import SearchSpace2
-from nasbench_analysis.search_spaces.search_space_3 import SearchSpace3
-from nasbench_analysis.utils import upscale_to_nasbench_format, INPUT, OUTPUT, CONV1X1, CONV3X3, MAXPOOL3X3
-
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from source.nasbench1shot1.optimizers.utils import Model, Architecture
+from source.nasbench1shot1.nasbench_analysis.search_spaces.search_space_1 import SearchSpace1
+from source.nasbench1shot1.nasbench_analysis.search_spaces.search_space_2 import SearchSpace2
+from source.nasbench1shot1.nasbench_analysis.search_spaces.search_space_3 import SearchSpace3
+from source.nasbench1shot1.nasbench_analysis.utils import upscale_to_nasbench_format, INPUT, OUTPUT, CONV1X1, CONV3X3, MAXPOOL3X3
+from source.nasbench1shot1.__init__ import api
 
 def train_and_eval(config):
     adjacency_matrix, node_list = config.adjacency_matrix, config.node_list
