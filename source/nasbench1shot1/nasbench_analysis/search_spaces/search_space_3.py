@@ -5,7 +5,7 @@ import numpy as np
 
 from source.nasbench1shot1.nasbench_analysis.search_spaces.search_space import SearchSpace
 from source.nasbench1shot1.nasbench_analysis.utils import OUTPUT_NODE, NasbenchWrapper, INPUT, OUTPUT
-
+from source.nasbench.nasbench import api
 
 class SearchSpace3(SearchSpace):
     def __init__(self):
