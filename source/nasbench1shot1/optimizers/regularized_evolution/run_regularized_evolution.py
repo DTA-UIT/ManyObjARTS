@@ -29,7 +29,7 @@ from source.nasbench1shot1.nasbench_analysis.search_spaces.search_space_3 import
 from source.nasbench1shot1.nasbench_analysis.utils import upscale_to_nasbench_format, INPUT, OUTPUT, CONV1X1, CONV3X3, MAXPOOL3X3
 from source.nasbench.nasbench import api as api101
 
-def train_and_eval(search_space, config):
+def train_and_eval(search_space, config, api):
     adjacency_matrix, node_list = config.adjacency_matrix, config.node_list
     if type(search_space) == SearchSpace1 or type(search_space) == SearchSpace2:
         # Fill up adjacency matrix and node list with entries for unused nodes
