@@ -52,7 +52,7 @@ def random_architecture(search_space):
     return architecture
 
 
-def mutate_arch(parent_arch):
+def mutate_arch(search_space, parent_arch):
     # Choose one of the three mutations
     mutation = np.random.choice(['identity', 'hidden_state_mutation', 'op_mutation'])
 
@@ -132,7 +132,7 @@ def regularized_evolution(search_space, cycles, population_size, sample_size):
 
         # Create the child model and store it.
         child = Model()
-        child.arch = mutate_arch(parent.arch)
+        child.arch = mutate_arch(search_space,parent.arch)
         child.validation_accuracy, child.test_accuracy, child.training_time = train_and_eval(child.arch)
         population.append(child)
         history.append(child)
