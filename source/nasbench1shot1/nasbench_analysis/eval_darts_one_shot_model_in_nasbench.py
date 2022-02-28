@@ -7,11 +7,11 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 
-from nasbench_analysis.search_spaces.search_space_1 import SearchSpace1
-from nasbench_analysis.search_spaces.search_space_2 import SearchSpace2
-from nasbench_analysis.search_spaces.search_space_3 import SearchSpace3
-from nasbench_analysis.utils import get_top_k, INPUT, OUTPUT, CONV1X1, NasbenchWrapper, natural_keys
-from optimizers.darts.genotypes import PRIMITIVES
+from source.nasbench1shot1.nasbench_analysis.search_spaces.search_space_1 import SearchSpace1
+from source.nasbench1shot1.nasbench_analysis.search_spaces.search_space_2 import SearchSpace2
+from source.nasbench1shot1.nasbench_analysis.search_spaces.search_space_3 import SearchSpace3
+from source.nasbench1shot1.nasbench_analysis.utils import get_top_k, INPUT, OUTPUT, CONV1X1, NasbenchWrapper, natural_keys
+from source.nasbench1shot1.optimizers.darts.genotypes import PRIMITIVES
 
 
 # from scipy.special import softmax
