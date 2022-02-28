@@ -27,7 +27,7 @@ from source.nasbench1shot1.nasbench_analysis.search_spaces.search_space_1 import
 from source.nasbench1shot1.nasbench_analysis.search_spaces.search_space_2 import SearchSpace2
 from source.nasbench1shot1.nasbench_analysis.search_spaces.search_space_3 import SearchSpace3
 from source.nasbench1shot1.nasbench_analysis.utils import upscale_to_nasbench_format, INPUT, OUTPUT, CONV1X1, CONV3X3, MAXPOOL3X3
-# from source.nasbench.nasbench import api as api101
+from source.nasbench.nasbench import api as api101
 
 def train_and_eval(search_space, config):
     adjacency_matrix, node_list = config.adjacency_matrix, config.node_list
@@ -40,7 +40,8 @@ def train_and_eval(search_space, config):
     adjacency_list = adjacency_matrix.astype(np.int).tolist()
     # model_spec = api101.ModelSpec(matrix=adjacency_list, ops=node_list)
     # nasbench_data = api101.query(model_spec)
-    nasbench_data = api.query(matrix=adjacency_list, ops=node_list)
+    spec = api101.ModelSpec(adjacency_list, node_list).__dict__
+    nasbench_data = api.query_bench(spec['matrix'], spec['ops'], metric='test_accuracy')
     return nasbench_data['validation_accuracy'], nasbench_data['test_accuracy'], nasbench_data['training_time']
 
 
