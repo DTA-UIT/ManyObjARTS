@@ -11,6 +11,8 @@ from ZeroCostNas.foresight.pruners import predictive
 from ZeroCostNas.foresight.weight_initializers import init_net
 from ZeroCostNas.AutoDLTools.xautodl.utils.flop_benchmark import *
 from source.nasbench.nasbench import api
+from ZeroCostNas.OpCounter.thop import profile
+
 from NAS101 import NAS101
 
 def get_num_classes(args):
