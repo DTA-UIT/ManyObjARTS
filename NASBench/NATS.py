@@ -194,7 +194,9 @@ class NATS(NASBench):
                     input = torch.randn(len(train_loader), 3, 16, 16)
                 else:
                     raise Exception('Unsupported dataset')
-                result['macs'], _ = profile(self.cell, inputs=(input, ), verbose=False)   
+                cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
+                init_net(cell, args.init_w_type, args.init_b_type)
+                result['macs'], _ = profile(cell, inputs=(input, ), verbose=False)   
                 
             # If None of above, then evaluate the architecture using zero-cost proxies
             else: 
