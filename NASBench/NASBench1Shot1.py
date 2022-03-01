@@ -85,9 +85,7 @@ class NASBench1Shot1(NAS101):
 
         return self.query_result 
 
-    def is_valid(self, ind):
-        ops = self.get_operations(ind)
-        ind = self.individual_to_parents(ind)
+    def is_valid(self, ind, ops):
         self.cell = api.ModelSpec(ind, ops)
         return self.api.is_valid(self.cell)
 
