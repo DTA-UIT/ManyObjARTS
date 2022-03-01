@@ -49,9 +49,9 @@ class NASBench1Shot1(NAS101):
     
     def get_operations(self, ind):
         list_ops = {
-            '1': 'conv1x1-bn-relu',
-            '2': 'conv3x3-bn-relu',
-            '3': 'maxpool3x3'
+            '0': 'conv1x1-bn-relu',
+            '1': 'conv3x3-bn-relu',
+            '2': 'maxpool3x3'
         }
         res = ['input']
         for idx in range(len(ind) - 5):
