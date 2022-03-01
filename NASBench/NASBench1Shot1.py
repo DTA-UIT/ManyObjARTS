@@ -45,7 +45,12 @@ class NASBench1Shot1(NAS101):
         for idx in range(5, len(ind)):
             parents[f'{cnt}'] = config_space[f'{idx}'][ind[idx]]
             cnt += 1
-        return self.search_space.create_nasbench_adjacency_matrix_with_loose_ends(parents)
+        matrix = self.search_space.create_nasbench_adjacency_matrix_with_loose_ends(parents)
+        result = [[0 for _ in range(len(matrix[0]))] for _ in range(len(matrix))]
+        for i in range(len(matrix)):
+            for j in range(len(matrix[i])):
+                result[i][j] = int(matrix[i][j])
+        return result
     
     def get_operations(self, ind):
         list_ops = {
