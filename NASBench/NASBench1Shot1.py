@@ -25,8 +25,9 @@ def get_num_classes(args):
     raise Exception('Unknown dataset')
 
 class NASBench1Shot1(NAS101):
-    def __init__(self, use_colab=True, debug=False):
+    def __init__(self, search_space, use_colab=True, debug=False):
         super().__init__(use_colab=use_colab, debug=debug)
+        self.search_space = search_space
     
     @staticmethod
     def individual_to_parents(ind):
@@ -45,7 +46,7 @@ class NASBench1Shot1(NAS101):
         for idx in range(5, len(ind)):
             parents[f'{cnt}'] = config_space[f'{idx}'][ind[idx]]
             cnt += 1
-        return parents
+        return self.search_space.create_nasbench_adjacency_matrix_with_loose_ends(parents)
     
     @staticmethod
     def get_operations(ind):
