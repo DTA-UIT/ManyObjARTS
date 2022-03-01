@@ -13,7 +13,7 @@ from ZeroCostNas.AutoDLTools.xautodl.utils.flop_benchmark import *
 from source.nasbench.nasbench import api
 from ZeroCostNas.OpCounter.thop import profile
 
-from NAS101 import NAS101
+from NASBench.NAS101 import NAS101
 
 def get_num_classes(args):
     if args.dataset == 'cifar100':
