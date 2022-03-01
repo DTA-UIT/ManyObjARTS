@@ -82,17 +82,18 @@ class NASBench1Shot1(NAS101):
                                             'test_accuracy')
         """  
         self.cell = api.ModelSpec(ind, ops)
-        # try:
-        
-        self.query_result = self.api.query(self.cell) if 'accuracy' not in metric else self.api.query(self.cell, epochs=epochs)
-        # except:
-        #     print(f"Cell {self.cell.__dict__['original_matrix']} is invalid for NASBench101")    
-        #     self.api._check_spec(self.cell)
+        try:
+            self.query_result = self.api.query(self.cell) if 'accuracy' not in metric else self.api.query(self.cell, epochs=epochs)
+        except:
+            print(f"Cell {self.cell.__dict__['original_matrix']} is invalid for NASBench101")    
+            self.api._check_spec(self.cell)
 
         return self.query_result 
 
-    def is_valid(self, ind, ops):
-        self.cell = api.ModelSpec(ind, ops)
+    def is_valid(self, ind):
+        individual = self.individual_to_parents(ind)
+        ops = self.get_operations(ind)
+        self.cell = api.ModelSpec(individual, ops)
         return self.api.is_valid(self.cell)
 
     def evaluate_arch(self, ind, measure, args=None, train_loader=None, use_csv=False, proxy_log=None, epoch=None):
@@ -199,8 +200,8 @@ class NASBench1Shot1(NAS101):
                                         num_stacks=3, 
                                         num_mods=3,
                                         num_classes=get_num_classes(args))
-                net = model.to(self.device)
                 init_net(net, args.init_w_type, args.init_b_type)
+                net = model.to(self.device)
                 
                 measures = predictive.find_measures(net, 
                                                     train_loader, 
