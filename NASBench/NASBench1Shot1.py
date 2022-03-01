@@ -29,8 +29,7 @@ class NASBench1Shot1(NAS101):
         super().__init__(use_colab=use_colab, debug=debug)
         self.search_space = search_space
     
-    @staticmethod
-    def individual_to_parents(ind):
+    def individual_to_parents(self, ind):
         config_space = {
             '5': [(0,), (1,)],
             '6': [(0,), (1,), (2,)],
@@ -48,8 +47,7 @@ class NASBench1Shot1(NAS101):
             cnt += 1
         return self.search_space.create_nasbench_adjacency_matrix_with_loose_ends(parents)
     
-    @staticmethod
-    def get_operations(ind):
+    def get_operations(self, ind):
         list_ops = {
             '1': 'conv1x1-bn-relu',
             '2': 'conv3x3-bn-relu',
