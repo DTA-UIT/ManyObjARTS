@@ -123,7 +123,7 @@ class NASBench1Shot1(NAS101):
         ops = self.get_operations(ind)
         ind = self.individual_to_parents(ind)
         
-        # self.cell = api.ModelSpec(ind, ops)
+        self.cell = api.ModelSpec(ind, ops)
         # print(self.cell.__dict__)
          
         if use_csv and not proxy_log:

@@ -204,7 +204,7 @@ class NAS101(NASBench):
         ops, ops_none = get_operations(ind)
         ind = convert_ind_triangle(ind[5:], ops_none)
         
-        # self.cell = api.ModelSpec(ind, ops)
+        self.cell = api.ModelSpec(ind, ops)
         # print(self.cell.__dict__)
          
         if use_csv and not proxy_log:
