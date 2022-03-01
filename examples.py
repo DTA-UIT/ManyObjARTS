@@ -90,5 +90,5 @@ n_matings, n_var = 1, 21
 a,b = example_parents(n_matings,n_var)
 print(a)
 print(b)
-off = crossover(get_crossover('int_two_point'), a, b)
+off = crossover(get_crossover('int_ux'), a, b)
 print(off)

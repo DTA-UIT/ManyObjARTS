@@ -4,6 +4,7 @@ import numpy as np
 from source.nasbench import nasbench
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from pymoo.pymoo.operators.crossover.pntx import PointCrossover
+from pymoo.pymoo.operators.crossover.ux import UniformCrossover
 from pymoo.pymoo.operators.crossover.util import crossover_mask
 from pymoo.pymoo.operators.mutation.pm import PolynomialMutation
 from pymoo.pymoo.operators.repair.to_bound import set_to_bounds_if_outside_by_problem
@@ -41,6 +42,7 @@ class TwoPointsCrossover(PointCrossover):
                 current_attempt = 0 
                 while not nasbench101_api.is_valid(a) or not nasbench101_api.is_valid(b):
                     if current_attempt == maximum_crossover_attempts:
+                        a, b = r[i, j], r[i, j + 1]
                         break
                 else:
                     self._do(a, b)
@@ -64,6 +66,10 @@ class TwoPointsCrossover(PointCrossover):
         #         current_attempt += 1
 
         return _X
+    
+class CustomUniformCrossover(UniformCrossover):
+    def __init__(self):
+        super().__init__()
     
 class CustomPolynomialMutation(PolynomialMutation):
     def __init__(self, eta, prob=0.0):
