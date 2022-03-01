@@ -77,11 +77,12 @@ class NASBench1Shot1(NAS101):
                                             'test_accuracy')
         """  
         self.cell = api.ModelSpec(ind, ops)
-        try:
-            self.query_result = self.api.query(self.cell) if 'accuracy' not in metric else self.api.query(self.cell, epochs=epochs)
-        except:
-            print(f"Cell {self.cell.__dict__['original_matrix']} is invalid for NASBench101")    
-            self.api._check_spec(self.cell)
+        # try:
+        
+        self.query_result = self.api.query(self.cell) if 'accuracy' not in metric else self.api.query(self.cell, epochs=epochs)
+        # except:
+        #     print(f"Cell {self.cell.__dict__['original_matrix']} is invalid for NASBench101")    
+        #     self.api._check_spec(self.cell)
 
         return self.query_result 
 
