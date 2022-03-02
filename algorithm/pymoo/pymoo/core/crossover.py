@@ -51,7 +51,7 @@ class Crossover:
         do_crossover = np.random.random(len(parents)) < self.prob
 
         # execute the crossover
-        _X = self._do(problem, X, **kwargs)
+        _X = self._do(problem, X, api, **kwargs)
 
         X[:, do_crossover, :] = _X[:, do_crossover, :]
 
