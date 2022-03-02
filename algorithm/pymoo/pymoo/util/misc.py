@@ -352,11 +352,11 @@ def to_numpy(a):
 
 
 def termination_from_tuple(termination):
-    from pymoo.core.termination import Termination
+    from pymoo.pymoo.core.termination import Termination
 
     # get the termination if provided as a tuple - create an object
     if termination is not None and not isinstance(termination, Termination):
-        from pymoo.factory import get_termination
+        from pymoo.pymoo.factory import get_termination
         if isinstance(termination, str):
             termination = get_termination(termination)
         else:
