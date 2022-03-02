@@ -152,8 +152,8 @@ def get_crossover_options():
         ("int_sbx", IntegerFromFloatCrossover, dict(clazz=SimulatedBinaryCrossover, prob=0.9, eta=30)),
         ("real_de", DEX),
         ("real_pcx", PCX),
-        # ("(real|bin|int)_ux", UniformCrossover),
-        ("(real|bin|int)_ux", CustomUniformCrossover),
+        ("(real|bin|int)_ux", UniformCrossover),
+        # ("(real|bin|int)_ux", CustomUniformCrossover),
 
         ("(bin|int)_hux", HalfUniformCrossover),
         ("(real|bin|int)_exp", ExponentialCrossover),
@@ -179,8 +179,8 @@ def get_mutation_options():
     from pymoo.pymoo.operators.mutation.nom import NoMutation
     from pymoo.pymoo.operators.mutation.bitflip import BinaryBitflipMutation
 
-    # from pymoo.pymoo.operators.mutation.pm import PolynomialMutation
-    from operations import CustomPolynomialMutation as PolynomialMutation
+    from pymoo.pymoo.operators.mutation.pm import PolynomialMutation
+    # from custom_operations import CustomPolynomialMutation as PolynomialMutation
     
     from pymoo.pymoo.operators.integer_from_float_operator import IntegerFromFloatMutation
     from pymoo.pymoo.operators.mutation.inversion import InversionMutation
