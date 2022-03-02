@@ -4,13 +4,13 @@ import time
 
 import numpy as np
 
-from pymoo.core.callback import Callback
-from pymoo.core.evaluator import Evaluator
-from pymoo.core.population import Population
-from pymoo.core.result import Result
-from pymoo.util.function_loader import FunctionLoader
-from pymoo.util.misc import termination_from_tuple
-from pymoo.util.optimum import filter_optimum
+from pymoo.pymoo.core.callback import Callback
+from pymoo.pymoo.core.evaluator import Evaluator
+from pymoo.pymoo.core.population import Population
+from pymoo.pymoo.core.result import Result
+from pymoo.pymoo.util.function_loader import FunctionLoader
+from pymoo.pymoo.util.misc import termination_from_tuple
+from pymoo.pymoo.util.optimum import filter_optimum
 
 
 class Algorithm:
@@ -25,10 +25,10 @@ class Algorithm:
     Parameters
     ----------
 
-    problem : :class:`~pymoo.core.problem.Problem`
+    problem : :class:`~pymoo.pymoo.core.problem.Problem`
         Problem to be solved by the algorithm
 
-    termination: :class:`~pymoo.core.termination.Termination`
+    termination: :class:`~pymoo.pymoo.core.termination.Termination`
         Object that tells the algorithm when to terminate.
 
     seed : int
@@ -54,7 +54,7 @@ class Algorithm:
     return_least_infeasible : bool
         Whether the algorithm should return the least infeasible solution, if no solution was found.
 
-    evaluator : :class:`~pymoo.core.evaluator.Evaluator`
+    evaluator : :class:`~pymoo.pymoo.core.evaluator.Evaluator`
         The evaluator which can be used to make modifications before calling the evaluate function of a problem.
 
 
