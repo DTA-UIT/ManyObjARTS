@@ -277,7 +277,6 @@ class NAS101(NASBench):
                                         num_mods=3,
                                         num_classes=get_num_classes(args))
                 net = model.to(self.device)
-                init_net(net, args.init_w_type, args.init_b_type)
                 
                 measures = predictive.find_measures(net, 
                                                     train_loader, 
