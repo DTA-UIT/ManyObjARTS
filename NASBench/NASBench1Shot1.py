@@ -194,7 +194,9 @@ class NASBench1Shot1(NAS101):
                     raise Exception('No argparse to get Zero-Cost methods')
                 if train_loader == None:
                     raise Exception('No train loader')
-
+                
+                print(self.cell)
+                
                 model = nasbench1.Network(self.cell, 
                                         stem_out=128, 
                                         num_stacks=3, 
