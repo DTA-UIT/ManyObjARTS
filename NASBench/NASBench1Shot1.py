@@ -195,15 +195,12 @@ class NASBench1Shot1(NAS101):
                 if train_loader == None:
                     raise Exception('No train loader')
                 
-                print(self.cell)
-                
                 model = nasbench1.Network(self.cell, 
                                         stem_out=128, 
                                         num_stacks=3, 
                                         num_mods=3,
                                         num_classes=get_num_classes(args))
                 
-                print(model)
                 net = model.to(self.device)
                 
                 measures = predictive.find_measures(net, 
