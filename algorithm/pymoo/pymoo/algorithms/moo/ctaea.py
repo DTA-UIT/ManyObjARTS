@@ -4,19 +4,19 @@ import math
 import numpy as np
 from scipy.spatial.distance import cdist, pdist, squareform
 
-from pymoo.algorithms.base.genetic import GeneticAlgorithm
-from pymoo.decomposition.asf import ASF
-from pymoo.docs import parse_doc_string
-from pymoo.core.population import Population
-from pymoo.operators.crossover.sbx import SimulatedBinaryCrossover
-from pymoo.operators.mutation.pm import PolynomialMutation
-from pymoo.operators.sampling.rnd import FloatRandomSampling
-from pymoo.operators.selection.tournament import TournamentSelection
-from pymoo.util.display import MultiObjectiveDisplay
-from pymoo.util.dominator import Dominator
-from pymoo.util.function_loader import load_function
-from pymoo.util.misc import has_feasible, random_permuations
-from pymoo.util.nds.non_dominated_sorting import NonDominatedSorting
+from pymoo.pymoo.algorithms.base.genetic import GeneticAlgorithm
+from pymoo.pymoo.decomposition.asf import ASF
+from pymoo.pymoo.docs import parse_doc_string
+from pymoo.pymoo.core.population import Population
+from pymoo.pymoo.operators.crossover.sbx import SimulatedBinaryCrossover
+from pymoo.pymoo.operators.mutation.pm import PolynomialMutation
+from pymoo.pymoo.operators.sampling.rnd import FloatRandomSampling
+from pymoo.pymoo.operators.selection.tournament import TournamentSelection
+from pymoo.pymoo.util.display import MultiObjectiveDisplay
+from pymoo.pymoo.util.dominator import Dominator
+from pymoo.pymoo.util.function_loader import load_function
+from pymoo.pymoo.util.misc import has_feasible, random_permuations
+from pymoo.pymoo.util.nds.non_dominated_sorting import NonDominatedSorting
 
 
 # =========================================================================================================

@@ -1,7 +1,7 @@
 import numpy as np
 
-from pymoo.algorithms.moo.nsga3 import NSGA3
-from pymoo.operators.selection.tournament import compare, TournamentSelection
+from pymoo.pymoo.algorithms.moo.nsga3 import NSGA3
+from pymoo.pymoo.operators.selection.tournament import compare, TournamentSelection
 
 
 # =========================================================================================================

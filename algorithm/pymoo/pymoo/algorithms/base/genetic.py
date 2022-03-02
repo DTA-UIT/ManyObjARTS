@@ -19,6 +19,7 @@ class GeneticAlgorithm(Algorithm):
                  eliminate_duplicates=DefaultDuplicateElimination(),
                  repair=None,
                  mating=None,
+                 api=None,
                  advance_after_initial_infill=False,
                  **kwargs
                  ):
@@ -36,7 +37,7 @@ class GeneticAlgorithm(Algorithm):
 
         # number of offsprings to generate through recombination
         self.n_offsprings = n_offsprings
-
+        self.api = api
         # if the number of offspring is not set - equal to population size
         if self.n_offsprings is None:
             self.n_offsprings = pop_size
@@ -61,6 +62,7 @@ class GeneticAlgorithm(Algorithm):
             mating = Mating(selection,
                             crossover,
                             mutation,
+                            api,
                             repair=self.repair,
                             eliminate_duplicates=self.eliminate_duplicates,
                             n_max_iterations=100)

@@ -1,16 +1,16 @@
 import numpy as np
 
-from pymoo.algorithms.base.genetic import GeneticAlgorithm
-from pymoo.docs import parse_doc_string
-from pymoo.core.survival import Survival
-from pymoo.operators.crossover.sbx import SimulatedBinaryCrossover
-from pymoo.operators.mutation.pm import PolynomialMutation
-from pymoo.operators.sampling.rnd import FloatRandomSampling
-from pymoo.operators.selection.rnd import RandomSelection
-from pymoo.util.display import MultiObjectiveDisplay
-from pymoo.util.misc import has_feasible, vectorized_cdist
-from pymoo.util.termination.max_eval import MaximumFunctionCallTermination
-from pymoo.util.termination.max_gen import MaximumGenerationTermination
+from pymoo.pymoo.algorithms.base.genetic import GeneticAlgorithm
+from pymoo.pymoo.docs import parse_doc_string
+from pymoo.pymoo.core.survival import Survival
+from pymoo.pymoo.operators.crossover.sbx import SimulatedBinaryCrossover
+from pymoo.pymoo.operators.mutation.pm import PolynomialMutation
+from pymoo.pymoo.operators.sampling.rnd import FloatRandomSampling
+from pymoo.pymoo.operators.selection.rnd import RandomSelection
+from pymoo.pymoo.util.display import MultiObjectiveDisplay
+from pymoo.pymoo.util.misc import has_feasible, vectorized_cdist
+from pymoo.pymoo.util.termination.max_eval import MaximumFunctionCallTermination
+from pymoo.pymoo.util.termination.max_gen import MaximumGenerationTermination
 
 
 class RVEA(GeneticAlgorithm):

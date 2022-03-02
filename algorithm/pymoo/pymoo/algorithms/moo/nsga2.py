@@ -1,18 +1,18 @@
 import numpy as np
 
-from pymoo.algorithms.base.genetic import GeneticAlgorithm
-from pymoo.docs import parse_doc_string
-from pymoo.core.survival import Survival
-from pymoo.operators.crossover.sbx import SimulatedBinaryCrossover
-from pymoo.operators.mutation.pm import PolynomialMutation
-from pymoo.operators.sampling.rnd import FloatRandomSampling
-from pymoo.operators.selection.tournament import compare, TournamentSelection
-from pymoo.util.display import MultiObjectiveDisplay
-from pymoo.util.dominator import Dominator
-from pymoo.util.misc import find_duplicates, has_feasible
-from pymoo.util.nds.non_dominated_sorting import NonDominatedSorting
-from pymoo.util.randomized_argsort import randomized_argsort
-from pymoo.util.termination.default import MultiObjectiveDefaultTermination
+from pymoo.pymoo.algorithms.base.genetic import GeneticAlgorithm
+from pymoo.pymoo.docs import parse_doc_string
+from pymoo.pymoo.core.survival import Survival
+from pymoo.pymoo.operators.crossover.sbx import SimulatedBinaryCrossover
+from pymoo.pymoo.operators.mutation.pm import PolynomialMutation
+from pymoo.pymoo.operators.sampling.rnd import FloatRandomSampling
+from pymoo.pymoo.operators.selection.tournament import compare, TournamentSelection
+from pymoo.pymoo.util.display import MultiObjectiveDisplay
+from pymoo.pymoo.util.dominator import Dominator
+from pymoo.pymoo.util.misc import find_duplicates, has_feasible
+from pymoo.pymoo.util.nds.non_dominated_sorting import NonDominatedSorting
+from pymoo.pymoo.util.randomized_argsort import randomized_argsort
+from pymoo.pymoo.util.termination.default import MultiObjectiveDefaultTermination
 
 
 # ---------------------------------------------------------------------------------------------------------
@@ -127,6 +127,7 @@ class NSGA2(GeneticAlgorithm):
                  eliminate_duplicates=True,
                  n_offsprings=None,
                  display=MultiObjectiveDisplay(),
+                 api = None,
                  **kwargs):
         """
 
@@ -151,6 +152,7 @@ class NSGA2(GeneticAlgorithm):
                          eliminate_duplicates=eliminate_duplicates,
                          n_offsprings=n_offsprings,
                          display=display,
+                         api=api,
                          advance_after_initial_infill=True,
                          **kwargs)
         self.default_termination = MultiObjectiveDefaultTermination()

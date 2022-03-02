@@ -1,16 +1,16 @@
 import numpy as np
 
-from pymoo.algorithms.moo.nsga3 import calc_niche_count, niching, comp_by_cv_then_random, associate_to_niches, NSGA3
-from pymoo.docs import parse_doc_string
-from pymoo.core.survival import Survival
-from pymoo.operators.crossover.sbx import SimulatedBinaryCrossover
-from pymoo.operators.mutation.pm import PolynomialMutation
-from pymoo.operators.sampling.rnd import FloatRandomSampling
-from pymoo.operators.selection.tournament import TournamentSelection
-from pymoo.util.misc import intersect
-from pymoo.util.nds.non_dominated_sorting import NonDominatedSorting
-from pymoo.util.normalization import denormalize, get_extreme_points_c, get_nadir_point
-from pymoo.util.reference_direction import UniformReferenceDirectionFactory
+from pymoo.pymoo.algorithms.moo.nsga3 import calc_niche_count, niching, comp_by_cv_then_random, associate_to_niches, NSGA3
+from pymoo.pymoo.docs import parse_doc_string
+from pymoo.pymoo.core.survival import Survival
+from pymoo.pymoo.operators.crossover.sbx import SimulatedBinaryCrossover
+from pymoo.pymoo.operators.mutation.pm import PolynomialMutation
+from pymoo.pymoo.operators.sampling.rnd import FloatRandomSampling
+from pymoo.pymoo.operators.selection.tournament import TournamentSelection
+from pymoo.pymoo.util.misc import intersect
+from pymoo.pymoo.util.nds.non_dominated_sorting import NonDominatedSorting
+from pymoo.pymoo.util.normalization import denormalize, get_extreme_points_c, get_nadir_point
+from pymoo.pymoo.util.reference_direction import UniformReferenceDirectionFactory
 
 
 # =========================================================================================================

@@ -3,17 +3,17 @@ import warnings
 import numpy as np
 from numpy.linalg import LinAlgError
 
-from pymoo.algorithms.base.genetic import GeneticAlgorithm
-from pymoo.docs import parse_doc_string
-from pymoo.core.survival import Survival
-from pymoo.operators.crossover.sbx import SimulatedBinaryCrossover
-from pymoo.operators.mutation.pm import PolynomialMutation
-from pymoo.operators.sampling.rnd import FloatRandomSampling
-from pymoo.operators.selection.tournament import TournamentSelection, compare
-from pymoo.util.display import MultiObjectiveDisplay
-from pymoo.util.function_loader import load_function
-from pymoo.util.misc import intersect, has_feasible
-from pymoo.util.nds.non_dominated_sorting import NonDominatedSorting
+from pymoo.pymoo.algorithms.base.genetic import GeneticAlgorithm
+from pymoo.pymoo.docs import parse_doc_string
+from pymoo.pymoo.core.survival import Survival
+from pymoo.pymoo.operators.crossover.sbx import SimulatedBinaryCrossover
+from pymoo.pymoo.operators.mutation.pm import PolynomialMutation
+from pymoo.pymoo.operators.sampling.rnd import FloatRandomSampling
+from pymoo.pymoo.operators.selection.tournament import TournamentSelection, compare
+from pymoo.pymoo.util.display import MultiObjectiveDisplay
+from pymoo.pymoo.util.function_loader import load_function
+from pymoo.pymoo.util.misc import intersect, has_feasible
+from pymoo.pymoo.util.nds.non_dominated_sorting import NonDominatedSorting
 
 
 # =========================================================================================================

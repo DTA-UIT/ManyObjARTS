@@ -9,11 +9,13 @@ class Mating(InfillCriterion):
                  selection,
                  crossover,
                  mutation,
+                 api,
                  **kwargs):
 
         super().__init__(**kwargs)
         self.selection = selection
         self.crossover = crossover
+        self.api = api
         self.mutation = mutation
 
     def _do(self, problem, pop, n_offsprings, parents=None, **kwargs):
@@ -28,7 +30,7 @@ class Mating(InfillCriterion):
             parents = self.selection.do(pop, n_select, self.crossover.n_parents, **kwargs)
 
         # do the crossover using the parents index and the population - additional data provided if necessary
-        _off = self.crossover.do(problem, pop, parents, **kwargs)
+        _off = self.crossover.do(problem, pop, parents, self.api, **kwargs)
 
         # do the mutation on the offsprings created through crossover
         _off = self.mutation.do(problem, _off, **kwargs)

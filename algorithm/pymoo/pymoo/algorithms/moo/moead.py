@@ -1,15 +1,15 @@
 import numpy as np
 from scipy.spatial.distance import cdist
 
-from pymoo.algorithms.base.genetic import GeneticAlgorithm
-from pymoo.core.duplicate import NoDuplicateElimination
-from pymoo.core.population import Population
-from pymoo.core.selection import Selection
-from pymoo.docs import parse_doc_string
-from pymoo.operators.crossover.sbx import SimulatedBinaryCrossover
-from pymoo.operators.mutation.pm import PolynomialMutation
-from pymoo.operators.sampling.rnd import FloatRandomSampling
-from pymoo.util.display import MultiObjectiveDisplay
+from pymoo.pymoo.algorithms.base.genetic import GeneticAlgorithm
+from pymoo.pymoo.core.duplicate import NoDuplicateElimination
+from pymoo.pymoo.core.population import Population
+from pymoo.pymoo.core.selection import Selection
+from pymoo.pymoo.docs import parse_doc_string
+from pymoo.pymoo.operators.crossover.sbx import SimulatedBinaryCrossover
+from pymoo.pymoo.operators.mutation.pm import PolynomialMutation
+from pymoo.pymoo.operators.sampling.rnd import FloatRandomSampling
+from pymoo.pymoo.util.display import MultiObjectiveDisplay
 
 
 # =========================================================================================================
@@ -92,10 +92,10 @@ class MOEAD(GeneticAlgorithm):
             # for one or two objectives use tchebi otherwise pbi
             if self.decomp == 'auto':
                 if self.problem.n_obj <= 2:
-                    from pymoo.decomposition.tchebicheff import Tchebicheff
+                    from pymoo.pymoo.decomposition.tchebicheff import Tchebicheff
                     self.decomp = Tchebicheff()
                 else:
-                    from pymoo.decomposition.pbi import PBI
+                    from pymoo.pymoo.decomposition.pbi import PBI
                     self.decomp = PBI()
 
     def _initialize_advance(self, infills=None, **kwargs):

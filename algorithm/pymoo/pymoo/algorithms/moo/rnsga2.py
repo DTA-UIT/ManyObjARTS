@@ -1,14 +1,14 @@
 import numpy as np
 
-from pymoo.algorithms.moo.nsga2 import NSGA2
-from pymoo.docs import parse_doc_string
-from pymoo.core.survival import Survival
-from pymoo.operators.selection.rnd import RandomSelection
-from pymoo.util.nds.non_dominated_sorting import NonDominatedSorting
+from pymoo.pymoo.algorithms.moo.nsga2 import NSGA2
+from pymoo.pymoo.docs import parse_doc_string
+from pymoo.pymoo.core.survival import Survival
+from pymoo.pymoo.operators.selection.rnd import RandomSelection
+from pymoo.pymoo.util.nds.non_dominated_sorting import NonDominatedSorting
 # =========================================================================================================
 # Implementation
 # =========================================================================================================
-from pymoo.util.normalization import get_extreme_points_c
+from pymoo.pymoo.util.normalization import get_extreme_points_c
 
 
 class RNSGA2(NSGA2):

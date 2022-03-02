@@ -1,17 +1,17 @@
 import numpy as np
 
-from pymoo.algorithms.base.genetic import GeneticAlgorithm
-from pymoo.algorithms.moo.nsga2 import binary_tournament
-from pymoo.core.survival import Survival
-from pymoo.docs import parse_doc_string
-from pymoo.operators.crossover.sbx import SBX
-from pymoo.operators.mutation.pm import PM
-from pymoo.operators.sampling.rnd import FloatRandomSampling
-from pymoo.operators.selection.tournament import TournamentSelection
-from pymoo.util.display import MultiObjectiveDisplay
-from pymoo.util.misc import has_feasible
-from pymoo.util.nds.non_dominated_sorting import NonDominatedSorting
-from pymoo.util.termination.default import MultiObjectiveDefaultTermination
+from pymoo.pymoo.algorithms.base.genetic import GeneticAlgorithm
+from pymoo.pymoo.algorithms.moo.nsga2 import binary_tournament
+from pymoo.pymoo.core.survival import Survival
+from pymoo.pymoo.docs import parse_doc_string
+from pymoo.pymoo.operators.crossover.sbx import SBX
+from pymoo.pymoo.operators.mutation.pm import PM
+from pymoo.pymoo.operators.sampling.rnd import FloatRandomSampling
+from pymoo.pymoo.operators.selection.tournament import TournamentSelection
+from pymoo.pymoo.util.display import MultiObjectiveDisplay
+from pymoo.pymoo.util.misc import has_feasible
+from pymoo.pymoo.util.nds.non_dominated_sorting import NonDominatedSorting
+from pymoo.pymoo.util.termination.default import MultiObjectiveDefaultTermination
 
 
 # =========================================================================================================
