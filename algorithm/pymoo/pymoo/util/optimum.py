@@ -1,8 +1,8 @@
 import numpy as np
 
-from pymoo.core.individual import Individual
-from pymoo.core.population import Population
-from pymoo.util.nds.non_dominated_sorting import NonDominatedSorting
+from pymoo.pymoo.core.individual import Individual
+from pymoo.pymoo.core.population import Population
+from pymoo.pymoo.util.nds.non_dominated_sorting import NonDominatedSorting
 
 
 def filter_optimum(pop, least_infeasible=False):

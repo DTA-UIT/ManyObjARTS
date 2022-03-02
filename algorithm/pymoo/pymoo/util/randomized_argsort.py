@@ -1,6 +1,6 @@
 import numpy as np
 
-from pymoo.util.misc import swap
+from pymoo.pymoo.util.misc import swap
 
 
 def randomized_argsort(A, method="numpy", order='ascending'):
