@@ -13,7 +13,7 @@ class Crossover:
         self.prob = prob
         self.n_parents = n_parents
         self.n_offsprings = n_offsprings
-    def do(self, problem, pop, parents, **kwargs):
+    def do(self, problem, pop, parents, api, **kwargs):
         """
 
         This method executes the crossover on the parents. This class wraps the implementation of the class
