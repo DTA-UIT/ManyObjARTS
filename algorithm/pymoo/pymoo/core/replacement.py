@@ -1,9 +1,9 @@
 import numpy as np
 
-from pymoo.core.duplicate import DefaultDuplicateElimination
-from pymoo.core.individual import Individual
-from pymoo.core.population import Population
-from pymoo.core.survival import Survival, calc_adapt_eps
+from pymoo.pymoo.core.duplicate import DefaultDuplicateElimination
+from pymoo.pymoo.core.individual import Individual
+from pymoo.pymoo.core.population import Population
+from pymoo.pymoo.core.survival import Survival, calc_adapt_eps
 
 
 def is_better(_new, _old, eps=0.0):

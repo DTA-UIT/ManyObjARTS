@@ -2,7 +2,7 @@ from abc import abstractmethod
 
 import numpy as np
 
-from pymoo.core.population import Population
+from pymoo.pymoo.core.population import Population
 
 
 # ---------------------------------------------------------------------------------------------------------
