@@ -21,6 +21,8 @@ class CustomUniformCrossover(Crossover):
         M = np.random.random((n_matings, n_var)) < 0.5
         print(M)
         _X = crossover_mask(X, M)
+        # if _X[0]
+        print(api.is_valid(_X[0]))
         return _X
 
     
