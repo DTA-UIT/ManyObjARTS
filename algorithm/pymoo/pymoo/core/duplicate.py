@@ -1,6 +1,6 @@
 import numpy as np
 
-from pymoo.util.misc import cdist
+from pymoo.pymoo.util.misc import cdist
 
 
 def default_attr(pop):
