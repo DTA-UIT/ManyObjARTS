@@ -3,11 +3,11 @@ import warnings
 
 import numpy as np
 
-from pymoo.core.indicator import Indicator
-from pymoo.indicators.distance_indicator import derive_ideal_and_nadir_from_pf
-from pymoo.util.misc import at_least_2d_array
-from pymoo.util.nds.non_dominated_sorting import NonDominatedSorting
-from pymoo.vendor.hv import HyperVolume as _HyperVolume
+from pymoo.pymoo.core.indicator import Indicator
+from pymoo.pymoo.indicators.distance_indicator import derive_ideal_and_nadir_from_pf
+from pymoo.pymoo.util.misc import at_least_2d_array
+from pymoo.pymoo.util.nds.non_dominated_sorting import NonDominatedSorting
+from pymoo.pymoo.vendor.hv import HyperVolume as _HyperVolume
 
 
 def hypervolume_by_command(path_to_hv, X, ref_point):

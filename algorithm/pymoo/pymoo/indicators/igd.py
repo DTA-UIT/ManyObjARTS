@@ -1,4 +1,4 @@
-from pymoo.indicators.distance_indicator import DistanceIndicator, euclidean_distance
+from pymoo.pymoo.indicators.distance_indicator import DistanceIndicator, euclidean_distance
 
 
 class IGD(DistanceIndicator):

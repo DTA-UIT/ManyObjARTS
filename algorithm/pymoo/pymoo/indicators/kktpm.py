@@ -12,7 +12,7 @@ class KKTPM:
         ----------
         X : np.array
 
-        problem : pymoo.core.problem
+        problem : pymoo.pymoo.core.problem
         ideal : np.array
             The ideal point if not in the problem defined or intentionally overwritten.
         utopian_eps : float
@@ -133,9 +133,9 @@ def solve(A, b, method="elim"):
 
 
 if __name__ == '__main__':
-    from pymoo.factory import get_problem
-    from pymoo.problems.autodiff import AutomaticDifferentiation
-    from pymoo.problems.bounds_as_constr import BoundariesAsConstraints
+    from pymoo.pymoo.factory import get_problem
+    from pymoo.pymoo.problems.autodiff import AutomaticDifferentiation
+    from pymoo.pymoo.problems.bounds_as_constr import BoundariesAsConstraints
 
 
     problem = AutomaticDifferentiation(BoundariesAsConstraints(get_problem("zdt2", n_var=30)))

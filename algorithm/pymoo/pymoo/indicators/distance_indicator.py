@@ -1,7 +1,7 @@
 import numpy as np
 
-from pymoo.core.indicator import Indicator
-from pymoo.util.misc import vectorized_cdist, at_least_2d_array
+from pymoo.pymoo.core.indicator import Indicator
+from pymoo.pymoo.util.misc import vectorized_cdist, at_least_2d_array
 
 
 def euclidean_distance(a, b, norm=None):
