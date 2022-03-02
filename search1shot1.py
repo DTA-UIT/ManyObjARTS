@@ -15,14 +15,14 @@ class NASBench1Shot1(NASBench101):
         self.dataset = dataset
         self.proxy_log = proxy_log # {'test-accuracy': '', 'flops': ''}
         
-        self.pareto_front = None 
-        self.flops_log = None
+        self.pareto_front = np.genfromtxt(pareto_front_url, delimiter=',')
+        self.flops_log = np.genfromtxt(proxy_log['flops'])
         
-        # self.pareto_front = np.genfromtxt(pareto_front_url, delimiter=',')
-        # self.flops_log = np.genfromtxt(proxy_log['flops'])
-        # self.pareto_front_normalize = self.pareto_front.copy()
-        # self.pareto_front_normalize[:, 0] = (self.pareto_front_normalize[:, 0] - self.flops_log.min()) / (self.flops_log.max() - self.flops_log.min())
-        # self.pareto_front_normalize[:, 1] = self.pareto_front_normalize[:, 1] / 100
+        self.pareto_front = np.genfromtxt(pareto_front_url, delimiter=',')
+        self.flops_log = np.genfromtxt(proxy_log['flops'])
+        self.pareto_front_normalize = self.pareto_front.copy()
+        self.pareto_front_normalize[:, 0] = (self.pareto_front_normalize[:, 0] - self.flops_log.min()) / (self.flops_log.max() - self.flops_log.min())
+        self.pareto_front_normalize[:, 1] = self.pareto_front_normalize[:, 1] / 100
         self.res_of_run = {
             'time': [],
             'igd': [],
