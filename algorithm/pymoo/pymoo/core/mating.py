@@ -1,6 +1,6 @@
 import math
 
-from pymoo.core.infill import InfillCriterion
+from pymoo.pymoo.core.infill import InfillCriterion
 
 
 class Mating(InfillCriterion):

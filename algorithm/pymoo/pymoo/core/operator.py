@@ -1,4 +1,4 @@
-from pymoo.util.type_converter import DefaultConverter
+from pymoo.pymoo.util.type_converter import DefaultConverter
 
 
 class Operator:

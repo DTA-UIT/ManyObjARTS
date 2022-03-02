@@ -1,8 +1,8 @@
 import numpy as np
 
-from pymoo.core.duplicate import NoDuplicateElimination
-from pymoo.core.population import Population
-from pymoo.core.repair import NoRepair
+from pymoo.pymoo.core.duplicate import NoDuplicateElimination
+from pymoo.pymoo.core.population import Population
+from pymoo.pymoo.core.repair import NoRepair
 
 
 class Initialization:

@@ -1,6 +1,6 @@
 import abc
 
-from pymoo.util.normalization import PreNormalization
+from pymoo.pymoo.util.normalization import PreNormalization
 
 
 class Indicator(PreNormalization):

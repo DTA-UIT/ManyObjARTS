@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.colors import ListedColormap
 
-from pymoo.util.misc import set_if_none
-from pymoo.visualization.util import default_number_to_text, in_notebook
+from pymoo.pymoo.util.misc import set_if_none
+from pymoo.pymoo.visualization.util import default_number_to_text, in_notebook
 
 
 class Plot:

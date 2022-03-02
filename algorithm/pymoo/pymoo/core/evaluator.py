@@ -1,9 +1,9 @@
 import numpy as np
 
-from pymoo.core.individual import Individual
-from pymoo.core.population import Population
-from pymoo.core.problem import Problem
-from pymoo.util.misc import at_least_2d_array
+from pymoo.pymoo.core.individual import Individual
+from pymoo.pymoo.core.population import Population
+from pymoo.pymoo.core.problem import Problem
+from pymoo.pymoo.util.misc import at_least_2d_array
 
 
 def set_feasibility(pop):
