@@ -202,13 +202,15 @@ class NASBench1Shot1(NAS101):
                                         num_classes=get_num_classes(args))
                 
                 net = model.to(self.device)
-                
-                measures = predictive.find_measures(net, 
+                try:
+                    measures = predictive.find_measures(net, 
                                                     train_loader, 
                                                     (args.dataload, args.dataload_info, get_num_classes(args)), 
                                                     self.device,
                                                     measure_names=[measure])   
-            
+                except:
+                    print(f'{measure} is not callable')
+                    
                 result[measure] = measures[measure] if not np.isnan(measures[measure]) else -1e9
             
         
