@@ -13,7 +13,7 @@ from pymoo.pymoo.operators.repair.to_bound import set_to_bounds_if_outside_by_pr
 # nasbench101_api = NAS101(debug=True)
  
 class CustomUniformCrossover(Crossover):
-    def __init__(self, **kwargs):
+    def __init__(self, api, **kwargs):
         super().__init__(n_parents=2, n_offsprings=2, **kwargs)
         self.api = api
         
