@@ -1,7 +1,7 @@
 import copy
 
-from pymoo.util.misc import termination_from_tuple
-from pymoo.util.termination.default import MultiObjectiveDefaultTermination, SingleObjectiveDefaultTermination
+from pymoo.pymoo.util.misc import termination_from_tuple
+from pymoo.pymoo.util.termination.default import MultiObjectiveDefaultTermination, SingleObjectiveDefaultTermination
 
 
 def minimize(problem,
@@ -22,13 +22,13 @@ def minimize(problem,
     Parameters
     ----------
 
-    problem : :class:`~pymoo.core.problem.Problem`
-        A problem object which is defined using pymoo.
+    problem : :class:`~pymoo.pymoo.core.problem.Problem`
+        A problem object which is defined using pymoo.pymoo.
 
-    algorithm : :class:`~pymoo.core.algorithm.Algorithm`
+    algorithm : :class:`~pymoo.pymoo.core.algorithm.Algorithm`
         The algorithm object that should be used for the optimization.
 
-    termination : :class:`~pymoo.core.termination.Termination` or tuple
+    termination : :class:`~pymoo.pymoo.core.termination.Termination` or tuple
         The termination criterion that is used to stop the algorithm.
 
     seed : integer
@@ -37,10 +37,10 @@ def minimize(problem,
     verbose : bool
         Whether output should be printed or not.
 
-    display : :class:`~pymoo.util.display.Display`
+    display : :class:`~pymoo.pymoo.util.display.Display`
         Each algorithm has a default display object for printouts. However, it can be overwritten if desired.
 
-    callback : :class:`~pymoo.core.callback.Callback`
+    callback : :class:`~pymoo.pymoo.core.callback.Callback`
         A callback object which is called each iteration of the algorithm.
 
     save_history : bool
@@ -54,7 +54,7 @@ def minimize(problem,
 
     Returns
     -------
-    res : :class:`~pymoo.core.result.Result`
+    res : :class:`~pymoo.pymoo.core.result.Result`
         The optimization result represented as an object.
 
     """
