@@ -1,7 +1,7 @@
 import os, sys 
 import numpy as np
 
-# sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from pymoo.pymoo.operators.crossover.pntx import PointCrossover
 from pymoo.pymoo.core.crossover import Crossover
 from pymoo.pymoo.operators.crossover.util import crossover_mask
