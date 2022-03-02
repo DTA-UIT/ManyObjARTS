@@ -132,7 +132,7 @@ def get_selection(name, *args, d={}, **kwargs):
 # Crossover
 # =========================================================================================================
 
-def get_crossover_options():
+def get_crossover_options(api):
     from pymoo.pymoo.operators.crossover.dex import DEX
     from pymoo.pymoo.operators.crossover.expx import ExponentialCrossover
     from pymoo.pymoo.operators.crossover.hux import HalfUniformCrossover
@@ -153,7 +153,7 @@ def get_crossover_options():
         ("real_de", DEX),
         ("real_pcx", PCX),
         # ("(real|bin|int)_ux", UniformCrossover),
-        ("(real|bin|int)_ux", CustomUniformCrossover),
+        ("(real|bin|int)_ux", CustomUniformCrossover, api),
 
         ("(bin|int)_hux", HalfUniformCrossover),
         ("(real|bin|int)_exp", ExponentialCrossover),
@@ -167,8 +167,8 @@ def get_crossover_options():
     return CROSSOVER
 
 
-def get_crossover(name, *args, d={}, **kwargs):
-    return get_from_list(get_crossover_options(), name, args, {**d, **kwargs})
+def get_crossover(api, name, *args, d={}, **kwargs):
+    return get_from_list(get_crossover_options(api), name, args, {**d, **kwargs})
 
 
 # =========================================================================================================
