@@ -1,9 +1,9 @@
 import numpy as np
 
-from pymoo.indicators.gd import GD
-from pymoo.indicators.igd import IGD
-from pymoo.indicators.hv import Hypervolume
-from pymoo.util.termination.f_tol import MultiObjectiveSpaceToleranceTermination
+from pymoo.pymoo.indicators.gd import GD
+from pymoo.pymoo.indicators.igd import IGD
+from pymoo.pymoo.indicators.hv import Hypervolume
+from pymoo.pymoo.util.termination.f_tol import MultiObjectiveSpaceToleranceTermination
 
 
 def pareto_front_if_possible(problem):
