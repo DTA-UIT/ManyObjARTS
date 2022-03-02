@@ -18,11 +18,30 @@ class CustomUniformCrossover(Crossover):
 
     def _do(self, _, X, api, **kwargs):
         _, n_matings, n_var = X.shape
+        parents = X.copy()
+        cnt = 0
+        np.random.seed(cnt)
+        
         M = np.random.random((n_matings, n_var)) < 0.5
-        print(M)
         _X = crossover_mask(X, M)
-        # if _X[0]
-        print(api.is_valid(_X[0]))
+        if api.is_valid(_X[0]) and api.is_valid(_X[1]):
+            return _X
+        else:
+            maximum_crossover_operations = len(_X[0])
+            cnt += 1
+            while True:
+                M = np.random.random((n_matings, n_var)) < 0.5
+                np.random.seed(cnt) 
+                _X = crossover_mask(X, M) 
+                
+                if api.is_valid(_X[0]) and api.is_valid(_X[1]):
+                    break
+
+                if cnt == maximum_crossover_operations:
+                    _X = parents 
+                    break
+                
+                cnt += 1
         return _X
 
     
