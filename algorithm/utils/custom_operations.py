@@ -13,17 +13,16 @@ from pymoo.pymoo.operators.repair.to_bound import set_to_bounds_if_outside_by_pr
 # nasbench101_api = NAS101(debug=True)
  
 class CustomUniformCrossover(Crossover):
-    def __init__(self, api, **kwargs):
+    def __init__(self, **kwargs):
         super().__init__(n_parents=2, n_offsprings=2, **kwargs)
-        self.api = api
-        
-    def _do(self, _, X, **kwargs):
+
+    def _do(self, _, X, api, **kwargs):
         _, n_matings, n_var = X.shape
         M = np.random.random((n_matings, n_var)) < 0.5
         print(M)
         _X = crossover_mask(X, M)
         # if _X[0]
-        print(self.api.is_valid(_X[0]))
+        print(api.is_valid(_X[0]))
         return _X
 
     
