@@ -1,7 +1,7 @@
 import numpy as np
 
-from pymoo.util.dominator import Dominator
-from pymoo.util.function_loader import load_function
+from pymoo.pymoo.util.dominator import Dominator
+from pymoo.pymoo.util.function_loader import load_function
 
 
 class NonDominatedSorting:

@@ -1,4 +1,4 @@
-from pymoo.util.dominator import Dominator
+from pymoo.pymoo.util.dominator import Dominator
 
 
 def naive_non_dominated_sort(F, **kwargs):

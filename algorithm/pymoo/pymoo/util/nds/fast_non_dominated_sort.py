@@ -1,6 +1,6 @@
 import numpy as np
 
-from pymoo.util.dominator import Dominator
+from pymoo.pymoo.util.dominator import Dominator
 
 
 def fast_non_dominated_sort(F, **kwargs):

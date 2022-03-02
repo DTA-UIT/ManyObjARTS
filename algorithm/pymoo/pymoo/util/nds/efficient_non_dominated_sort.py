@@ -2,7 +2,7 @@ from math import floor
 
 import numpy as np
 
-from pymoo.util.dominator import Dominator
+from pymoo.pymoo.util.dominator import Dominator
 
 
 def efficient_non_dominated_sort(F, strategy="sequential"):
