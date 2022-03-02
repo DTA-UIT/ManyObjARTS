@@ -2,8 +2,8 @@ import math
 
 import numpy as np
 
-from pymoo.core.selection import Selection
-from pymoo.util.misc import random_permuations
+from pymoo.pymoo.core.selection import Selection
+from pymoo.pymoo.util.misc import random_permuations
 
 
 class RandomSelection(Selection):

@@ -1,4 +1,4 @@
-from pymoo.core.mutation import Mutation
+from pymoo.pymoo.core.mutation import Mutation
 
 
 class NoMutation(Mutation):

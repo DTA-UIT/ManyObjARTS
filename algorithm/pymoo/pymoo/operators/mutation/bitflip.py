@@ -1,6 +1,6 @@
 import numpy as np
 
-from pymoo.core.mutation import Mutation
+from pymoo.pymoo.core.mutation import Mutation
 
 
 class BinaryBitflipMutation(Mutation):
