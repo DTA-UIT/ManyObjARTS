@@ -139,7 +139,6 @@ def get_crossover_options():
     from pymoo.pymoo.operators.crossover.pntx import PointCrossover
     import sys, os
     sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    from algorithm.utils.custom_operations import TwoPointsCrossover
     from pymoo.pymoo.operators.crossover.sbx import SimulatedBinaryCrossover
     from pymoo.pymoo.operators.crossover.ux import UniformCrossover
     from utils.custom_operations import CustomUniformCrossover
@@ -158,8 +157,7 @@ def get_crossover_options():
         ("(bin|int)_hux", HalfUniformCrossover),
         ("(real|bin|int)_exp", ExponentialCrossover),
         ("(real|bin|int)_one_point", PointCrossover, {'n_points': 1}),
-        ("(real|bin|int)_two_point", TwoPointsCrossover),
-        # ("(real|bin|int)_two_point", PointCrossover, {'n_points': 2}),
+        ("(real|bin|int)_two_point", PointCrossover, {'n_points': 2}),
         ("(real|bin|int)_k_point", PointCrossover),
         ("perm_ox", OrderCrossover),
         ("perm_erx", EdgeRecombinationCrossover)
