@@ -1,6 +1,6 @@
-from pymoo.core.termination import Termination
-from pymoo.util.misc import to_numpy
-from pymoo.util.termination.sliding_window_termination import SlidingWindowTermination
+from pymoo.pymoo.core.termination import Termination
+from pymoo.pymoo.util.misc import to_numpy
+from pymoo.pymoo.util.termination.sliding_window_termination import SlidingWindowTermination
 
 
 class ConstraintViolationToleranceTermination(SlidingWindowTermination):

@@ -1,8 +1,8 @@
-from pymoo.util.termination.constr_violation import ConstraintViolationToleranceTermination
-from pymoo.util.termination.f_tol import MultiObjectiveSpaceToleranceTermination
-from pymoo.util.termination.f_tol_single import SingleObjectiveSpaceToleranceTermination
-from pymoo.util.termination.sliding_window_termination import SlidingWindowTermination
-from pymoo.util.termination.x_tol import DesignSpaceToleranceTermination
+from pymoo.pymoo.util.termination.constr_violation import ConstraintViolationToleranceTermination
+from pymoo.pymoo.util.termination.f_tol import MultiObjectiveSpaceToleranceTermination
+from pymoo.pymoo.util.termination.f_tol_single import SingleObjectiveSpaceToleranceTermination
+from pymoo.pymoo.util.termination.sliding_window_termination import SlidingWindowTermination
+from pymoo.pymoo.util.termination.x_tol import DesignSpaceToleranceTermination
 
 
 class DefaultTermination(SlidingWindowTermination):

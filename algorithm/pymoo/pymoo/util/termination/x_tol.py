@@ -1,9 +1,9 @@
 import numpy as np
 
-from pymoo.indicators.igd import IGD
-from pymoo.util.misc import to_numpy
-from pymoo.util.normalization import normalize
-from pymoo.util.termination.sliding_window_termination import SlidingWindowTermination
+from pymoo.pymoo.indicators.igd import IGD
+from pymoo.pymoo.util.misc import to_numpy
+from pymoo.pymoo.util.normalization import normalize
+from pymoo.pymoo.util.termination.sliding_window_termination import SlidingWindowTermination
 
 
 class DesignSpaceToleranceTermination(SlidingWindowTermination):

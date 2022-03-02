@@ -1,5 +1,5 @@
-from pymoo.util.misc import to_numpy
-from pymoo.util.termination.sliding_window_termination import SlidingWindowTermination
+from pymoo.pymoo.util.misc import to_numpy
+from pymoo.pymoo.util.termination.sliding_window_termination import SlidingWindowTermination
 
 
 class SingleObjectiveSpaceToleranceTermination(SlidingWindowTermination):

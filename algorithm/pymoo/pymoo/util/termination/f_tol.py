@@ -1,9 +1,9 @@
 import numpy as np
 
-from pymoo.indicators.hv import Hypervolume
-from pymoo.indicators.igd import IGD
-from pymoo.util.normalization import normalize
-from pymoo.util.termination.sliding_window_termination import SlidingWindowTermination
+from pymoo.pymoo.indicators.hv import Hypervolume
+from pymoo.pymoo.indicators.igd import IGD
+from pymoo.pymoo.util.normalization import normalize
+from pymoo.pymoo.util.termination.sliding_window_termination import SlidingWindowTermination
 
 
 def calc_delta(a, b):

@@ -1,7 +1,7 @@
 import time
 
-from pymoo.core.termination import Termination
-from pymoo.util.misc import time_to_int
+from pymoo.pymoo.core.termination import Termination
+from pymoo.pymoo.util.misc import time_to_int
 
 
 class TimeBasedTermination(Termination):

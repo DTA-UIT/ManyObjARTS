@@ -1,9 +1,9 @@
 from abc import abstractmethod
 
-from pymoo.util.sliding_window import SlidingWindow
-from pymoo.util.termination.collection import TerminationCollection
-from pymoo.util.termination.max_eval import MaximumFunctionCallTermination
-from pymoo.util.termination.max_gen import MaximumGenerationTermination
+from pymoo.pymoo.util.sliding_window import SlidingWindow
+from pymoo.pymoo.util.termination.collection import TerminationCollection
+from pymoo.pymoo.util.termination.max_eval import MaximumFunctionCallTermination
+from pymoo.pymoo.util.termination.max_gen import MaximumGenerationTermination
 
 
 class SlidingWindowTermination(TerminationCollection):
