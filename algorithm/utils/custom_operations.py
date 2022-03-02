@@ -8,7 +8,7 @@ from pymoo.pymoo.operators.crossover.util import crossover_mask
 from pymoo.pymoo.operators.mutation.pm import PolynomialMutation
 from pymoo.pymoo.operators.repair.to_bound import set_to_bounds_if_outside_by_problem
 
-from NASBench.NAS101 import NAS101 
+# from NASBench.NAS101 import NAS101 
 
 # nasbench101_api = NAS101(debug=True)
  
