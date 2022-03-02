@@ -86,7 +86,7 @@ def example_parents(n_matings, n_var):
     return a, b
 
 
-n_matings, n_var = 1, 21
+n_matings, n_var = 1, 10
 a,b = example_parents(n_matings,n_var)
 print(a)
 print(b)

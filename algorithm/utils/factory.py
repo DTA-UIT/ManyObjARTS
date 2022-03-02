@@ -142,6 +142,7 @@ def get_crossover_options():
     from algorithm.utils.custom_operations import TwoPointsCrossover
     from pymoo.pymoo.operators.crossover.sbx import SimulatedBinaryCrossover
     from pymoo.pymoo.operators.crossover.ux import UniformCrossover
+    from utils.custom_operations import CustomUniformCrossover
     from pymoo.pymoo.operators.crossover.pcx import PCX
     from pymoo.pymoo.operators.integer_from_float_operator import IntegerFromFloatCrossover
     from pymoo.pymoo.operators.crossover.erx import EdgeRecombinationCrossover
