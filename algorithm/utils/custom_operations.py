@@ -15,7 +15,7 @@ from pymoo.pymoo.operators.repair.to_bound import set_to_bounds_if_outside_by_pr
 class CustomUniformCrossover(Crossover):
     def __init__(self, **kwargs):
         super().__init__(n_parents=2, n_offsprings=2, **kwargs)
-        self.api = kwargs['api'] 
+        self.api = api
         
     def _do(self, _, X, **kwargs):
         _, n_matings, n_var = X.shape

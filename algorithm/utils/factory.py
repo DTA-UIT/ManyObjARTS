@@ -154,6 +154,7 @@ def get_crossover_options():
         ("real_pcx", PCX),
         # ("(real|bin|int)_ux", UniformCrossover),
         ("(real|bin|int)_ux", CustomUniformCrossover),
+
         ("(bin|int)_hux", HalfUniformCrossover),
         ("(real|bin|int)_exp", ExponentialCrossover),
         ("(real|bin|int)_one_point", PointCrossover, {'n_points': 1}),
