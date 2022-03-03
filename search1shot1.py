@@ -38,5 +38,47 @@ class NASBench1Shot1(NASBench101):
         return super().calc_IGD(pop, objectives)
     
     def _evaluate(self, designs, out, *args, **kwargs):
-        super()._evaluate(designs, out, *args, **kwargs)
+        start = time.time()
+        print(f'Gen: {self.generation_count}')
+
+        objectives_names = [] # List of objectives names
+        for obj in self.proxy_log:
+            if obj != 'test-accuracy':
+                objectives_names.append(obj)
+        
+        testacc = []
+        objectives_result = {}
+        for obj in objectives_names:
+            objectives_result[obj] = []
+        
+        for design in designs:
+            testacc.append(self.api.evaluate_arch(ind=design, dataset=self.dataset, measure='test-accuracy', epoch=200, use_csv=True, proxy_log=self.proxy_log['test-accuracy']))
+            for obj in objectives_names:
+                if obj in ['synflow', 'jacob_cov']:
+                    objectives_result[obj].append(-1 * self.api.evaluate_arch(ind=design, dataset=self.dataset, measure=obj))
+                else:
+                    objectives_result[obj].append(self.api.evaluate_arch(ind=design, dataset=self.dataset, measure=obj, use_csv=True, proxy_log=self.proxy_log[obj]))
+        
+
+        objectives = np.array(objectives_result['flops'])
+        for obj in objectives_names:
+            if obj != 'flops':
+                objectives = np.array(np.stack((objectives, np.array(objectives_result[obj])), axis=-1))
+        print(f'All objectives: {objectives}')
+        
+        testacc_flops = np.array(np.stack((objectives_result['flops'], testacc), axis=-1))
+        print(f'testacc_flops: {testacc_flops}')
+        
+        self.calc_IGD(pop=designs, objectives=objectives)
+
+        out['F'] = np.array(objectives)
+        end = time.time()
+        elapsed_time = end - start
+        print('time:', elapsed_time)
+
+        self.res_of_run['time'].append(elapsed_time)
+        self.res_of_run['log_testacc_flops'].append(testacc_flops)
+        self.res_of_run['log_objectives'].append(objectives)
+        self.res_of_run['log_pop'].append(designs)
+        self.generation_count +=1    
         
