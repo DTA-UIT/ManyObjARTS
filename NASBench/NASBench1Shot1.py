@@ -29,7 +29,8 @@ class NASBench1Shot1(NAS101):
         super().__init__(use_colab=use_colab, debug=debug)
         self.search_space = search_space
     
-    def individual_to_parents(self, ind):
+    # def individual_to_parents(self, ind):
+    def get_individual(self, ind):
         config_space = {
             '5': [(0,), (1,)],
             '6': [(0,), (1,), (2,)],
@@ -66,7 +67,7 @@ class NASBench1Shot1(NAS101):
     
     def get_architecture(self, ind):
         ops = self.get_operations(ind)
-        ind = self.individual_to_parents(ind)
+        ind = self.get_individual(ind)
         self.cell = api.ModelSpec(ind, ops)
         return self.cell 
     
@@ -91,7 +92,7 @@ class NASBench1Shot1(NAS101):
         return self.query_result[metric] if metric is not None else self.query_result
 
     def is_valid(self, ind):
-        individual = self.individual_to_parents(ind)
+        individual = self.get_individual(ind)
         ops = self.get_operations(ind)
         self.cell = api.ModelSpec(individual, ops)
         return self.api.is_valid(self.cell)
@@ -126,7 +127,7 @@ class NASBench1Shot1(NAS101):
         """
         
         ops = self.get_operations(ind)
-        ind = self.individual_to_parents(ind)
+        ind = self.get_individual(ind)
         
         self.cell = api.ModelSpec(ind, ops)
         # print(self.cell.__dict__)
@@ -143,8 +144,8 @@ class NASBench1Shot1(NAS101):
 
         # If query from csv file and exists respective log file
         if use_csv and measure in proxy_log:
-            pass 
-
+            pass
+        
         # If don't use log file, then evaluate directly from NASBench101
         else:
             
