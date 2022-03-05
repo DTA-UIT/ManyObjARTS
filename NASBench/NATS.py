@@ -129,7 +129,7 @@ class NATS(NASBench):
         result[measure] -- Result of evaluation at the present dataset
         """
         
-        if use_csv and proxy_log == None:
+        if use_csv and proxy_log is None:
             raise Exception('No proxy log to query csv')
         
         if (measure == 'test-accuracy' or measure == 'train-accuracy') and epoch == None:
