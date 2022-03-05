@@ -131,7 +131,7 @@ class NASBench1Shot1(NAS101):
         self.cell = api.ModelSpec(ind, ops)
         # print(self.cell.__dict__)
          
-        if use_csv and not proxy_log:
+        if use_csv and proxy_log is None:
             raise Exception("No proxy log to query csv")
         
         if 'accuracy' in measure and epoch == None:
