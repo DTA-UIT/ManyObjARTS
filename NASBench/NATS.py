@@ -153,8 +153,8 @@ class NATS(NASBench):
 
         # If use log file, then get results from csv file
         if use_csv:
-            proxy_file = proxy_log   
-            proxy_log = genfromtxt(proxy_log, delimiter=',')     
+            # proxy_file = proxy_log   
+            # proxy_log = genfromtxt(proxy_log, delimiter=',')     
             
             def get_index_csv (ind):
                 index = 0
@@ -169,7 +169,8 @@ class NATS(NASBench):
             if measure == 'jacob_cov' and np.isnan(result['jacob_cov']):
                 result['jacob_cov'] = -1e9
 
-            if 'synflow' in proxy_file: 
+            # if 'synflow' in proxy_file: 
+            if measure == 'synflow':
                 synflow_result = result[measure]          
                 return synflow_result
             
