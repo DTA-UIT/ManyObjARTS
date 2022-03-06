@@ -190,8 +190,8 @@ class NASBench1Shot1(NAS101):
                 result['flops'], _ = get_model_infos(model, (len(train_loader), 3, input_size, input_size))
             
             elif measure == 'inference-time':
-                if not 'cuda' in self.device:
-                    raise Exception('Turn on GPU to get inference time')
+                # if not 'cuda' in self.device:
+                #     raise Exception('Turn on GPU to get inference time')
                 
                 if args == None:
                     raise Exception('No argparse to get inference time')
