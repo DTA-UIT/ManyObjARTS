@@ -206,7 +206,7 @@ class NASBench1Shot1(NAS101):
                                         
                 starter, ender = torch.cuda.Event(enable_timing=True), torch.cuda.Event(enable_timing=True)
 
-                input = torch.randn(args.batch_size, 3, 32, 32, dtype=torch.float).to(device)
+                input = torch.randn(args.batch_size, 3, 32, 32, dtype=torch.float).to(self.device)
                 total_time = 0
                 num_repetitions = 300
 
