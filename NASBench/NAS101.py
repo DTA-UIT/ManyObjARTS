@@ -53,38 +53,38 @@ class NAS101(NASBench):
         self.cell = None
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         print(f'Running on device: {self.device}')
+
+    def get_individual(self, ind, ops_none=None):
+        res = np.zeros((7, 7), dtype=int)
+        k = 0
+        for i in range(7):
+            for j in range(i + 1, 7):
+                res[i][j] = ind[k]
+                k += 1
+
+        if ops_none != None:
+            res = np.delete(res, ops_none, axis=1)
+            res = np.delete(res, ops_none, axis=0)
+        return res 
    
+    def get_operations(self, ind):
+        ops_none = []
+        ops = ['input']
+        for i in range(0, 5):
+            if ind[i] == 0:
+                ops_none.append(i)
+            elif ind[i] == 1:
+                ops.append('conv1x1-bn-relu')
+            elif ind[i] == 2:
+                ops.append('conv3x3-bn-relu')
+            else:
+                ops.append('maxpool3x3')
+        ops.append('output')
+        return ops, ops_none
+
     def get_architecture(self, ind):
-        def get_operations(ind):
-            ops_none = []
-            ops = ['input']
-            for i in range(0, 5):
-                if ind[i] == 0:
-                    ops_none.append(i)
-                elif ind[i] == 1:
-                    ops.append('conv1x1-bn-relu')
-                elif ind[i] == 2:
-                    ops.append('conv3x3-bn-relu')
-                else:
-                    ops.append('maxpool3x3')
-            ops.append('output')
-            return ops, ops_none
-
-        def convert_ind_triangle(ind, ops_none=None):
-            res = np.zeros((7, 7), dtype=int)
-            k = 0
-            for i in range(7):
-                for j in range(i + 1, 7):
-                    res[i][j] = ind[k]
-                    k += 1
-
-            if ops_none != None:
-                res = np.delete(res, ops_none, axis=1)
-                res = np.delete(res, ops_none, axis=0)
-            return res 
-        
-        ops, ops_none = get_operations(ind)
-        ind = convert_ind_triangle(ind[5:], ops_none)
+        ops, ops_none = self.get_operations(ind)
+        ind = self.get_individual(ind[5:], ops_none)
         
         self.cell = api.ModelSpec(ind, ops)
         return self.cell
@@ -111,36 +111,8 @@ class NAS101(NASBench):
     
     
     def is_valid(self, ind):
-        def get_operations(ind):
-            ops_none = []
-            ops = ['input']
-            for i in range(0, 5):
-                if ind[i] == 0:
-                    ops_none.append(i)
-                elif ind[i] == 1:
-                    ops.append('conv1x1-bn-relu')
-                elif ind[i] == 2:
-                    ops.append('conv3x3-bn-relu')
-                else:
-                    ops.append('maxpool3x3')
-            ops.append('output')
-            return ops, ops_none
-
-        def convert_ind_triangle(ind, ops_none=None):
-            res = np.zeros((7, 7), dtype=int)
-            k = 0
-            for i in range(7):
-                for j in range(i + 1, 7):
-                    res[i][j] = ind[k]
-                    k += 1
-
-            if ops_none != None:
-                res = np.delete(res, ops_none, axis=1)
-                res = np.delete(res, ops_none, axis=0)
-            return res 
-            
-        ops, ops_none = get_operations(ind)
-        ind = convert_ind_triangle(ind[5:], ops_none)
+        ops, ops_none = self.get_operations(ind)
+        ind = self.convert_ind_triangle(ind[5:], ops_none)
             
         self.cell = api.ModelSpec(ind, ops)
         return self.api.is_valid(self.cell)
@@ -173,36 +145,9 @@ class NAS101(NASBench):
         Returns:
         result[measure] -- Result of evaluation at the present dataset
         """
-        def get_operations(ind):
-            ops_none = []
-            ops = ['input']
-            for i in range(0, 5):
-                if ind[i] == 0:
-                    ops_none.append(i)
-                elif ind[i] == 1:
-                    ops.append('conv1x1-bn-relu')
-                elif ind[i] == 2:
-                    ops.append('conv3x3-bn-relu')
-                else:
-                    ops.append('maxpool3x3')
-            ops.append('output')
-            return ops, ops_none
-
-        def convert_ind_triangle(ind, ops_none=None):
-            res = np.zeros((7, 7), dtype=int)
-            k = 0
-            for i in range(7):
-                for j in range(i + 1, 7):
-                    res[i][j] = ind[k]
-                    k += 1
-
-            if ops_none != None:
-                res = np.delete(res, ops_none, axis=1)
-                res = np.delete(res, ops_none, axis=0)
-            return res 
         
-        ops, ops_none = get_operations(ind)
-        ind = convert_ind_triangle(ind[5:], ops_none)
+        ops, ops_none = self.get_operations(ind)
+        ind = self.get_individual(ind[5:], ops_none)
         
         self.cell = api.ModelSpec(ind, ops)
         # print(self.cell.__dict__)
