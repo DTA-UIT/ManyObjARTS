@@ -189,6 +189,40 @@ class NASBench1Shot1(NAS101):
                                         num_classes=get_num_classes(args))
                 result['flops'], _ = get_model_infos(model, (len(train_loader), 3, input_size, input_size))
             
+            elif measure == 'inference-time':
+                if not 'cuda' in self.device:
+                    raise Exception('Turn on GPU to get inference time')
+                
+                if args == None:
+                    raise Exception('No argparse to get inference time')
+                
+                model = nasbench1.Network(self.spec, 
+                                        stem_out=128, 
+                                        num_stacks=3, 
+                                        num_mods=3,
+                                        num_classes=get_num_classes(args))
+
+                net = model.to(self.device)              
+                                        
+                starter, ender = torch.cuda.Event(enable_timing=True), torch.cuda.Event(enable_timing=True)
+
+                input = torch.randn(args.batch_size, 3, 32, 32, dtype=torch.float).to(device)
+                total_time = 0
+                num_repetitions = 300
+
+                with torch.no_grad():
+                    for rep in range(num_repetitions):
+                        starter.record()
+                        _ = net(input)
+                        ender.record()
+
+                        torch.cuda.synchronize()
+
+                        curr_time = starter.elapsed_time(ender) / 1000
+                        total_time += curr_time
+
+                result['inference-time'] = (num_repetitions * args.batch_size) / total_time
+                
             # If use zero-cost methods
             else:
                 if args == None:
