@@ -196,7 +196,7 @@ class NASBench1Shot1(NAS101):
                 if args == None:
                     raise Exception('No argparse to get inference time')
                 
-                model = nasbench1.Network(self.spec, 
+                model = nasbench1.Network(self.cell, 
                                         stem_out=128, 
                                         num_stacks=3, 
                                         num_mods=3,
