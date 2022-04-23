@@ -194,12 +194,10 @@ class NATS(NASBench):
                 net = cell.to(self.device)       
                 if dataset == 'cifar10':
                     input = torch.randn(len(train_loader), 3, 32, 32)
-                    info['macs_handcraft'], info['params_handcraft'] = profile(net, inputs=(input, ), verbose=False)
-                    result[measure] = info[measure]
+                    result['macs_handcraft'], result['params_handcraft'] = profile(net, inputs=(input, ), verbose=False)
                 elif dataset == 'imagenet':
                     input = torch.randn(len(train_loader), 3, 16, 16)
-                    info['macs_handcraft'], info['params_handcraft'] = profile(net, inputs=(input, ), verbose=False)
-                    result[measure] = info[measure]
+                    result['macs_handcraft'], result['params_handcraft'] = profile(net, inputs=(input, ), verbose=False)
                 else:
                     raise Exception(f"Dataset {dataset} not supported")
             
