@@ -194,7 +194,7 @@ class NATS(NASBench):
                 net = cell.to(self.device)       
                 if dataset == 'cifar10':
                     input = torch.randn(len(train_loader), 3, 32, 32)
-                    info['macs'], info['params'] = profile(net, inputs=(input, ), verbose=False)
+                    info['macs_handcraft'], info['params_handcraft'] = profile(net, inputs=(input, ), verbose=False)
                     result[measure] = info[measure]
                 elif dataset == 'imagenet':
                     input = torch.randn(len(train_loader), 3, 16, 16)
