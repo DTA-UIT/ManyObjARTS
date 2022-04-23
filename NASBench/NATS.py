@@ -189,9 +189,8 @@ class NATS(NASBench):
                 result[measure] = info[measure]
             
             elif measure in ['macs_handcraft', 'params_handcraft']:
-                cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
-                init_net(cell, args.init_w_type, args.init_b_type)
-                net = cell.to(self.device)       
+                net = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
+               
                 if dataset == 'cifar10':
                     input = torch.randn(len(train_loader), 3, 32, 32)
                     result['macs_handcraft'], result['params_handcraft'] = profile(net, inputs=(input, ), verbose=False)
@@ -202,9 +201,7 @@ class NATS(NASBench):
                     raise Exception(f"Dataset {dataset} not supported")
             
             elif measure in ['flops_handcraft']:
-                cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
-                init_net(cell, args.init_w_type, args.init_b_type)
-                net = cell.to(self.device)   
+                net = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
                 input_size = 16 if dataset == 'imagenet' else 32
                 result['flops_handcraft'], _ = get_model_infos(net, (len(train_loader), 3, input_size, input_size))
 
