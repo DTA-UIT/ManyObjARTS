@@ -209,7 +209,6 @@ class NATS(NASBench):
                 result['flops_handcraft'], _ = get_model_infos(net, (len(train_loader), 3, input_size, input_size))
 
             elif measure in ['latency_handcraft']:
-                assert self.device == 'cpu', 'GPU not found for measuring latency/inference time'
                 cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
                 init_net(cell, args.init_w_type, args.init_b_type)
                 net = cell.to(self.device)
