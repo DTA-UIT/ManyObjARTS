@@ -11,6 +11,8 @@ from ZeroCostNas.foresight.models.nasbench2 import get_model_from_arch_str
 from ZeroCostNas.foresight.pruners import predictive
 from ZeroCostNas.foresight.weight_initializers import init_net
 from ZeroCostNas.OpCounter.thop import profile
+from ZeroCostNas.AutoDLTools.xautodl.utils.flop_benchmark import *
+
 
 def get_num_classes(args):
     if args.dataset == 'cifar100':
@@ -185,6 +187,52 @@ class NATS(NASBench):
                 arch_index = self.api.query_index_by_arch(self.cell)
                 info = self.api.get_cost_info(arch_index, dataset)
                 result[measure] = info[measure]
+            
+            elif measure in ['macs_handcraft', 'params_handcraft']:
+                cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
+                init_net(cell, args.init_w_type, args.init_b_type)
+                net = cell.to(self.device)       
+                if dataset == 'cifar10':
+                    input = torch.randn(len(train_loader), 3, 32, 32)
+                    info['macs'], info['params'] = profile(net, inputs=(input, ), verbose=False)
+                    result[measure] = info[measure]
+                elif dataset == 'imagenet':
+                    input = torch.randn(len(train_loader), 3, 16, 16)
+                    info['macs_handcraft'], info['params_handcraft'] = profile(net, inputs=(input, ), verbose=False)
+                    result[measure] = info[measure]
+                else:
+                    raise Exception(f"Dataset {dataset} not supported")
+            
+            elif measure in ['flops_handcraft']:
+                cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
+                init_net(cell, args.init_w_type, args.init_b_type)
+                net = cell.to(self.device)   
+                input_size = 16 if dataset == 'imagenet' else 32
+                result['flops_handcraft'], _ = get_model_infos(net, (len(train_loader), 3, input_size, input_size))
+
+            elif measure in ['latency_handcraft']:
+                cell = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
+                init_net(cell, args.init_w_type, args.init_b_type)
+                net = cell.to(self.device)
+                starter, ender = torch.cuda.Event(enable_timing=True), torch.cuda.Event(enable_timing=True)
+                input_size = 32 if dataset == 'cifar10' or dataset == 'cifar100' else 16
+                input = torch.randn(args.batch_size, 3, input_size, input_size, dtype=torch.float).to(self.device)
+                total_time = 0
+                num_repetitions = 300
+
+                with torch.no_grad():
+                    for _ in range(num_repetitions):
+                        starter.record()
+                        _ = net(input)
+                        ender.record()
+
+                        torch.cuda.synchronize()
+
+                        curr_time = starter.elapsed_time(ender) / 1000
+                        total_time += curr_time
+
+                result['latency_handcraft'] = (num_repetitions * args.batch_size) / total_time
+                
             
             elif measure == 'macs':
                 if train_loader == None:
