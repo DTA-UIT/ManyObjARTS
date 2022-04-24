@@ -178,7 +178,7 @@ class NATS(NASBench):
             
         else:
             # If measure is accuracy, query at a specific epoch
-            if epoch is not None and measure in ['test-accuracy', 'train-accuracy', 'valid-accuracy']: 
+            if epoch is not None and measure in ['test-accuracy', 'train-accuracy', 'valid-accuracy', 'train-all-time', 'train-per-time', 'test-all-time', 'test-per-time', 'train-loss', 'test-loss']: 
                 result[measure] = self.query_bench(ind, dataset, epoch, measure)
 
             # If get flops info, then query from NATSBench
