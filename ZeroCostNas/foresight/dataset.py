@@ -53,7 +53,7 @@ def get_cifar_dataloaders(train_batch_size, test_batch_size, dataset, num_worker
     elif dataset == 'svhn':
         train_dataset = SVHN(datadir, split='train', transform=train_transform, download=True)
         test_dataset = SVHN(datadir, split='test', transform=test_transform, download=True)
-    elif dataset == 'ImageNet16-120':
+    elif dataset == 'imagenet':
         train_dataset = ImageNet16(os.path.join(datadir, 'ImageNet16'), True , train_transform, 120)
         test_dataset  = ImageNet16(os.path.join(datadir, 'ImageNet16'), False, test_transform , 120)
     elif dataset == 'ImageNet1k':
