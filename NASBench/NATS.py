@@ -191,7 +191,7 @@ class NATS(NASBench):
             elif measure in ['macs_handcraft', 'params_handcraft']:
                 net = get_model_from_arch_str(arch_str=self.convert_individual_to_query(ind), num_classes=get_num_classes(args))
                
-                if dataset == 'cifar10':
+                if dataset == 'cifar10' or dataset == 'cifar100':
                     input = torch.randn(len(train_loader), 3, 32, 32)
                     result['macs_handcraft'], result['params_handcraft'] = profile(net, inputs=(input, ), verbose=False)
                 elif dataset == 'imagenet':
