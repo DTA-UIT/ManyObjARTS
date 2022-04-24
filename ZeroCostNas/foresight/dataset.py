@@ -8,7 +8,7 @@ from .imagenet16 import *
 
 def get_cifar_dataloaders(train_batch_size, test_batch_size, dataset, num_workers, resize=None, datadir='_dataset'):
 
-    if 'imagenet' in dataset:
+    if 'ImageNet16' in dataset:
         mean = [x / 255 for x in [122.68, 116.66, 104.01]]
         std  = [x / 255 for x in [63.22,  61.26 , 65.09]]
         size, pad = 16, 2
@@ -53,7 +53,7 @@ def get_cifar_dataloaders(train_batch_size, test_batch_size, dataset, num_worker
     elif dataset == 'svhn':
         train_dataset = SVHN(datadir, split='train', transform=train_transform, download=True)
         test_dataset = SVHN(datadir, split='test', transform=test_transform, download=True)
-    elif dataset == 'imagenet':
+    elif dataset == 'ImageNet16-120':
         train_dataset = ImageNet16(os.path.join(datadir, 'ImageNet16'), True , train_transform, 120)
         test_dataset  = ImageNet16(os.path.join(datadir, 'ImageNet16'), False, test_transform , 120)
     elif dataset == 'ImageNet1k':
