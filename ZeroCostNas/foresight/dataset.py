@@ -2,6 +2,7 @@ from torch.utils.data import DataLoader
 from torchvision.datasets import MNIST, CIFAR10, CIFAR100, SVHN
 from torchvision.transforms import Compose, ToTensor, Normalize
 from torchvision import transforms
+import re 
 
 from .imagenet16 import *
 
@@ -26,9 +27,13 @@ def get_cifar_dataloaders(train_batch_size, test_batch_size, dataset, num_worker
         mean = (0.485, 0.456, 0.406)
         std  = (0.229, 0.224, 0.225)
         #resize = 256
-
-    if resize is None:
-        resize = size
+    
+    if resize is None and bool((re.compile('imagenet', re.IGNORECASE)).search('ImageNet16-120')):
+        resize = 16 
+    elif resize is None and dataset in ['cifar', 'svhn']:
+        resize = size 
+    else:
+        raise Exception('resize not specified')
 
     train_transform = transforms.Compose([
         transforms.RandomCrop(size, padding=pad),
