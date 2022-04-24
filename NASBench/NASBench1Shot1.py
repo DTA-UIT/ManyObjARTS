@@ -135,7 +135,7 @@ class NASBench1Shot1(NAS101):
         if use_csv and proxy_log is None:
             raise Exception("No proxy log to query csv")
         
-        if 'accuracy' in measure and epoch == None:
+        if ('accuracy' in measure or measure in ['training_time']) and epoch == None:
             raise Exception('No epoch to evaluate')
         
         proxy_log = {}
@@ -150,7 +150,7 @@ class NASBench1Shot1(NAS101):
         else:
             
             # If measure is 'train_accuracy' or 'validation_accuracy' or 'test_accuracy'
-            if epoch != None and 'accuracy' in measure or measure in ['training_time']:
+            if epoch != None and ('accuracy' in measure or measure in ['training_time']):
                 result[measure] = self.query_bench(ind, ops, metric=measure, epochs=epoch)
             
             elif measure in ['trainable_parameters']:
@@ -237,15 +237,11 @@ class NASBench1Shot1(NAS101):
                                         num_classes=get_num_classes(args))
                 
                 net = model.to(self.device)
-                try:
-                    measures = predictive.find_measures(net, 
-                                                    train_loader, 
-                                                    (args.dataload, args.dataload_info, get_num_classes(args)), 
-                                                    self.device,
-                                                    measure_names=[measure])   
-                except:
-                    print(f'{measure} is not callable')
-
+                measures = predictive.find_measures(net, 
+                                                train_loader, 
+                                                (args.dataload, args.dataload_info, get_num_classes(args)), 
+                                                self.device,
+                                                measure_names=[measure])   
                 result[measure] = measures[measure] if not np.isnan(measures[measure]) else -1e9
             
         
