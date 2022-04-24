@@ -8,7 +8,7 @@ from .imagenet16 import *
 
 def get_cifar_dataloaders(train_batch_size, test_batch_size, dataset, num_workers, resize=None, datadir='_dataset'):
 
-    if 'ImageNet16' in dataset:
+    if 'imagenet' in dataset:
         mean = [x / 255 for x in [122.68, 116.66, 104.01]]
         std  = [x / 255 for x in [63.22,  61.26 , 65.09]]
         size, pad = 16, 2
