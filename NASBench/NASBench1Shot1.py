@@ -150,7 +150,7 @@ class NASBench1Shot1(NAS101):
         else:
             
             # If measure is 'train_accuracy' or 'validation_accuracy' or 'test_accuracy'
-            if epoch != None and 'accuracy' in measure:
+            if epoch != None and 'accuracy' in measure or measure in ['training_time']:
                 result[measure] = self.query_bench(ind, ops, metric=measure, epochs=epoch)
             
             elif measure in ['trainable_parameters']:
