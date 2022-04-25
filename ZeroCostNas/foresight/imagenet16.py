@@ -47,7 +47,8 @@ class ImageNet16(data.Dataset):
     self.root      = root
     self.transform = transform
     self.train     = train  # training set or valid set
-    if not self._check_integrity(): raise RuntimeError('Dataset not found or corrupted.')
+    if not self._check_integrity(): 
+      raise RuntimeError('Dataset not found or corrupted.')
 
     if self.train: downloaded_list = self.train_list
     else         : downloaded_list = self.valid_list
