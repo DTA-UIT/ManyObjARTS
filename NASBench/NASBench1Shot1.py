@@ -84,6 +84,7 @@ class NASBench1Shot1(NAS101):
         """  
         self.cell = api.ModelSpec(ind, ops)
         try:
+            print(f"Epochs: {epochs}")
             self.query_result = self.api.query(self.cell, epochs=epochs)
         except:
             print(f"Cell {self.cell.__dict__['original_matrix']} is invalid for NASBench101")    
