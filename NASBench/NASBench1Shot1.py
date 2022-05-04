@@ -87,7 +87,7 @@ class NASBench1Shot1(NAS101):
             if 'accuracy' not in metric or (metric not in ['training_time']):
                 self.query_result = self.api.query(self.cell)  
             else:
-                self.api.query(self.cell, epochs=epochs)
+                self.query_result = self.api.query(self.cell, epochs=epochs)
         except:
             print(f"Cell {self.cell.__dict__['original_matrix']} is invalid for NASBench101")    
             self.api._check_spec(self.cell)
