@@ -183,6 +183,7 @@ class NATS(NASBench):
 
             elif measure == 'cifar10-valid':
                 is_size_space = self.api.search_space_name == "size"
+                self.convert_individual_to_query(ind)
                 xinfo = self.api.get_more_info(
                     self.api.query_index_by_arch(self.cell), dataset=dataset, hp=epoch, is_random=False
                 )
@@ -194,7 +195,7 @@ class NATS(NASBench):
                     is_random=False,
                 )
                 valid_acc = xinfo["valid-accuracy"]
-                result["valid-accuracy"] = valid_acc
+                result[measure] = valid_acc
 
             # If get flops info, then query from NATSBench
             elif measure in ['flops', 'latency', 'params']:
