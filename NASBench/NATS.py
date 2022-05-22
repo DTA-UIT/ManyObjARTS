@@ -182,16 +182,20 @@ class NATS(NASBench):
                 result[measure] = self.query_bench(ind, dataset, epoch, measure)
 
             elif measure == 'cifar10-valid':
-                is_size_space = self.api.search_space_name == "size"
+                # is_size_space = self.api.search_space_name == "size"
                 self.convert_individual_to_query(ind)
+                arch_index = self.api.query_index_by_arch(self.cell)
+                print(f'Cell: {self.cell}')
+                print(f'Arch index: {arch_index}')
+                # xinfo = self.api.get_more_info(
+                #     self.api.query_index_by_arch(self.cell), dataset=dataset, hp=epoch, is_random=False
+                # )
+                # test_acc = xinfo["test-accuracy"]
                 xinfo = self.api.get_more_info(
-                    self.api.query_index_by_arch(self.cell), dataset=dataset, hp=epoch, is_random=False
-                )
-                test_acc = xinfo["test-accuracy"]
-                xinfo = self.api.get_more_info(
-                    self.api.query_index_by_arch(self.cell),
+                    arch_index,
+                    # self.api.query_index_by_arch(self.cell),
                     dataset="cifar10-valid",
-                    hp=90 if is_size_space else 200,
+                    hp=epoch,
                     is_random=False,
                 )
                 valid_acc = xinfo["valid-accuracy"]
