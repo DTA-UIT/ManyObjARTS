@@ -178,8 +178,23 @@ class NATS(NASBench):
             
         else:
             # If measure is accuracy, query at a specific epoch
-            if epoch is not None and measure in ['test-accuracy', 'train-accuracy', 'valid-accuracy', 'train-all-time', 'train-per-time', 'test-all-time', 'test-per-time', 'train-loss', 'test-loss']: 
+            if epoch is not None and measure in ['test-accuracy', 'train-accuracy', 'train-all-time', 'train-per-time', 'test-all-time', 'test-per-time', 'train-loss', 'test-loss']: 
                 result[measure] = self.query_bench(ind, dataset, epoch, measure)
+
+            elif measure == 'cifar10-valid':
+                is_size_space = self.api.search_space_name == "size"
+                xinfo = self.api.get_more_info(
+                    ind, dataset=dataset, hp=90 if is_size_space else 200, is_random=False
+                )
+                test_acc = xinfo["test-accuracy"]
+                xinfo = self.api.get_more_info(
+                    ind,
+                    dataset="cifar10-valid",
+                    hp=90 if is_size_space else 200,
+                    is_random=False,
+                )
+                valid_acc = xinfo["valid-accuracy"]
+                result["valid-accuracy"] = valid_acc
 
             # If get flops info, then query from NATSBench
             elif measure in ['flops', 'latency', 'params']:
