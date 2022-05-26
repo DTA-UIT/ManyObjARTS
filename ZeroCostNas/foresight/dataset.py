@@ -7,7 +7,10 @@ import re
 from .imagenet16 import *
 
 
-def get_cifar_dataloaders(train_batch_size, test_batch_size, dataset, num_workers, resize=None, datadir='_dataset'):
+def get_cifar_dataloaders(train_batch_size, test_batch_size, dataset, num_workers, resize=None, datadir='_dataset', valid_split=0):
+
+    if valid_split > 0:
+        valid_batch_size = train_batch_size
 
     if 'ImageNet16' in dataset:
         mean = [x / 255 for x in [122.68, 116.66, 104.01]]
@@ -68,12 +71,21 @@ def get_cifar_dataloaders(train_batch_size, test_batch_size, dataset, num_worker
     else:
         raise ValueError('There are no more cifars or imagenets.')
 
+    train_dataset, valid_dataset = torch.utils.data.random_split(train_dataset, [len(train_dataset) - valid_split, valid_split])
+
     train_loader = DataLoader(
         train_dataset,
         train_batch_size,
         shuffle=True,
         num_workers=num_workers,
         pin_memory=True)
+    valid_loader = DataLoader(
+        valid_dataset,
+        valid_batch_size,
+        shuffle=True,
+        num_workers=num_workers,
+        pin_memory=True
+    )
     test_loader = DataLoader(
         test_dataset,
         test_batch_size,
@@ -81,7 +93,7 @@ def get_cifar_dataloaders(train_batch_size, test_batch_size, dataset, num_worker
         num_workers=num_workers,
         pin_memory=True)
 
-    return train_loader, test_loader
+    return train_loader, test_loader, valid_loader if valid_split > 0 else train_loader, test_loader
 
 
 def get_mnist_dataloaders(train_batch_size, val_batch_size, num_workers):
