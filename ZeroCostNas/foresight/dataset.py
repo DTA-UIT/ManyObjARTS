@@ -71,8 +71,16 @@ def get_cifar_dataloaders(train_batch_size, test_batch_size, dataset, num_worker
     else:
         raise ValueError('There are no more cifars or imagenets.')
 
-    train_dataset, valid_dataset = torch.utils.data.random_split(train_dataset, [len(train_dataset) - int(len(train_dataset) * valid_split), int(len(train_dataset) * valid_split)])
-
+    if valid_split > 0:
+        train_dataset, valid_dataset = torch.utils.data.random_split(train_dataset, [len(train_dataset) - int(len(train_dataset) * valid_split), int(len(train_dataset) * valid_split)])
+        valid_loader = DataLoader(
+            valid_dataset,
+            valid_batch_size,
+            shuffle=True,
+            num_workers=num_workers,
+            pin_memory=True
+        )
+    
     train_loader = DataLoader(
         train_dataset,
         train_batch_size,
@@ -80,13 +88,6 @@ def get_cifar_dataloaders(train_batch_size, test_batch_size, dataset, num_worker
         num_workers=num_workers,
         pin_memory=True)
     
-    valid_loader = DataLoader(
-        valid_dataset,
-        valid_batch_size,
-        shuffle=True,
-        num_workers=num_workers,
-        pin_memory=True
-    )
     test_loader = DataLoader(
         test_dataset,
         test_batch_size,
